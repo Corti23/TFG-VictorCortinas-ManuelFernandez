@@ -6,7 +6,7 @@ El proyecto trata de una aplicación web de una peluquería en la que se dispone
 - La empresa es una peluqueríal, con los servicios tradicionales y además disponemos de una tienda online.
 
 ¿Cuantos empleados tenemos?
-- 6.
+- Seis.
 
 ¿Qué roles de empleado hay?
 - peluqueros, recepcionista y mantenimiento web.
