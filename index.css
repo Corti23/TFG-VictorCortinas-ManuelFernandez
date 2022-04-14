@@ -1,0 +1,368 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(240, 230, 140, 0.582);
+}
+
+header {
+    width: 100%;
+    height: 75px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 50%;
+    background-color: darkslategrey;
+}
+
+img {
+    width: 5%;
+    height: 70px;
+    cursor: pointer;
+}
+
+button {
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: khaki;
+}
+
+#botones_login {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#formulario_inicio{
+    width: 10%;
+    height: 175px;
+    position: absolute;
+    top: 80px;
+    padding-top: 20px;
+    color: darkkhaki;
+    background-color: darkslategrey;
+    text-align: center;
+    display: none;
+    z-index: 2;
+
+    animation-name: animacion;
+    animation-duration: 1s;
+}
+
+.inicio_sesion ~ #formulario_inicio {
+    display: block;
+}
+
+#formulario_registro {
+    width: 10%;
+    height: 325px;
+    position: absolute;
+    top: 80px;
+    left: 85%;
+    padding-top: 10px;
+    color: darkkhaki;
+    background-color: darkslategrey;
+    text-align: center;
+    display: none;
+    z-index: 2;
+
+    animation-name: animacion;
+    animation-duration: 1s;
+}
+
+.registro ~ #formulario_registro {
+    display: block;
+}
+
+@keyframes animacion {
+    from {
+        opacity: 0;
+        transform: translateY(-200%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+#noCoinciden {
+    width: 20%;
+    position: absolute;
+    left: 60%;
+    border: 1px solid red;
+    border-radius: 3px;
+    background-color: salmon;
+    color: red;
+}
+
+#coinciden {
+    width: 20%;
+    position: absolute;
+    left: 60%;
+    border: 1px solid green;
+    border-radius: 3px;
+    background-color: lightgreen;
+    color: green;
+}
+
+.ocultar {
+    display: none;
+}
+
+.mostrar {
+    display: block;
+}
+
+input {
+    border-radius: 4px;
+    border: none;
+    border-bottom: 2px solid darkkhaki;
+    background-color: darkslategrey;
+}
+
+input:focus {
+    border: 2px groove darkkhaki;
+    border-radius: 2px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+}
+
+#cerrar_sesion {
+    display: none;
+}
+
+#foto_peluqueria {
+    width: 100%;
+    height: 300px;
+}
+
+h1 {
+    font-family: Helvetica;
+    color: darkslategrey;
+}
+
+p {
+    font-family: Verdana;
+}
+
+section {
+    width: 100%;
+    height: 3300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+p {
+    width: 50%;
+    text-align: center;
+}
+
+.slider {
+	width: 80%;
+    height: 500px;
+	overflow: hidden;
+}
+
+.slider ul {
+	display: flex;
+	padding: 0;
+	width: 400%;
+	
+	animation: cambio 20s infinite alternate linear;
+}
+
+.slider li {
+	width: 100%;
+	list-style: none;
+}
+
+.slider img {
+	width: 100%;
+    height: 500px;
+}
+
+@keyframes cambio {
+	0% {margin-left: 0;}
+	20% {margin-left: 0;}
+	
+	25% {margin-left: -100%;}
+	45% {margin-left: -100%;}
+	
+	50% {margin-left: -200%;}
+	70% {margin-left: -200%;}
+	
+	75% {margin-left: -300%;}
+	100% {margin-left: -300%;}
+}
+
+.servicios {
+    width: 50%;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.foto_servicio {
+    width: 50%;
+    height: 250px;
+}
+
+.texto {
+    width:50%;
+    height: 250px;
+    margin-top: 100px;
+    font-family: Verdana;
+    text-align: center;
+}
+
+h3 {
+    font-family: Helvetica;
+}
+
+.hr_servicios {
+    width: 10%;
+}
+
+li {
+    list-style: none;
+}
+
+hr {
+    width: 40%;
+    color: rgba(240, 230, 140, 0.829);
+}
+
+#pedir_cita {
+    width: 20%;
+    height: 40px;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#pedir_cita:hover {
+    border: 2px ridge darkslategrey;
+    background-color: darkkhaki;
+    color: darkslategrey;
+}
+
+#caja_cita {
+    position: sticky;
+    bottom: 100px;
+}
+
+#pedir_cita_sticky {
+    width: 7.5%;
+    height: 35px;
+    margin-left: 85%;
+    border: 2px ridge darkslategrey;
+    border-radius: 20px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#pedir_cita_sticky:hover {
+    background-color: darkslategrey;
+    color: darkkhaki;
+}
+
+#ubicacion {
+    width: 80%;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: Verdana;
+}
+
+#titulo_articulos {
+    margin-left: 5%;
+    align-self: flex-start;
+}
+
+#mas_vendidos {
+    width: 90%;
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.articulos {
+    width: 15%;
+    height: 350px;
+    cursor: pointer;
+}
+
+.img_articulos {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px darkkhaki;
+}
+
+#hr_articulos {
+    width: 90%;
+}
+
+#articulos {
+    width: 90%;
+    height: 800px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contenedor {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: darkslategrey;
+    color: darkkhaki;
+}
+
+.contenedor a {
+    text-decoration: none;
+    color: darkkhaki;
+}
+
+.contenedor a:hover {
+    text-decoration: none;
+    color: khaki;
+}
+
+.contenedor img {
+    width: 15%;
+    height: 40px;
+    cursor: pointer;
+}

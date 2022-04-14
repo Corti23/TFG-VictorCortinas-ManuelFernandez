@@ -1,0 +1,57 @@
+#divMenu {
+    width: 20%;
+}
+
+#menu {
+    width: 100%;
+    height: 33px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.lista > #lista{
+    display: block;
+
+    animation-name: animacion;
+    animation-duration: 1s;
+}
+
+#lista {
+    width: 15%;
+    position: absolute;
+    top: 80px;
+    left: 72.5%;
+    z-index: 2;
+    display: none;
+    cursor: pointer;
+}
+
+@keyframes animacion {
+    from {
+        opacity: 0;
+        transform: translateY(-200%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+#lista li > a {
+    min-width: 100px;
+    padding: 10px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-decoration: none;
+}
+
+#lista li > a:hover {
+    color: darkslategrey;
+    background-color: darkkhaki;
+}
+
+#lista > li{
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
