@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
 </head>
-<body id="inicio">
+<body id="principio">
     <header>
         <img src="./img/logo.png" id="logo" title="Logo">
 
@@ -15,15 +15,15 @@
             <div id="divMenu">
                 <img src="./img/menu.png" id="menu" title="Menú">
                 <div id="lista">
-                    <li><a id="inicio" href="#inicio">Inicio</a></li>
-                    <li><a id="citas">Pedir cita</a></li>
-                    <li><a id="tienda">Tienda</a></li>
+                    <li><a id="inicio" href="#principio">Inicio</a></li>
+                    <li><a id="perfil">Perfil</a></li>
                     <li><a id="contacto">Contacto</a></li>
                     <li><a id="ayuda">Ayuda</a></li>
+                    <li><a id="cerrar_sesion">Cerrar Sesión</a></li>
                 </div>
             </div>
 
-            <button id="iniciar_sesion">Inicia sesión</button>
+            <button id="iniciar_sesion">Iniciar Sesión</button>
             <form id="formulario_inicio">
                 <label for="usuario">Correo:</label>
                 <br>
@@ -51,32 +51,35 @@
                 <br>
                 <input type="email" id="correo" name="correo" required>
                 <br><br>
+                <label for="direccion">Direccón:</label>
+                <br>
+                <input type="text" id="direccion" name="direccion" required>
+                <br><br>
                 <label for="clave_registro">Establecer contraseña:</label>
                 <br>
-                <input type="text" id="clave_registro" name="clave_registro" maxlength="8" required>
-                <div id="noCoinciden" class="ocultar">
-                    Las Contraseñas no coinciden, vuelve a intentarlo!
-                </div>
-                <div id="coinciden" class="ocultar">
-                    Las Contraseñas coinciden!
-                </div>
+                <input type="password" id="clave_registro" name="clave_registro" maxlength="8" required>
                 <br><br>
                 <label for="clave_confirma">Repetir contraseña:</label>
                 <br>
-                <input type="text" id="clave_confirma" name="clave_confirma" maxlength="8" required>
+                <input type="password" id="clave_confirma" name="clave_confirma" maxlength="8" required>
                 <br><br>
                 <button type="submit" id="registrar">Registrarse</button>
             </form>
             
-            <button id="cerrar_sesion">Cerrar Sesión</button>
+            <div id="divCarrito">
+                <img src="./img/carrito.png" id="carrito" title="Carrito">
+            </div>
+            <div id="nombre_usuario"></div>
         </div>
     </header>
 
-    <img src="./img/foto_peluqueria.jpg" title="Peluquería JavaStyle" id="foto_peluqueria">
+    <div id="caja_foto">
+        <img src="./img/foto_peluqueria.jpg" title="Peluquería JavaStyle" id="foto_peluqueria">
+    </div>
 
     <section id="principal">
         <h1>QUIENES SOMOS</h1>       
-            <p>
+            <p class="info">
                En JavaStyle disponemos de las más novedosas técnicas que existen en el mercado asesorándote para encontrar tu imagen, aconsejándote en cortes, peinados, colores, etc,
                para resolver así todas las dudas que puedas tener. Nuestros clientes abarcan todas las edades y es unisex.
             </p> 
@@ -98,7 +101,7 @@
                     </li>
 			    </ul>
 		    </div>    
-            <p>
+            <p class="info">
                En JavaStyle disponemos de las más novedosas técnicas que existen en el mercado asesorándote para encontrar tu imagen, aconsejándote en cortes, peinados, colores, etc,
                para resolver así todas las dudas que puedas tener. Nuestros clientes abarcan todas las edades y es unisex.
             </p>
@@ -109,22 +112,14 @@
                 <span class="texto">
                     <h3>Cortes de pelo</h3>
                     <hr class="hr_servicios">
-                    <ul>
-                        <li>Corte de pelo para hombre: 7.5€</li>
-                        <li>Corte de pelo para mujer: 10€</li>
-                        <li>Corte de pelo para niños: 5€</li>
-                    </ul>
+                    <ul></ul>
                 </span>
             </div>
             <div class="servicios" id="servicio2">
                 <span class="texto">
                     <h3>Cortes de barba</h3>
                     <hr class="hr_servicios">
-                    <ul>
-                        <li>Arreglar y sanear la barba: 3€</li>
-                        <li>Recortar: 4€</li>
-                        <li>Estilizar: 5€</li>
-                    </ul>
+                    <ul></ul>
                 </span>
                 <img src="./img/barba.jpg" title="Corte de barba" class="foto_servicio">
             </div>
@@ -133,11 +128,7 @@
                 <span class="texto">
                     <h3>Tintar y peinar</h3>
                     <hr class="hr_servicios">
-                    <ul>
-                        <li>Tinte: 17€</li>
-                        <li>Peinar: 7.5€</li>
-                        <li>Tintar y peinar: 22€</li>
-                    </ul>
+                    <ul></ul>
                 </span>
             </div>
             <hr>
@@ -160,10 +151,10 @@
             <h1>TIENDA ONLINE</h1>
             <h3 id="titulo_articulos">Más vendidos</h3>
                 <div id="mas_vendidos">
-                    <div class="articulos">
+                    <div class="articulos" id="articulo">
                         <img src="./img/tijeras.jpg" class="img_articulos" title="">   
-                        <h3>Titulo</h3>
-                        <h4>Precio</h4>
+                        <h3>Peine 2080 negro</h3>
+                        <h4>12,95€</h4>
                         <p>Descripción</p>
                     </div>
 

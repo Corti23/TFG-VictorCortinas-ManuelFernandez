@@ -1,0 +1,1 @@
+<span id="nombre_usuario"><?php echo $_SESSION['usuario']['nombre'] . " " . $_SESSION['usuario']['apellidos']?></span>

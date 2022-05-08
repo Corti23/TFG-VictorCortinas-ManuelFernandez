@@ -1,0 +1,235 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(240, 230, 140, 0.582);
+}
+
+header {
+    width: 100%;
+    height: 75px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 50%;
+    background-color: darkslategrey;
+}
+
+img {
+    width: 5%;
+    height: 70px;
+    cursor: pointer;
+}
+
+#botones {
+    width: 18%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#divHome {
+    width: 20%;
+    cursor: pointer;
+}
+
+#home {
+    width: 100%;
+    height: 33px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+#nombre_usuario {
+    color: darkkhaki;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+section {
+    width: 100%;
+    height: 950px;
+}
+
+h1 {
+    margin-left: 15%;
+    font-size: 3em;
+    font-family: Helvetica;
+    color: darkslategrey;
+}
+
+#caja_carrito {
+    width: 75%;
+    height: 525px;
+    margin-left: 12%;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+#titulos {
+    width: 75%;
+    height: 75px;
+    margin-left: 12%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    column-gap: 5%;
+}
+
+#titulos > .producto {
+    width: 18%;
+    margin-right: 25%;
+}
+
+h3, h2 {
+    font-family: Verdana;
+}
+
+h4 {
+    font-family: Helvetica;
+}
+
+#hr_titulos {
+    width: 73%;
+    border: 2px solid darkkhaki;
+    border-radius: 300px ;
+    height: 0px;
+    text-align: center;
+}
+
+.productos {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.productos:hover {
+    border-radius: 7.5px;
+    background-color: rgba(47, 79, 79, 0.199);
+    /* background-color: rgb(240, 230, 140); */
+}
+
+.producto {
+    width: 51%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10%;
+}
+
+.producto > img {
+    width: 20%;
+    height: 100px;
+}
+
+.estado {
+    width: 13%;
+}
+
+.precio {
+    width: 9%;
+}
+
+.cantidad {
+    width: 15%;
+}
+
+.total {
+    width: 7.5%;
+}
+
+#cantidad {
+    width: 35%;
+    height: 30px;
+    border: 3px groove darkslategrey;
+    font-size: 1.1em;
+    color: darkslategrey;
+}
+
+#borrar {
+    cursor: pointer;
+}
+
+hr {
+    width: 87.5%;
+    border: 0.1px solid darkkhaki;
+    text-align: center;
+}
+
+#caja_comprar {
+    width: 25%;
+    margin-top: 50px;
+    margin-left: 62%;
+    display: flex;
+    flex-direction: row wrap;
+    justify-content: space-around;
+    align-items: center; 
+}
+
+#caja_comprar > h1, #caja_comprar > h2 {
+    margin: 0 0 0 0;
+}
+
+#hr_comprar {
+    width: 20%;
+    margin-right: 15%;
+}
+
+#comprar {
+    width: 25%;
+    height: 50px;
+    margin-left: 62.5%;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#comprar:hover {
+    border: 2px ridge darkslategrey;
+    background-color: darkkhaki;
+    color: darkslategrey;
+}
+
+.contenedor {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: darkslategrey;
+    color: darkkhaki;
+}
+
+.contenedor a {
+    text-decoration: none;
+    color: darkkhaki;
+}
+
+.contenedor a:hover {
+    text-decoration: none;
+    color: khaki;
+}
+
+.contenedor img {
+    width: 15%;
+    height: 40px;
+    cursor: pointer;
+}

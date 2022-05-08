@@ -13,14 +13,14 @@
     display: block;
 
     animation-name: animacion;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
 }
 
 #lista {
     width: 15%;
     position: absolute;
     top: 80px;
-    left: 72.5%;
+    left: 71%;
     z-index: 2;
     display: none;
     cursor: pointer;
@@ -29,7 +29,7 @@
 @keyframes animacion {
     from {
         opacity: 0;
-        transform: translateY(-200%);
+        transform: translateY(-40%);
     }
     to {
         opacity: 1;
@@ -54,4 +54,19 @@
     display: flex;
     flex-direction: column;
     text-align:center;
+}
+
+#perfil {
+    display: none;
+}
+
+#lista li > #cerrar_sesion {
+    display: none;
+    background-color: crimson;
+    color: white;
+}
+
+#lista li > #cerrar_sesion:hover {
+    background-color: darksalmon;
+    color: darkslategrey;
 }

@@ -1,0 +1,224 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(240, 230, 140, 0.582);
+}
+
+header {
+    width: 100%;
+    height: 75px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 50%;
+    background-color: darkslategrey;
+}
+
+img {
+    width: 5%;
+    height: 70px;
+    cursor: pointer;
+}
+
+#botones {
+    width: 18%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#divHome {
+    width: 20%;
+    cursor: pointer;
+}
+
+#home {
+    width: 100%;
+    height: 33px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+#nombre_usuario {
+    color: darkkhaki;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+section {
+    width: 100%;
+    height: 764px;
+}
+
+#caja_datos {
+    width: 90%;
+    height: 100px;
+    margin-left: 5%;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgba(47, 79, 79, 0.199);
+}
+
+.datos {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2.5%;
+}
+
+h1 {
+    margin-left: 5%;
+    font-size: 3em;
+    font-family: Helvetica;
+    color: darkslategrey;
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    font-family: Verdana;
+    color: darkslategrey;
+}
+
+h3 {
+    width: 100%;
+    text-align: center;
+    font-family: Helvetica;
+}
+
+h4 {
+    font-family: Helvetica;
+}
+
+h5 {
+    font-family: Helvetica;
+}
+
+#caja_titulos {
+    width: 90%;
+    height: 50px;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 5%;
+}
+
+.titulos {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#caja_titulos > .titulos {
+    border-bottom: 3.5px solid darkkhaki;
+}
+
+.titulos > .producto {
+    width: 18%;
+    margin-right: 35%;
+}
+
+#caja_historial {
+    width: 90%;
+    height: 450px;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#caja_reservas, #caja_compras {
+    width: 47.5%;
+    height: 450px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.reservas, .compras {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 2.5%;
+}
+
+.reservas > .producto {
+    width: 51%;
+}
+
+.reservas > .precio {
+    width: 12%;
+}
+
+.reservas > .fecha {
+    width: 17.5%;
+}
+
+.compras > .producto {
+    width: 53%;
+}
+
+.compras > .cantidad {
+    width: 12%;
+}
+
+.compras > .precio {
+    width: 13%;
+}
+
+hr {
+    width: 100%;
+    border: 0.1px solid darkkhaki;
+    text-align: center;
+}
+
+.contenedor {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: darkslategrey;
+    color: darkkhaki;
+}
+
+.contenedor a {
+    text-decoration: none;
+    color: darkkhaki;
+}
+
+.contenedor a:hover {
+    text-decoration: none;
+    color: khaki;
+}
+
+.contenedor img {
+    width: 15%;
+    height: 40px;
+    cursor: pointer;
+}
