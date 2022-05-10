@@ -1,3 +1,9 @@
+let logo = document.getElementById("logo");
+logo.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "index.php";
+}
+
 let correo = document.getElementById("correo");
 correo.addEventListener("input", verificarCorreo)
 

@@ -1,3 +1,9 @@
+let logo = document.getElementById("logo");
+logo.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "index.php";
+}
+
 let boton_login = document.getElementById("entrar");
 boton_login.onclick = login;
 
