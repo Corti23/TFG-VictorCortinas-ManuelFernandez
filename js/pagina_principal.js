@@ -1,7 +1,12 @@
 let menu = document.getElementById("divMenu");
 let lista = document.getElementsByClassName("lista");
+let perfil = document.getElementById("perfil");
 
-var perfil = document.getElementById("perfil");	
+var cerrar_sesion = document.getElementById("cerrar_sesion");
+var carrito = document.getElementById("divCarrito");
+
+perfil.style.display = "block";
+cerrar_sesion.style.display = "block";
 
 menu.onclick = function () {
     this.classList.toggle("lista");
@@ -12,128 +17,9 @@ perfil.onclick = function(e) {
     window.location.href = "perfil.php";
 }
 
-var inicio_sesion = document.getElementById("iniciar_sesion");
-var registro = document.getElementById("registrarse");
-var cerrar_sesion = document.getElementById("cerrar_sesion");
-var carrito = document.getElementById("divCarrito");
-
-var formulario_inicio = document.getElementById("formulario_inicio");
-var formulario_registro = document.getElementById("formulario_registro");
-
-inicio_sesion.onclick = function () {
-    this.classList.toggle("inicio_sesion");
-};
-
-registro.onclick = function () {
-    this.classList.toggle("registro");
-};
-
-let boton_login = document.getElementById("entrar");
-
-boton_login.onclick = login;
-
-function login(){	
-    let nombre_usuario = document.getElementById("nombre_usuario");
-    
-    let usuario = document.getElementById("usuario").value;
-    let clave = document.getElementById("clave").value;
-    
-    let url = "./login.php";
-    let params = {
-        method : "POST",
-        headers : {
-            "Content-Type" : "application/x-www-form-urlencoded"
-        },
-        body : "usuario=" + usuario + "&clave=" + clave
-    };
-    
-    fetch(url, params)
-        .then(function (respuesta) {
-            return respuesta.text();
-        })
-        .then (function (datos) {
-            if (datos === "FALSE") {
-                document.getElementById("usuario").classList.add("noCoinciden");
-                document.getElementById("clave").classList.add("noCoinciden");
-            } else {
-                inicio_sesion.style.display = "none";
-                registro.style.display = "none";
-                formulario_inicio.style.display = "none";
-                perfil.style.display = "block";
-                cerrar_sesion.style.display = "block"; 
-                carrito.style.display = "block";
-                nombre_usuario.style.display = "block";
-                nombre_usuario.innerHTML = datos; 
-            }
-        })
-    return false;
-}
-
-let correo = document.getElementById("correo");
-correo.addEventListener("input", verificarCorreo)
-
-function verificarCorreo() {
-    document.getElementById("correo").classList.remove("coinciden");
-    document.getElementById("correo").classList.remove("noCoinciden");
-
-    let validacionCorreo = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    let valorCorreo = this.value;
-
-    if (valorCorreo.length == 0) {
-        document.getElementById("correo").classList.remove("coinciden");
-        ocument.getElementById("correo").classList.remove("noCoinciden");
-    } else {
-        if (validacionCorreo.test(valorCorreo)) {
-            document.getElementById("correo").classList.add("coinciden");
-        } else {
-            document.getElementById("correo").classList.add("noCoinciden");
-        }
-    }
-}
-
-
-let boton_registro = document.getElementById("registrar");
-
-boton_registro.onclick = verificarPassword;
-
-function verificarPassword(e) {
+carrito.onclick = function(e) {
     e.preventDefault();
-    let nombre = document.getElementById("nombre").value;
-    let apellidos = document.getElementById("apellidos").value;
-    let correo = document.getElementById("correo").value;
-    let direccion = document.getElementById("direccion").value;
-    let clave1 = document.getElementById("clave_registro").value;
-    let clave2 = document.getElementById("clave_confirma").value;
-
-    if (nombre.length > 0 && apellidos.length > 0 && correo.length > 0 && direccion.length > 0 && clave1.length > 0 && clave2.length > 0) {
-        if (clave1===clave2) {
-            document.getElementById("clave_registro").classList.remove("noCoinciden");
-            document.getElementById("clave_confirma").classList.remove("noCoinciden");
-    
-            let url = "./login.php";
-            let param = {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/x-www-form-urlencoded"
-                },
-                body : "nombre=" + nombre + "&apellidos=" + apellidos + "&correo=" + correo + "&direccion=" + direccion + "&clave_registro=" + clave1
-            };
-    
-            fetch (url, param)
-                .then (function (respuesta) {
-                    return respuesta.text();
-                })
-                .then (function () {
-                    document.getElementById("clave_registro").classList.add("coinciden");
-                    document.getElementById("clave_confirma").classList.add("coinciden");
-                })
-        } else {
-            document.getElementById("clave_registro").classList.add("noCoinciden");
-            document.getElementById("clave_confirma").classList.add("noCoinciden");
-        }
-    } else {
-        alert("ERROR, hay campos en blanco!")
-    }
+    window.location.href = "carrito_personal.php";
 }
 
 cargarServicios();

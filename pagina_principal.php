@@ -1,10 +1,21 @@
+<?php
+    require 'bd.php';
+	require_once 'sesiones.php';
+	comprobar_sesion();
+
+    if (!comprobar_token()) {
+        header("Location: index.php");
+        return "Ha expirado la sesión.";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Peluqería JavaSytle</title>
     <link rel="shortcut icon" href="./img/logo.png">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/pagina_principal.css">
     <link rel="stylesheet" href="css/menu.css">
 </head>
 <body id="principio">
@@ -22,9 +33,11 @@
                     <li><a id="cerrar_sesion">Cerrar Sesión</a></li>
                 </div>
             </div>
-
-            <button id="iniciar_sesion">Iniciar Sesión</button>
-            <button id="registrarse">Regístrate</button>
+            
+            <div id="divCarrito">
+                <img src="./img/carrito.png" id="carrito" title="Carrito">
+            </div>
+            <?php require_once "cabecera.php";?>
         </div>
     </header>
 
@@ -246,6 +259,6 @@
             <a href="https://www.google.com/intl/es/gmail/about/"><img src="./img/Gmail_blanco.png" title="Gmail" id="gmail"></a>
         </div>
     </footer>
-    <script src="js/index.js"></script>
+    <script src="js/pagina_principal.js"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@ menu.onclick = function () {
 
 home.onclick = function(e) {
     e.preventDefault();
-    window.location.href = "index.php";
+    window.location.href = "pagina_principal.php";
 }
 
 pedir_cita.onclick = function(e) {
