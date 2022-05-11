@@ -31,7 +31,8 @@ CREATE TABLE `servicios` (
 CREATE TABLE `empleados` (
   `id_empleado` INT AUTO_INCREMENT PRIMARY KEY,
   `nombre` TEXT NOT NULL,
-  `apellidos` TEXT NOT NULL
+  `apellidos` TEXT NOT NULL,
+  `url_img` VARCHAR(75) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -56,6 +57,7 @@ CREATE TABLE `productos` (
   `precio` DOUBLE NOT NULL,
   `nombre` VARCHAR(15) NOT NULL,
   `descripcion` VARCHAR(75) NOT NULL,
+  `url_img` VARCHAR(75) NOT NULL,
   `total_veces_comprado` INT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -140,7 +142,15 @@ INSERT INTO `servicios` (`id`, `tipo`, `precio`) VALUES
 (9, 'Tintar y peinar', 40);
 
 -- Valores de la tabla `empleados`
-INSERT INTO `empleados` (`id_empleado`, `nombre`, `apellidos`) VALUES
-(1, 'Antonio', 'Montalbo'),
-(2, 'Alicia', 'Calero'),
-(3, 'Samuel', 'Vega');
+INSERT INTO `empleados` (`id_empleado`, `nombre`, `apellidos`, `url_img`) VALUES
+(1, 'Antonio', 'Montalbo', './img/fernando.jpg'),
+(2, 'Alicia', 'Calero', './img/laura.jpg'),
+(3, 'Samuel', 'Vega', './img/pedro.jpg');
+
+-- Valores de la tabla `citas`
+INSERT INTO `citas` (`id_cita`, `correo_usuario`, `hora`, `cod_servicio`, `cod_empleado`, `fecha`) VALUES
+(1, 'victor@gmail.com', '10:30', 1, 1, '2022-05-30'),
+(2, 'victor@gmail.com', '11:00', 1, 1, '2022-05-30'),
+(3, 'javi@gmail.com', '10:30', 1, 2, '2022-05-30'),
+(4, 'fernando@gmail.com', '10:30', 1, 3, '2022-05-30'),
+(5, 'juanjo@gmail.com', '10:30', 1, 2, '2022-05-31');

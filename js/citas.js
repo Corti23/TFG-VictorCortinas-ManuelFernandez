@@ -92,52 +92,20 @@ function cargarEmpleados() {
         })
         .then (function (datos) {    
             for (let dato of datos) {
-                if (dato[0] == 1) {
-                    let empleado = document.createElement("div");
-                    empleado.setAttribute("class", "empleado");
+                let empleado = document.createElement("div");
+                empleado.setAttribute("class", "empleado");
 
-                    let img = document.createElement("img");
-                    img.setAttribute("src", "./img/fernando.jpg");
-                    img.setAttribute("class", "img_empleados");
+                let img = document.createElement("img");
+                img.setAttribute("src", dato[3]);
+                img.setAttribute("class", "img_empleados");
 
-                    let nombre = document.createElement("h4");
-                    nombre.setAttribute("id", dato[0]);
-                    nombre.innerHTML = dato[1] + " " + dato[2];
+                let nombre = document.createElement("h4");
+                nombre.setAttribute("id", dato[0]);
+                nombre.innerHTML = dato[1] + " " + dato[2];
 
-                    empleado.appendChild(img);
-                    empleado.appendChild(nombre);
-                    caja_empleados.appendChild(empleado);
-                } else if (dato[0] == 2) {
-                    let empleado = document.createElement("div");
-                    empleado.setAttribute("class", "empleado");
-
-                    let img = document.createElement("img");
-                    img.setAttribute("src", "./img/laura.jpg");
-                    img.setAttribute("class", "img_empleados");
-
-                    let nombre = document.createElement("h4");
-                    nombre.setAttribute("id", dato[0]);
-                    nombre.innerHTML = dato[1] + " " + dato[2];
-
-                    empleado.appendChild(img);
-                    empleado.appendChild(nombre);
-                    caja_empleados.appendChild(empleado);
-                } else {
-                    let empleado = document.createElement("div");
-                    empleado.setAttribute("class", "empleado");
-
-                    let img = document.createElement("img");
-                    img.setAttribute("src", "./img/pedro.jpg");
-                    img.setAttribute("class", "img_empleados");
-
-                    let nombre = document.createElement("h4");
-                    nombre.setAttribute("id", dato[0]);
-                    nombre.innerHTML = dato[1] + " " + dato[2];
-
-                    empleado.appendChild(img);
-                    empleado.appendChild(nombre);
-                    caja_empleados.appendChild(empleado);
-                }
+                empleado.appendChild(img);
+                empleado.appendChild(nombre);
+                caja_empleados.appendChild(empleado);
             }
         })
 }
