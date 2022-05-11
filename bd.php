@@ -108,7 +108,7 @@
         foreach ($resul as $disponible) {
             array_push($resultado, $disponible);
         }
-        if ($resultado[0][0] == 0 && $cita_usuario == true) {
+        if ($resultado == null && $cita_usuario == true) {
             return true;
         } else {
             return false;
@@ -144,7 +144,7 @@
         foreach ($resul as $disponible) {
             array_push($resultado, $disponible);
         }
-        if ($resultado[0][0] == 0) {
+        if ($resultado == null) {
             return true;
         } else {
             return false;

@@ -263,22 +263,22 @@ function realizarReserva() {
     let fecha = document.getElementById("fecha").value;
     let hora = this.parentNode.previousSibling.childNodes[9].value;
 
-    if (empleado.length != 0 && fecha.length != 0 && hora.length != 0) {
-        let array = [servicio, empleado, fecha, hora];
-        
+    if (empleado.length != 0 && fecha.length != 0 && hora.length != 0) {       
         let url = "./reservar.php";
         let param = {
             method : "POST",
-            body : JSON.stringify(array)
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "servicio=" + servicio + "&empleado=" + empleado + "&fecha=" + fecha + "&hora=" + hora
         }
         
         fetch(url, param)
             .then (function (respuesta) {
-                console.log(respuesta.json())
-                return respuesta.json();
+                return respuesta.text();
             })
-            .then (function () {
-                if (datos.innerHTML == "exito") {
+            .then (function (datos) {
+                if (datos === "TRUE") {
                     let caja_reserva = document.getElementsByClassName("caja_reserva");
                     caja_reserva[0].remove();
                 } else {
