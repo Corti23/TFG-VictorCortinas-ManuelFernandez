@@ -33,6 +33,8 @@ pedir_cita_sticky.onclick = function (e) {
 };
 
 cargarServicios();
+cargarProductos();
+cargarProductosMasVendidos();
 
 function cargarServicios() {
     let servicio1 = document.getElementById("servicio1");
@@ -69,16 +71,140 @@ function cargarServicios() {
         })
 }
 
-let articulos = document.getElementById("articulo");
-articulos.addEventListener("click",  añadirAlCarrito);
+function cargarProductosMasVendidos() {
+    let mas_vendidos = document.getElementById("mas_vendidos");
+
+    let url = "./cargar_productos_mas_vendidos.php";
+   
+    fetch(url)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) {  
+            for (let dato of datos) {
+                let div = document.createElement("div");
+                div.setAttribute("class", "articulos");
+                div.setAttribute("id", dato[0]);
+
+                let img = document.createElement("img");
+                img.setAttribute("src", dato[3]);
+                img.setAttribute("class", "img_articulos");
+                
+                let h3 = document.createElement("h3");
+                h3.innerHTML = dato[2];
+
+                let h4 = document.createElement("h4");
+                h4.innerHTML = dato[1] + "€";
+
+                let boton_añadir = document.createElement("button");
+                boton_añadir.setAttribute("type", "submit");
+                boton_añadir.setAttribute("id", "boton_añadir");
+                boton_añadir.innerHTML = "AÑADIR";
+                boton_añadir.addEventListener("click",  añadirAlCarrito);
+
+                div.appendChild(img);
+                div.appendChild(h3);
+                div.appendChild(h4);
+                div.appendChild(boton_añadir);
+
+                mas_vendidos.appendChild(div);
+            }
+        })
+}
+
+function cargarProductos() {
+    let articulos = document.getElementById("articulos");
+
+    let url = "./cargar_productos.php";
+   
+    fetch(url)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) {  
+            for (let dato of datos) {
+                let div = document.createElement("div");
+                div.setAttribute("class", "articulos");
+                div.setAttribute("id", dato[0]);
+
+                let img = document.createElement("img");
+                img.setAttribute("src", dato[3]);
+                img.setAttribute("class", "img_articulos");
+                
+                let h3 = document.createElement("h3");
+                h3.innerHTML = dato[2];
+
+                let h4 = document.createElement("h4");
+                h4.innerHTML = dato[1] + "€";
+
+                let boton_añadir = document.createElement("button");
+                boton_añadir.setAttribute("type", "submit");
+                boton_añadir.setAttribute("id", "boton_añadir");
+                boton_añadir.innerHTML = "AÑADIR";
+                boton_añadir.addEventListener("click",  añadirAlCarrito);
+
+                div.appendChild(img);
+                div.appendChild(h3);
+                div.appendChild(h4);
+                div.appendChild(boton_añadir);
+
+                articulos.appendChild(div);
+            }
+        })
+}
 
 function añadirAlCarrito(e) {
-    e.preventDefault();    
+    e.preventDefault(); 
 
-    let img = this.children[0].src;
-    let titulo = this.children[1].innerHTML;
-    let precio = this.children[2].innerHTML;
-    let descripcion = this.children[3].innerHTML;
+    let id_producto = this.parentNode.getAttribute("id");
+    
+    let url = "./cargar_stock.php";
+    let param = {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        body : "id_producto=" + id_producto
+    }
+
+    fetch(url, param)
+        .then(function(respuesa) {
+            return respuesa.text();
+        })
+        .then(function(datos) {
+            if (datos) {
+                estado.innerHTML = "Disponible";
+            } else {
+                estado.innerHTML = "Agotado";
+            }
+        })
+
+    let url2 = "./cargar_descripcion.php";
+    let param2 = {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        body : "id_producto=" + id_producto
+    }
+
+    fetch(url2, param2)
+        .then(function(respuesa) {
+            return respuesa.text();
+        })
+        .then(function(datos) {
+            console.log(datos)
+            descripcion_caja.innerHTML = datos;
+        })
+
+    let img = this.parentNode.children[0].src;
+    let titulo = this.parentNode.children[1].innerHTML;
+    let precio = this.parentNode.children[2].innerHTML;
+
+    document.body.setAttribute("onKeyDown", "return false");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
 
     let caja_producto = document.createElement("div");
     caja_producto.setAttribute("class", "caja_producto");
@@ -103,20 +229,18 @@ function añadirAlCarrito(e) {
     precio_caja.innerHTML = precio;
 
     let estado = document.createElement("h4");
-    estado.innerHTML = "Disponible";
 
     let descripcion_caja = document.createElement("p");
     descripcion_caja.setAttribute("class", "descripcion");
-    descripcion_caja.innerHTML = descripcion;
 
     let caja_botones = document.createElement("div");
     caja_botones.setAttribute("id", "caja_botones");
 
-    let boton_añadir = document.createElement("button");
-    boton_añadir.setAttribute("type", "submit");
-    boton_añadir.setAttribute("id", "boton_añadir");
-    boton_añadir.innerHTML = "AÑADIR";
-    boton_añadir.addEventListener("click", function(e) {
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", "boton_confirmar");
+    boton_confirmar.innerHTML = "CONFIRMAR";
+    boton_confirmar.addEventListener("click", function(e) {
         e.preventDefault();
         window.location.href = "iniciar_sesion.php";
     });
@@ -140,13 +264,15 @@ function añadirAlCarrito(e) {
 
     caja_producto.appendChild(descripcion_caja);
 
-    caja_botones.appendChild(boton_añadir);
+    caja_botones.appendChild(boton_confirmar);
     caja_botones.appendChild(boton_cancelar);
     caja_producto.appendChild(caja_botones);
 
-    document.body.appendChild(caja_producto);
+    div_bloqueo.appendChild(caja_producto);
+    document.body.appendChild(div_bloqueo);
 }
 
 function cerrarCajaAñadir() {
+    document.getElementById("div_bloqueo").remove();
     this.parentNode.parentNode.remove();
 }

@@ -1,0 +1,621 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(240, 230, 140, 0.582);
+    overflow-x: hidden;
+}
+
+header {
+    width: 100%;
+    height: 75px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 50%;
+    background-color: darkslategrey;
+    z-index: 2;
+}
+
+#logo {
+    cursor: auto;
+}
+
+img {
+    width: 5%;
+    height: 70px;
+    cursor: pointer;
+}
+
+button {
+    height: 30px;
+    border: none;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: khaki;
+
+    transition-duration: 0.5s;
+}
+
+#cerrar_sesion {
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+#cerrar_sesion:hover {
+    background-color: salmon;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+#cerrar_sesion_nombre {
+    width: 16%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#nombre_usuario {
+    color: darkkhaki;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+h1 {
+    font-family: Helvetica;
+    color: darkslategrey;
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    font-family: Verdana;
+}
+
+h3 {
+    width: 100%;
+    font-family: Helvetica;
+}
+
+h4 {
+    font-family: Helvetica;
+}
+
+h5 {
+    font-family: Verdana;
+}
+
+p {
+    font-family: Verdana;
+}
+
+section {
+    width: 100%;
+    height: 514px;
+    margin-top: 50px;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#ventanas {
+    width: 80%;
+    border-bottom: 3px ridge darkkhaki;
+}
+
+#caja_principal {
+    width: 80%;
+    height: 470px;
+    background-image: url("../img/logo_fondo.png");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.caja_titulos {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 5%;
+}
+
+.titulos {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.caja_titulos > .titulos {
+    border-bottom: 3.5px solid darkkhaki;
+}
+
+.titulos > .usuario {
+    width: 18%;
+    margin-right: 15%;
+}
+
+.titulos > .producto {
+    width: 18%;
+    margin-right: 20%;
+}
+.titulos > .empleado {
+    width: 18%;
+    margin-right: 15%;
+}
+
+.titulos > .nombre {
+    width: 76%;
+}
+
+.titulos > .apellidos {
+    width: 74%;
+}
+
+.titulos > .descripcion {
+    margin-left: 16%;
+}
+.titulos > .precio {
+    margin-left: 11.5%; 
+}
+
+.titulos > .stock {
+    margin-left: 2.5%;
+}
+
+.titulos > .veces_comprado {
+    margin-left: 5%;
+    text-align: center;
+}
+
+.titulos > .img {
+    margin-left: 5%;
+    margin-right: 25%;
+}
+
+#caja_reservas, #caja_compras, #caja_productos {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    background-color: rgba(240, 230, 140, 0.212);
+}
+
+#caja_empleados {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    background-color: rgba(240, 230, 140, 0.212);
+}
+
+.reservas, .pedidos, .empleados {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 2.5%;
+}
+
+.productos {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 2.5%;
+}
+
+.reservas > .usuario {
+    width: 18%;
+}
+
+.reservas > .producto {
+    width: 18%;
+}
+
+.reservas > .empleado {
+    width: 22%;
+    margin-left: 2.5%;
+    padding-left: 2%;
+}
+
+.reservas > .precio {
+    width: 6%;
+}
+
+.reservas > .fecha {
+    width: 9%;
+}
+
+.pedidos > .usuario {
+    width: 18.5%;
+}
+
+.pedidos > .producto {
+    width: 27%;
+}
+
+.pedidos > .cantidad {
+    width: 12.5%;
+}
+
+.pedidos > .precio {
+    width: 13.5%;
+}
+
+.empleados > .nombre {
+    width: 31%;
+}
+
+.empleados > .apellidos {
+    width: 30.5%;
+}
+
+.empleados > .img {
+    width: 20%;
+}
+
+.productos > .nombre {
+    width: 32.5%;
+}
+
+.productos > .descripcion {
+    width: 31.5%;
+}
+
+.productos > .precio {
+    width: 9.5%;
+}
+
+.productos > .stock {
+    width: 14%;
+}
+
+.productos > .veces_comprado {
+    width: 12.5%;
+}
+
+.productos > .img {
+    width: 25%;
+}
+
+.editar_empleado {
+    width: 10%;
+    height: 30px;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.editar_producto {
+    width: 7.5%;
+    height: 30px;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.editar_empleado:hover, .editar_producto:hover {
+    border: 2px ridge darkslategrey;
+    background-color: darkkhaki;
+    color: darkslategrey;
+
+    transition-duration: 0.25s;
+}
+
+.baja_empleado, .retirar_producto {
+    width: 9%;
+    height: 30px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.baja_empleado:hover, .retirar_producto:hover {
+    border: 2px ridge black;
+    background-color: crimson;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+hr {
+    width: 100%;
+    border: 0.1px solid darkkhaki;
+    text-align: center;
+}
+
+#div_bloqueo {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: rgba(0, 0, 0, 0.486);
+    overflow: auto;
+    z-index: 1;
+}
+
+.caja_editar, .caja_alta, .caja_baja {
+    width: 50%;
+    height: 220px;
+    position: absolute;
+    top: 250px;
+    left: 25%;
+    right: 25%;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
+.caja_editar_producto {
+    width: 50%;
+    height: 320px;
+    position: absolute;
+    top: 200px;
+    left: 25%;
+    right: 25%;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
+.caja_insertar_producto {
+    width: 50%;
+    height: 390px;
+    position: absolute;
+    top: 150px;
+    left: 25%;
+    right: 25%;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
+
+.titulo {
+    height: 50px;
+    font-family: Verdana;
+    font-style: italic;
+    text-decoration: underline;
+    color: darkkhaki;
+}
+
+.caja_formulario {
+    width: 95%;
+    height: 75px;
+    margin-left: 2.5%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    column-gap: 2%;
+}
+
+.caja_formulario_producto {
+    width: 95%;
+    height: 175px;
+    margin-left: 2.5%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    column-gap: 2%;
+}
+
+.caja_formulario_insertar {
+    width: 95%;
+    height: 250px;
+    margin-left: 2.5%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    column-gap: 2%;
+}
+
+fieldset {
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border-color: darkkhaki;
+}
+
+.legend {
+    font-family: Verdana;
+    font-size: 0.75em;
+}
+
+.input {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    font-family: Verdana;
+}
+
+.input:focus {
+    border: 2px groove darkkhaki;
+    border-radius: 2px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+
+    transition-duration: 0.25s;
+}
+
+.borde_nombre, .borde_img, .borde_precio, .borde_stock {
+    width: 39%;
+}
+
+.borde_descripcion {
+    width: 90%;
+    height: 75px;
+}
+
+textarea {
+    resize: none;
+}
+
+#caja_botones { 
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+.boton_confirmar {
+    width: 15%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: forestgreen;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton_confirmar:hover {
+    border: 2px ridge black;
+    background-color: lightgreen;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+#boton_cancelar {
+    width: 15%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_cancelar:hover {
+    border: 2px ridge black;
+    background-color: lightsalmon;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+@keyframes degradado {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#boton_alta, #boton_añadir {
+    width: 15%;
+    height: 50px;
+    margin-left: 41%;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_alta:hover, #boton_añadir:hover {
+    border: 2px ridge darkslategrey;
+    background-color: darkkhaki;
+    color: darkslategrey;
+
+    transition-duration: 0.25s;
+}
+
+.contenedor {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: darkslategrey;
+    color: darkkhaki;
+}
+
+.contenedor a {
+    text-decoration: none;
+    color: darkkhaki;
+}
+
+.contenedor a:hover {
+    text-decoration: none;
+    color: khaki;
+}
+
+.contenedor img {
+    width: 15%;
+    height: 40px;
+    cursor: pointer;
+}

@@ -26,7 +26,6 @@
                 <img src="./img/menu.png" id="menu" title="Menú">
 
                 <div id="lista">
-                    <li><a id="inicio" href="#principio">Inicio</a></li>
                     <li><a id="perfil">Perfil</a></li>
                     <li><a id="pedir_cita">Pedir Cita</a></li>
                     <li><a id="contacto">Contacto</a></li>
@@ -53,112 +52,11 @@
         </div>
         <hr id="hr_titulos">
 
-        <div id="caja_carrito">
-            <div class="productos">
-                <div class="producto">
-                    <img src="./img/peine.png" class="img_articulos" title="Peine">   
-                    <h4>Peine 2080 negro</h4>
-                </div>
-                <div class="estado">
-                    <h4>Disponible</h4>
-                </div>
-                <div class="precio">
-                    <h4>12,95€</h4>
-                </div>
-                <div class="cantidad">
-                    <input type="number" name="cantidad" id="cantidad" min="1" placeholder="1">
-                </div>
-                <div class="total">
-                    <h4>12,95€</h4>
-                </div>
-                <h4 id="borrar">❌</h4>
-            </div>
-            <hr>
-            <div class="productos">
-                <div class="producto">
-                    <img src="./img/peine.png" class="img_articulos" title="Peine">   
-                    <h4>Peine 2080 negro</h4>
-                </div>
-                <div class="estado">
-                    <h4>Agotado</h4>
-                </div>
-                <div class="precio">
-                    <h4>12,95€</h4>
-                </div>
-                <div class="cantidad">
-                    <input type="number" name="cantidad" id="cantidad" min="1" placeholder="1">
-                </div>
-                <div class="total">
-                    <h4>12,95€</h4>
-                </div>
-                <h4 id="borrar">❌</h4>
-            </div>
-            <hr>
-            <div class="productos">
-                <div class="producto">
-                    <img src="./img/peine.png" class="img_articulos" title="Peine">   
-                    <h4>Peine 2080 negro</h4>
-                </div>
-                <div class="estado">
-                    <h4>Disponible</h4>
-                </div>
-                <div class="precio">
-                    <h4>12,95€</h4>
-                </div>
-                <div class="cantidad">
-                    <input type="number" name="cantidad" id="cantidad" min="1" placeholder="1">
-                </div>
-                <div class="total">
-                    <h4>12,95€</h4>
-                </div>
-                <h4 id="borrar">❌</h4>
-            </div>
-            <hr>
-            <div class="productos">
-                <div class="producto">
-                    <img src="./img/peine.png" class="img_articulos" title="Peine">   
-                    <h4>Peine 2080 negro</h4>
-                </div>
-                <div class="estado">
-                    <h4>Agotado</h4>
-                </div>
-                <div class="precio">
-                    <h4>12,95€</h4>
-                </div>
-                <div class="cantidad">
-                    <input type="number" name="cantidad" id="cantidad" min="1" placeholder="1">
-                </div>
-                <div class="total">
-                    <h4>12,95€</h4>
-                </div>
-                <h4 id="borrar">❌</h4>
-            </div>
-            <hr>
-            <div class="productos">
-                <div class="producto">
-                    <img src="./img/peine.png" class="img_articulos" title="Peine">   
-                    <h4>Peine 2080 negro</h4>
-                </div>
-                <div class="estado">
-                    <h4>Disponible</h4>
-                </div>
-                <div class="precio">
-                    <h4>12,95€</h4>
-                </div>
-                <div class="cantidad">
-                    <input type="number" name="cantidad" id="cantidad" min="1" placeholder="1">
-                </div>
-                <div class="total">
-                    <h4>12,95€</h4>
-                </div>
-                <h4 id="borrar">❌</h4>
-            </div>
-            <hr>
-        </div>
+        <div id="caja_carrito"></div>
 
         <div id="caja_comprar">
             <h1>Total:</h1>
-            <h2>64,75€</h2>            
+            <h2 id="total_carrito"></h2>            
         </div>
         <hr id="hr_comprar">
         <button type="submit" id="comprar">COMPRAR</button>

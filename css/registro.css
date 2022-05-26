@@ -81,6 +81,11 @@ section {
     }
 }
 
+#info_clave1, #info_clave2 {
+    margin-top: 5px;
+    font-size: 0.6em;
+}
+
 .noCoinciden {
     border: 1px solid red;
     border-radius: 3px;

@@ -18,21 +18,23 @@
             <div>
                 <label for="nombre">Nombre:</label>
                 <br><br>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" pattern="^[A-Za-z]+$" required>
                 <br><br>
                 <label for="correo">Correo:</label>
                 <br><br>
                 <input type="email" id="correo" name="correo" required>
+                <span id="info_correo"></span>
                 <br><br>
                 <label for="clave_registro">Establecer contraseña:</label>
                 <br><br>
-                <input type="password" id="clave_registro" name="clave_registro" maxlength="8" required>
+                <input type="password" id="clave_registro" name="clave_registro" minlength="6" maxlength="8" required>
+                <div id="info_clave1">La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.</div>
             </div>
 
             <div>
                 <label for="apellidos">Apellidos:</label>
                 <br><br>
-                <input type="text" id="apellidos" name="apellidos" required>
+                <input type="text" id="apellidos" name="apellidos" pattern="^[A-Za-z]+$" required>
                 <br><br>
                 <label for="direccion">Direccón:</label>
                 <br><br>
@@ -40,7 +42,8 @@
                 <br><br>
                 <label for="clave_confirma">Repetir contraseña:</label>
                 <br><br>
-                <input type="password" id="clave_confirma" name="clave_confirma" maxlength="8" required>
+                <input type="password" id="clave_confirma" name="clave_confirma" minlength="6" maxlength="8" required>
+                <div id="info_clave2">La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.</div>
             </div>
             <button type="submit" id="registrar">Registrarse</button>
         </form>

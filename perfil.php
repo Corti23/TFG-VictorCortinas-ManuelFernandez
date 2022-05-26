@@ -26,7 +26,6 @@
                 <img src="./img/menu.png" id="menu" title="Menú">
 
                 <div id="lista">
-                    <li><a id="inicio" href="#principio">Inicio</a></li>
                     <li><a id="carrito">Carrito</a></li>
                     <li><a id="pedir_cita">Pedir Cita</a></li>
                     <li><a id="contacto">Contacto</a></li>
@@ -59,6 +58,10 @@
             </div>
         </div>
 
+        <div id="modificar_datos">
+            <button id="boton_modificar" type="submit">Modificar datos</button>
+        </div>
+
         <div class="titulos">
             <h2>Historial de reservas</h2>
             <h2>Historial de compras</h2>
@@ -83,53 +86,7 @@
         <div id="caja_historial">
             <div id="caja_reservas"></div>
 
-            <div id="caja_compras">
-                <div class="compras">
-                    <div class="producto">
-                        <h4>Peine 2080 negro</h4>
-                    </div>
-                    <div class="cantidad">
-                        <h4>1</h4>
-                    </div>
-                    <div class="precio">
-                        <h4>12,95€</h4>
-                    </div>
-                    <div>
-                        <h4>08-04-2022</h4>
-                    </div>
-                </div>
-                <hr>
-                <div class="compras">
-                    <div class="producto">
-                        <h4>Bote de laca 200 ml</h4>
-                    </div>
-                    <div class="cantidad">
-                        <h4>2</h4>
-                    </div>
-                    <div class="precio">
-                        <h4>14,99€</h4>
-                    </div>
-                    <div>
-                        <h4>15-04-2022</h4>
-                    </div>
-                </div>
-                <hr>
-                <div class="compras">
-                    <div class="producto">
-                        <h4>Peine 2080 negro</h4>
-                    </div>
-                    <div class="cantidad">
-                        <h4>4</h4>
-                    </div>
-                    <div class="precio">
-                        <h4>51,80€</h4>
-                    </div>
-                    <div>
-                        <h4>20-04-2022</h4>
-                    </div>
-                </div>
-                <hr>
-            </div>
+            <div id="caja_compras"></div>
         </div>
     </section>
 

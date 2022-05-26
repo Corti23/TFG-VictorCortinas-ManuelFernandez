@@ -26,7 +26,6 @@
                 <img src="./img/menu.png" id="menu" title="Menú">
 
                 <div id="lista">
-                    <li><a id="inicio" href="#principio">Inicio</a></li>
                     <li><a id="perfil">Perfil</a></li>
                     <li><a id="carrito">Carrito</a></li>
                     <li><a id="contacto">Contacto</a></li>

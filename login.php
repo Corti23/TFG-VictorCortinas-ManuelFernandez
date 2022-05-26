@@ -7,6 +7,13 @@
             $usu = comprobar_usuario($_POST['usuario'], $_POST['clave']);
             if($usu===false){
                 echo "FALSE";
+            } else if ($usu[4] == 1) {
+                session_start();
+                $token = generar_token(15);
+                $_SESSION['token'] = $token;
+                setcookie('token', $token, time() + 900, "/");
+                $_SESSION['usuario'] = $usu;
+                echo "ADMIN";
             } else {
                 session_start();
                 $token = generar_token(15);

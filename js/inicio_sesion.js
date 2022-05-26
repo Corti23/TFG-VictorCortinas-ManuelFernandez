@@ -21,16 +21,18 @@ function login(){
     };
     
     fetch(url, params)
-        .then(function (respuesta) {
-            return respuesta.text();
-        })
-        .then (function (datos) {
-            if (datos === "FALSE") {
-                document.getElementById("usuario").classList.add("noCoinciden");
-                document.getElementById("clave").classList.add("noCoinciden");
-            } else {
-                window.location.href = "pagina_principal.php";
-            }
-        })
+    .then(function (respuesta) {
+        return respuesta.text();
+    })
+    .then (function (datos) {
+        if (datos === "FALSE") {
+            document.getElementById("usuario").classList.add("noCoinciden");
+            document.getElementById("clave").classList.add("noCoinciden");
+        } else if (datos === "ADMIN") {
+            window.location.href = "pagina_admin.php";
+        } else {
+            window.location.href = "pagina_principal.php";
+        }
+    })
     return false;
 }

@@ -112,6 +112,11 @@ function cargarEmpleados() {
 
 function reservarServicio(e) {
     e.preventDefault();
+
+    document.body.setAttribute("onKeyDown", "return false");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
     
     let caja_reserva = document.createElement("div");
     caja_reserva.setAttribute("class", "caja_reserva");
@@ -141,6 +146,9 @@ function reservarServicio(e) {
     let formulario_reserva = document.createElement("form");
     formulario_reserva.setAttribute("id", "formulario_reserva");
 
+    let div1 = document.createElement("div");
+    div1.setAttribute("class", "div1");
+
     let label_fecha = document.createElement("label");
     label_fecha.setAttribute("for", "fecha");
     label_fecha.setAttribute("class", "label_horario");
@@ -163,34 +171,36 @@ function reservarServicio(e) {
     label_hora.innerHTML = "Selecciona una hora:";
 
     let select_hora = document.createElement("select");
+    select_hora.setAttribute("id", "hora");
     select_hora.setAttribute("class", "input_horario");
     select_hora.setAttribute("name", "hora");
     select_hora.setAttribute("required", "");
 
-    let empleados = document.getElementById("empleados");
-    let empleado1 = empleados.childNodes[0].childNodes[1];
-    let empleado2 = empleados.childNodes[1].childNodes[1];
-    let empleado3 = empleados.childNodes[2].childNodes[1];
+    let url = "./cargar_empleados.php";
+   
+    fetch(url)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) {    
+            for (let dato of datos) {
+                let input_empleado = document.createElement("input");
+                input_empleado.setAttribute("class", "input_horario");
+                input_empleado.setAttribute("id", dato[0]);
+                input_empleado.setAttribute("type", "radio");
+                input_empleado.setAttribute("name", "empleados");
+                input_empleado.setAttribute("value", dato[1] + " " + dato[2]);
+                input_empleado.setAttribute("required", "");
 
-    let array_empleados = [empleado1, empleado2, empleado3];
+                let label_empleado = document.createElement("label");
+                label_empleado.setAttribute("class", "label_horario");
+                label_empleado.setAttribute("for", dato[1] + " " + dato[2]);
+                label_empleado.innerHTML = dato[1] + " " + dato[2];
 
-    for (let empleado of array_empleados) {
-        let input_empleado = document.createElement("input");
-        input_empleado.setAttribute("class", "input_horario");
-        input_empleado.setAttribute("id", empleado.getAttribute("id"));
-        input_empleado.setAttribute("type", "radio");
-        input_empleado.setAttribute("name", "empleados");
-        input_empleado.setAttribute("value", empleado.innerHTML);
-        input_empleado.setAttribute("required", "");
-
-        let label_empleado = document.createElement("label");
-        label_empleado.setAttribute("class", "label_horario");
-        label_empleado.setAttribute("for", empleado.innerHTML);
-        label_empleado.innerHTML = empleado.innerHTML;
-
-        caja_formulario.appendChild(input_empleado);
-        caja_formulario.appendChild(label_empleado);
-    }
+                div1.appendChild(input_empleado);
+                div1.appendChild(label_empleado);
+            }
+        })
     
     let caja_botones = document.createElement("div");
     caja_botones.setAttribute("id", "caja_botones");
@@ -212,6 +222,8 @@ function reservarServicio(e) {
     caja_servicios.appendChild(precio_servicio);
     caja_reserva.appendChild(caja_servicios); 
 
+    caja_reserva.appendChild(div1);
+
     caja_formulario.appendChild(label_fecha);
     caja_formulario.appendChild(input_fecha);
     caja_formulario.appendChild(label_hora);
@@ -222,14 +234,15 @@ function reservarServicio(e) {
     caja_botones.appendChild(boton_cancelar);
     caja_reserva.appendChild(caja_botones);
 
-    document.body.appendChild(caja_reserva);
+    div_bloqueo.appendChild(caja_reserva);
+    document.body.appendChild(div_bloqueo);
 }
 
 function realizarReserva() {
     let servicio = this.parentNode.parentNode.childNodes[1].childNodes[0].getAttribute("id");
     let empleado = document.querySelector('input[name="empleados"]:checked').getAttribute("id");
     let fecha = document.getElementById("fecha").value;
-    let hora = this.parentNode.previousSibling.childNodes[9].value;
+    let hora = document.getElementById("hora").value;
 
     if (empleado.length != 0 && fecha.length != 0 && hora.length != 0) {       
         let url = "./reservar.php";
@@ -247,6 +260,7 @@ function realizarReserva() {
             })
             .then (function (datos) {
                 if (datos === "TRUE") {
+                    document.getElementById("div_bloqueo").remove();
                     let caja_reserva = document.getElementsByClassName("caja_reserva");
                     caja_reserva[0].remove();
                 } else {
@@ -376,5 +390,6 @@ function calcularDiaSemana(e) {
 }
 
 function cerrarCajaReserva() {
+    document.getElementById("div_bloqueo").remove();
     this.parentNode.parentNode.remove();
 }
