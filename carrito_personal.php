@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="./img/logo.png">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -66,10 +67,10 @@
         <div id="derechos">© Copyright 2021</div>
         <div id="enlaces"><a href="#">Contacto</a> | <a href="#">Aviso Legal</a> | <a href="#">Términos y Condiciones</a></div>
         <div id="redes">
-            <a href="https://www.instagram.com/?hl=es"><img src="./img/Instagram_blanco.png" title="Instagram" id="insta"></a>
-            <a href="https://es-es.facebook.com/"><img src="./img/Facebook_blanco.png" title="Facebook" id="facebook"></a>
-            <a href="https://twitter.com/?lang=es"><img src="./img/Twitter_blanco.png" title="Twitter" id="twitter"></a>
-            <a href="https://www.google.com/intl/es/gmail/about/"><img src="./img/Gmail_blanco.png" title="Gmail" id="gmail"></a>
+            <a href="https://www.instagram.com/?hl=es"><i class="fab fa-instagram"></i></a>
+            <a href="https://es-es.facebook.com/"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/?lang=es"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.google.com/intl/es/gmail/about/"><i class="far fa-envelope"></i></a>
         </div>
     </footer>
     <script src="js/carrito.js"></script>

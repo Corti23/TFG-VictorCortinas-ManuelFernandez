@@ -10,6 +10,12 @@ reservas.addEventListener("click", cargarTitulosReservas);
 
 function cargarTitulosReservas(e) {
     e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    pedidos.style.backgroundColor = "darkkhaki";
+    empleados.style.backgroundColor = "darkkhaki";
+    productos.style.backgroundColor = "darkkhaki";
+    servicios.style.backgroundColor = "darkkhaki";
+    ingresos.style.backgroundColor = "darkkhaki";
 
     let caja_principal = document.getElementById("caja_principal");
 
@@ -142,6 +148,12 @@ pedidos.addEventListener("click", cargarTitulosPedidos);
 
 function cargarTitulosPedidos(e) {
     e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    reservas.style.backgroundColor = "darkkhaki";
+    empleados.style.backgroundColor = "darkkhaki";
+    productos.style.backgroundColor = "darkkhaki";
+    servicios.style.backgroundColor = "darkkhaki";
+    ingresos.style.backgroundColor = "darkkhaki";
 
     let caja_principal = document.getElementById("caja_principal");
 
@@ -261,6 +273,12 @@ empleados.addEventListener("click", cargarTitulosEmpleados);
 
 function cargarTitulosEmpleados(e) {
     e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    reservas.style.backgroundColor = "darkkhaki";
+    pedidos.style.backgroundColor = "darkkhaki";
+    productos.style.backgroundColor = "darkkhaki";
+    servicios.style.backgroundColor = "darkkhaki";
+    ingresos.style.backgroundColor = "darkkhaki";
 
     let caja_principal = document.getElementById("caja_principal");
 
@@ -416,7 +434,8 @@ function editarEmpleado(e) {
     let input_img = document.createElement("input");
     input_img.setAttribute("id", "input_img");
     input_img.setAttribute("class", "input");
-    input_img.setAttribute("type", "text");
+    input_img.setAttribute("type", "file");
+    input_img.setAttribute("accept", ".jpg,.png");
     input_img.setAttribute("name", "img");
     input_img.setAttribute("required", "");
     input_img.setAttribute("value", valor_img);
@@ -459,16 +478,17 @@ function confirmarCambios(e) {
     let id_empleado = this.getAttribute("id");
 
     let img = document.getElementById("input_img").value;
-    let quitar_espacios_img = img.replace(/^\s*|\s*$/g, '');
+    let valor_img = img.substring(12, img.length);
+    let ruta_completa_img = "./img/" + valor_img;
 
-    if (quitar_espacios_img.length > 0) {
+    if (img.length > 0) {
         let url = "./actualizar_empleado.php";
         let param = {
             method : "POST",
             headers : {
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "id=" + id_empleado + "&url_img=" + img
+            body : "id=" + id_empleado + "&url_img=" + ruta_completa_img
         };
 
         fetch (url, param)
@@ -585,12 +605,13 @@ function altaEmpleado(e) {
     titulo.innerHTML = "Dar de alta a un empleado";
 
     var caja_formulario = document.createElement("div");
-    caja_formulario.setAttribute("class", "caja_formulario");
+    caja_formulario.setAttribute("class", "caja_formulario_alta");
 
     let formulario_alta = document.createElement("form");
     formulario_alta.setAttribute("id", "formulario_alta");
 
     let borde_nombre = document.createElement("fieldset");
+    borde_nombre.setAttribute("class", "borde_nombre");
 
     let legend_nombre = document.createElement("legend");
     legend_nombre.setAttribute("class", "legend");
@@ -605,6 +626,7 @@ function altaEmpleado(e) {
     input_nombre.setAttribute("required", "");
 
     let borde_apellidos = document.createElement("fieldset");
+    borde_apellidos.setAttribute("class", "borde_apellidos");
     
     let legend_apellidos = document.createElement("legend");
     legend_apellidos.setAttribute("class", "legend");
@@ -627,7 +649,8 @@ function altaEmpleado(e) {
     let input_img = document.createElement("input");
     input_img.setAttribute("id", "input_img");
     input_img.setAttribute("class", "input");
-    input_img.setAttribute("type", "text");
+    input_img.setAttribute("type", "file");
+    input_img.setAttribute("accept", ".jpg,.png");
     input_img.setAttribute("name", "img");
     input_img.setAttribute("required", "");
 
@@ -683,16 +706,17 @@ function confirmarAlta(e) {
     let quitar_espacios_iniciales = apellidos_sin_numeros.replace(/^\s*|\s*$/g, '');
 
     let img = document.getElementById("input_img").value;
-    let quitar_espacios_img = img.replace(/^\s*|\s*$/g, '');
+    let valor_img = img.substring(12, img.length);
+    let ruta_completa_img = "./img/" + valor_img;
 
-    if (quitar_espacios.length > 0 && quitar_espacios_iniciales.length > 0 && quitar_espacios_img.length > 0) {
+    if (quitar_espacios.length > 0 && quitar_espacios_iniciales.length > 0 && img.length > 0) {
         let url = "./insertar_empleado.php";
         let param = {
             method : "POST",
             headers : {
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "nombre=" + nombre_sin_numeros + "&apellidos=" + apellidos_sin_numeros + "&url_img=" + img
+            body : "nombre=" + nombre_sin_numeros + "&apellidos=" + apellidos_sin_numeros + "&url_img=" + ruta_completa_img
         };
 
         fetch (url, param)
@@ -717,13 +741,17 @@ function cerrarCajaAlta() {
     this.parentNode.parentNode.remove();
 }
 
-//-----------------------------------------------------------------------------------------------------------------//
-
 let productos = document.getElementById("productos");
 productos.addEventListener("click", cargarTitulosProductos);
 
 function cargarTitulosProductos(e) {
     e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    reservas.style.backgroundColor = "darkkhaki";
+    pedidos.style.backgroundColor = "darkkhaki";
+    empleados.style.backgroundColor = "darkkhaki";
+    servicios.style.backgroundColor = "darkkhaki";
+    ingresos.style.backgroundColor = "darkkhaki";
 
     let caja_principal = document.getElementById("caja_principal");
 
@@ -899,7 +927,6 @@ function editarProducto(e) {
     let precio = this.parentNode.children[2].innerText;
     let valor_precio = precio.substring(0, precio.length - 1);
     let valor_stock = this.parentNode.children[3].innerText;
-    let valor_img = this.parentNode.children[5].innerText;
 
     let div_bloqueo = document.createElement("div");
     div_bloqueo.setAttribute("id", "div_bloqueo");
@@ -932,6 +959,7 @@ function editarProducto(e) {
     input_descripcion.innerHTML = valor_descripcion;
 
     let borde_precio = document.createElement("fieldset");
+    borde_precio.setAttribute("class", "borde_precio_editar");
 
     let legend_precio = document.createElement("legend");
     legend_precio.setAttribute("class", "legend");
@@ -946,6 +974,7 @@ function editarProducto(e) {
     input_precio.setAttribute("value", valor_precio);
 
     let borde_stock = document.createElement("fieldset");
+    borde_stock.setAttribute("class", "borde_stock_editar");
 
     let legend_stock = document.createElement("legend");
     legend_stock.setAttribute("class", "legend");
@@ -960,6 +989,7 @@ function editarProducto(e) {
     input_stock.setAttribute("value", valor_stock);
 
     let borde_img = document.createElement("fieldset");
+    borde_img.setAttribute("class", "borde_img_editar");
 
     let legend_img = document.createElement("legend");
     legend_img.setAttribute("class", "legend");
@@ -968,10 +998,10 @@ function editarProducto(e) {
     let input_img = document.createElement("input");
     input_img.setAttribute("id", "input_img");
     input_img.setAttribute("class", "input");
-    input_img.setAttribute("type", "text");
+    input_img.setAttribute("type", "file");
+    input_img.setAttribute("accept", ".jpg,.png");
     input_img.setAttribute("name", "img");
     input_img.setAttribute("required", "");
-    input_img.setAttribute("value", valor_img);
 
     let caja_botones = document.createElement("div");
     caja_botones.setAttribute("id", "caja_botones");
@@ -1032,9 +1062,10 @@ function confirmarCambiosProductos(e) {
     let quitar_espacios_stock = stock.replace(/^\s*|\s*$/g, '');
 
     let img = document.getElementById("input_img").value;
-    let quitar_espacios_img = img.replace(/^\s*|\s*$/g, '');
+    let valor_img = img.substring(12, img.length);
+    let ruta_completa_img = "./img/" + valor_img;
 
-    if (quitar_espacios_descripcion.length > 0 && quitar_espacios_precio.length > 0 && quitar_espacios_stock.length > 0 && quitar_espacios_img.length > 0) {
+    if (quitar_espacios_descripcion.length > 0 && quitar_espacios_precio.length > 0 && quitar_espacios_stock.length > 0 && img.length > 0) {
         console.log("Entra");
         let url = "./actualizar_producto.php";
         let param = {
@@ -1042,7 +1073,7 @@ function confirmarCambiosProductos(e) {
             headers : {
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "id_producto=" + id_producto + "&descripcion=" + quitar_espacios_descripcion + "&precio=" + quitar_espacios_precio + "&stock=" + quitar_espacios_stock + "&url_img=" + quitar_espacios_img
+            body : "id_producto=" + id_producto + "&descripcion=" + quitar_espacios_descripcion + "&precio=" + quitar_espacios_precio + "&stock=" + quitar_espacios_stock + "&url_img=" + ruta_completa_img
         };
 
         fetch (url, param)
@@ -1204,6 +1235,7 @@ function insertarProducto(e) {
     input_precio.setAttribute("class", "input");
     input_precio.setAttribute("type", "number");
     input_precio.setAttribute("name", "precio");
+    input_precio.setAttribute("min", "0.01");
     input_precio.setAttribute("required", "");
 
     let borde_stock = document.createElement("fieldset");
@@ -1218,6 +1250,7 @@ function insertarProducto(e) {
     input_stock.setAttribute("class", "input");
     input_stock.setAttribute("type", "number");
     input_stock.setAttribute("name", "stock");
+    input_stock.setAttribute("min", "1");
     input_stock.setAttribute("required", "");
 
     let borde_img = document.createElement("fieldset");
@@ -1230,7 +1263,8 @@ function insertarProducto(e) {
     let input_img = document.createElement("input");
     input_img.setAttribute("id", "input_img");
     input_img.setAttribute("class", "input");
-    input_img.setAttribute("type", "text");
+    input_img.setAttribute("type", "file");
+    input_img.setAttribute("accept", ".jpg,.png");
     input_img.setAttribute("name", "img");
     input_img.setAttribute("required", "");
 
@@ -1286,7 +1320,7 @@ function confirmarInsertar(e) {
     e.preventDefault();
     
     let nombre = document.getElementById("input_nombre").value;
-    let quitar_espacios_nombre = nombre.replace(/\s/g, '');
+    let quitar_espacios_nombre = nombre.replace(/^\s*|\s*$/g, '');
     
     let descripcion = document.getElementById("input_descripcion").value;
     let quitar_espacios_descripcion = descripcion.replace(/^\s*|\s*$/g, '');
@@ -1298,23 +1332,17 @@ function confirmarInsertar(e) {
     let quitar_espacios_stock = stock.replace(/^\s*|\s*$/g, '');
 
     let img = document.getElementById("input_img").value;
-    let quitar_espacios_img = img.replace(/^\s*|\s*$/g, '');
+    let valor_img = img.substring(12, img.length);
+    let ruta_completa_img = "./img/" + valor_img;
 
-    console.log(quitar_espacios_nombre)
-    console.log(quitar_espacios_descripcion)
-    console.log(quitar_espacios_precio)
-    console.log(quitar_espacios_stock)
-    console.log(quitar_espacios_img)
-
-    if (quitar_espacios_nombre.length > 0 && quitar_espacios_descripcion.length > 0 && quitar_espacios_precio.length > 0 && quitar_espacios_stock.length > 0 && quitar_espacios_img.length > 0) {
-        console.log("Entra2")
-        /*let url = "./insertar_empleado.php";
+    if (quitar_espacios_nombre.length > 0 && quitar_espacios_descripcion.length > 0 && quitar_espacios_precio.length > 0 && quitar_espacios_stock.length > 0 && img.length > 0) {
+        let url = "./insertar_producto.php";
         let param = {
             method : "POST",
             headers : {
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "nombre=" + quitar_espacios_nombre + "&descripcion=" + quitar_espacios_descripcion + "&precio=" + quitar_espacios_precio + "&stock=" + quitar_espacios_stock + "&url_img=" + img
+            body : "nombre=" + quitar_espacios_nombre + "&descripcion=" + quitar_espacios_descripcion + "&precio=" + quitar_espacios_precio + "&stock=" + quitar_espacios_stock + "&url_img=" + ruta_completa_img
         };
 
         fetch (url, param)
@@ -1328,7 +1356,7 @@ function confirmarInsertar(e) {
                 } else {
                     alert("Ha ocurrido un error al añadir el producto.");
                 }
-            })*/
+            })
     } else {
         alert("ERROR, hay campos en blanco!");
     }
@@ -1337,4 +1365,769 @@ function confirmarInsertar(e) {
 function cerrarCajaInsertar() {
     document.getElementById("div_bloqueo").remove();
     this.parentNode.parentNode.remove();
+}
+
+let servicios = document.getElementById("servicios");
+servicios.addEventListener("click", cargarTitulosServicios);
+
+function cargarTitulosServicios(e) {
+    e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    reservas.style.backgroundColor = "darkkhaki";
+    pedidos.style.backgroundColor = "darkkhaki";
+    empleados.style.backgroundColor = "darkkhaki";
+    productos.style.backgroundColor = "darkkhaki";
+    ingresos.style.backgroundColor = "darkkhaki";
+
+    let caja_principal = document.getElementById("caja_principal");
+
+    if (caja_principal.children[0] && caja_principal.children[1]) {
+        caja_principal.children[0].remove();
+        caja_principal.lastChild.remove();
+    }
+
+    let caja_titulos = document.createElement("div");
+    caja_titulos.setAttribute("class", "caja_titulos");
+
+    let titulos = document.createElement("div");
+    titulos.setAttribute("class", "titulos");
+
+    let tipo = document.createElement("h3");
+    tipo.setAttribute("class", "tipo");
+    tipo.innerHTML = "Tipo";
+
+    let precio = document.createElement("h3");
+    precio.setAttribute("class", "precio");
+    precio.innerHTML = "Precio";
+
+    let categoria = document.createElement("h3");
+    categoria.setAttribute("class", "categoria");
+    categoria.innerHTML = "Categoria";
+
+    let caja_servicios = document.createElement("div");
+    caja_servicios.setAttribute("id", "caja_servicios");
+
+    titulos.appendChild(tipo);
+    titulos.appendChild(precio);
+    titulos.appendChild(categoria);
+    caja_titulos.appendChild(titulos);    
+
+    caja_principal.appendChild(caja_titulos);
+    caja_principal.appendChild(caja_servicios);
+
+    cargarServicios();
+}
+
+function cargarServicios() {
+    let caja_servicios = document.getElementById("caja_servicios");
+
+    let url = "./cargar_servicios_admin.php";
+
+    fetch(url)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) { 
+            if (datos) {
+                for (let dato of datos) {
+                    let servicios = document.createElement("div");
+                    servicios.setAttribute("class", "servicios");
+    
+                    let tipo = document.createElement("div");
+                    tipo.setAttribute("class", "tipo");
+    
+                    let tipo_servicio = document.createElement("h4");
+                    tipo_servicio.innerHTML = dato[1];
+    
+                    let precio = document.createElement("div");
+                    precio.setAttribute("class", "precio");
+    
+                    let precio_servicio = document.createElement("h4");
+                    precio_servicio.innerHTML = dato[2] + "€";
+
+                    let categoria = document.createElement("div");
+                    categoria.setAttribute("class", "categoria");
+    
+                    let categoria_servicio = document.createElement("h4");
+                    categoria_servicio.innerHTML = dato[3].charAt(0).toUpperCase() + dato[3].slice(1);
+
+                    let boton_editar_servicio= document.createElement("button");
+                    boton_editar_servicio.setAttribute("type", "submit");
+                    boton_editar_servicio.setAttribute("id", dato[0]);
+                    boton_editar_servicio.setAttribute("class", "editar_servicio");
+                    boton_editar_servicio.innerHTML = "Cambiar precio";
+                    boton_editar_servicio.onclick = editarServicio;
+    
+                    let boton_retirar_servicio = document.createElement("button");
+                    boton_retirar_servicio.setAttribute("type", "submit");
+                    boton_retirar_servicio.setAttribute("id", dato[0]);
+                    boton_retirar_servicio.setAttribute("class", "retirar_servicio");
+                    boton_retirar_servicio.innerHTML = "Retirar";
+                    boton_retirar_servicio.onclick = retirarServicio;
+    
+                    let hr = document.createElement("hr");
+    
+                    tipo.appendChild(tipo_servicio);
+                    servicios.appendChild(tipo);
+    
+                    precio.appendChild(precio_servicio);
+                    servicios.appendChild(precio);
+
+                    categoria.appendChild(categoria_servicio);
+                    servicios.appendChild(categoria);
+    
+                    servicios.appendChild(boton_editar_servicio);
+                    servicios.appendChild(boton_retirar_servicio);
+    
+                    caja_servicios.appendChild(servicios);
+                    caja_servicios.appendChild(hr);
+                }
+                let boton_insertar_servicio = document.createElement("button");
+                boton_insertar_servicio.setAttribute("type", "submit");
+                boton_insertar_servicio.setAttribute("id", "boton_insertar_servicio");
+                boton_insertar_servicio.setAttribute("class", "insertar_servicio");
+                boton_insertar_servicio.innerHTML = "Añadir servicio";
+                boton_insertar_servicio.onclick = insertarServicio;
+
+                caja_servicios.appendChild(boton_insertar_servicio);
+            } else {
+                let boton_insertar_servicio = document.createElement("button");
+                boton_insertar_servicio.setAttribute("type", "submit");
+                boton_insertar_servicio.setAttribute("id", "boton_insertar_servicio");
+                boton_insertar_servicio.setAttribute("class", "insertar_servicio");
+                boton_insertar_servicio.innerHTML = "Añadir servicio";
+                boton_insertar_servicio.onclick = insertarServicio;
+
+                caja_servicios.appendChild(boton_insertar_servicio);
+            }
+        })
+}
+
+function editarServicio(e) {
+    e.preventDefault();
+
+    let id_servicio = this.getAttribute("id");
+    let precio = this.parentNode.children[2].innerText;
+    let valor_precio = precio.substring(0, precio.length - 1);
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+    
+    let caja_editar = document.createElement("div");
+    caja_editar.setAttribute("class", "caja_editar");
+
+    let titulo = document.createElement("h2");
+    titulo.setAttribute("class", "titulo");
+    titulo.innerHTML = "Cambiar el precio del producto:";
+
+    var caja_formulario = document.createElement("div");
+    caja_formulario.setAttribute("class", "caja_formulario");
+
+    let formulario_editar = document.createElement("form");
+    formulario_editar.setAttribute("id", "formulario_editar");
+
+    let borde_precio = document.createElement("fieldset");
+
+    let legend_precio = document.createElement("legend");
+    legend_precio.setAttribute("class", "legend");
+    legend_precio.innerHTML = "Precio:";
+
+    let input_precio = document.createElement("input");
+    input_precio.setAttribute("id", "input_precio");
+    input_precio.setAttribute("class", "input");
+    input_precio.setAttribute("type", "number");
+    input_precio.setAttribute("name", "precio");
+    input_precio.setAttribute("min", "0.01");
+    input_precio.setAttribute("required", "");
+    input_precio.setAttribute("value", valor_precio);
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", id_servicio);
+    boton_confirmar.setAttribute("class", "boton_confirmar");
+    boton_confirmar.innerHTML = "ACTUALIZAR";
+    boton_confirmar.addEventListener("click", confirmarCambiosServicio);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaEditarServicio);
+
+    caja_editar.appendChild(titulo); 
+
+    borde_precio.appendChild(input_precio);
+    borde_precio.appendChild(legend_precio);
+    caja_formulario.appendChild(borde_precio);
+
+    caja_editar.appendChild(caja_formulario);
+
+    caja_botones.appendChild(boton_confirmar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_editar.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_editar);
+    document.body.appendChild(div_bloqueo);
+}
+
+function confirmarCambiosServicio(e) {
+    e.preventDefault();
+
+    let id_servicio = this.getAttribute("id");
+
+    let precio = document.getElementById("input_precio").value;
+
+    if (precio.length > 0) {
+        let url = "./actualizar_servicio.php";
+        let param = {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "id=" + id_servicio + "&precio=" + precio
+        };
+
+        fetch (url, param)
+            .then (function (respuesta) {
+                return respuesta.text();
+            })
+            .then (function (datos) {
+                if (datos == "TRUE") {
+                    document.getElementById("div_bloqueo").remove();
+                    window.location.reload();
+                } else {
+                    alert("Ha ocurrido un error al editar el servicio.");
+                }
+            })
+    } else {
+        alert("ERROR, hay campos en blanco!");
+    }
+}
+
+function cerrarCajaEditarServicio() {
+    document.getElementById("div_bloqueo").remove();
+    this.parentNode.parentNode.remove();
+}
+
+function retirarServicio(e) {
+    e.preventDefault();
+
+    let id_servicio = this.getAttribute("id");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+    
+    let caja_baja = document.createElement("div");
+    caja_baja.setAttribute("class", "caja_baja");
+
+    let titulo = document.createElement("h2");
+    titulo.setAttribute("class", "titulo");
+    titulo.innerHTML = "Retirar servicio";
+
+    let h2 = document.createElement("h2");
+    h2.innerHTML = "¿Estás seguro de que quieres retirar este servicio?";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", id_servicio);
+    boton_confirmar.setAttribute("class", "boton_confirmar");
+    boton_confirmar.innerHTML = "RETIRAR";
+    boton_confirmar.addEventListener("click", confirmarRetirarServicio);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaRetirarServicio);
+
+    caja_baja.appendChild(titulo); 
+    caja_baja.appendChild(h2);
+
+    caja_botones.appendChild(boton_confirmar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_baja.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_baja);
+    document.body.appendChild(div_bloqueo);
+}
+
+function confirmarRetirarServicio(e) {
+    e.preventDefault();
+
+    let id_servicio = this.getAttribute("id");
+
+    let url = "./retirar_servicio.php";
+    let param = {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        body : "id=" + id_servicio
+    };
+
+    fetch (url, param)
+        .then (function (respuesta) {
+            return respuesta.text();
+        })
+        .then (function (datos) {
+            if (datos == "TRUE") {
+                document.getElementById("div_bloqueo").remove();
+                window.location.reload();
+            } else {
+                alert("Ha ocurrido un error al dar de baja al empleado.");
+            }
+        })
+}
+
+function cerrarCajaRetirarServicio() {
+    document.getElementById("div_bloqueo").remove();
+    this.parentNode.parentNode.remove();
+}
+
+function insertarServicio(e) {
+    e.preventDefault();
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+    
+    let caja_insertar_servicio = document.createElement("div");
+    caja_insertar_servicio.setAttribute("class", "caja_insertar_servicio");
+
+    let titulo = document.createElement("h2");
+    titulo.setAttribute("class", "titulo");
+    titulo.innerHTML = "Añadir un servicio";
+
+    var caja_formulario = document.createElement("div");
+    caja_formulario.setAttribute("class", "caja_formulario_servicio");
+
+    let formulario_insertar = document.createElement("form");
+    formulario_insertar.setAttribute("id", "formulario_alta");
+
+    let borde_tipo = document.createElement("fieldset");
+
+    let legend_tipo = document.createElement("legend");
+    legend_tipo.setAttribute("class", "legend");
+    legend_tipo.innerHTML = "Tipo:";
+
+    let input_tipo = document.createElement("input");
+    input_tipo.setAttribute("id", "input_tipo");
+    input_tipo.setAttribute("class", "input");
+    input_tipo.setAttribute("type", "text");
+    input_tipo.setAttribute("name", "tipo");
+    input_tipo.setAttribute("pattern", "^[A-Za-z]+$");
+    input_tipo.setAttribute("required", "");
+
+    let borde_precio = document.createElement("fieldset");
+
+    let legend_precio = document.createElement("legend");
+    legend_precio.setAttribute("class", "legend");
+    legend_precio.innerHTML = "Precio:";
+
+    let input_precio = document.createElement("input");
+    input_precio.setAttribute("id", "input_precio");
+    input_precio.setAttribute("class", "input");
+    input_precio.setAttribute("type", "number");
+    input_precio.setAttribute("name", "precio");
+    input_precio.setAttribute("min", "0.01");
+    input_precio.setAttribute("required", "");
+
+    let borde_categoria = document.createElement("fieldset");
+
+    let legend_categoria = document.createElement("legend");
+    legend_categoria.setAttribute("class", "legend");
+    legend_categoria.innerHTML = "Categoria:";
+
+    let select_categoria = document.createElement("select");
+    select_categoria.setAttribute("id", "input_categoria");
+    select_categoria.setAttribute("class", "input");
+    select_categoria.setAttribute("name", "categoria");
+    select_categoria.setAttribute("required", "");
+
+    let opcion1 = document.createElement("option");
+    opcion1.innerHTML = "Cortes de pelo";
+
+    let opcion2 = document.createElement("option");
+    opcion2.innerHTML = "Cortes de barba";
+
+    let opcion3 = document.createElement("option");
+    opcion3.innerHTML = "Tintar y peinar";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", "boton_insertar");
+    boton_confirmar.setAttribute("class", "boton_confirmar");
+    boton_confirmar.innerHTML = "AÑADIR";
+    boton_confirmar.addEventListener("click", confirmarInsertarServicio);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaInsertarServicio);
+
+    caja_insertar_servicio.appendChild(titulo); 
+
+    borde_tipo.appendChild(input_tipo);
+    borde_tipo.appendChild(legend_tipo);
+    caja_formulario.appendChild(borde_tipo);
+
+    borde_precio.appendChild(input_precio);
+    borde_precio.appendChild(legend_precio);
+    caja_formulario.appendChild(borde_precio);
+
+    select_categoria.appendChild(opcion1);
+    select_categoria.appendChild(opcion2);
+    select_categoria.appendChild(opcion3);
+    borde_categoria.appendChild(select_categoria);
+    borde_categoria.appendChild(legend_categoria);
+    caja_formulario.appendChild(borde_categoria);
+
+    caja_insertar_servicio.appendChild(caja_formulario);
+
+    caja_botones.appendChild(boton_confirmar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_insertar_servicio.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_insertar_servicio);
+    document.body.appendChild(div_bloqueo);
+}
+
+function confirmarInsertarServicio(e) {
+    e.preventDefault();
+    
+    let tipo = document.getElementById("input_tipo").value;
+    let tipo_sin_numeros = tipo.replace(/\d/g,"");
+    let quitar_espacios_tipo = tipo_sin_numeros.replace(/^\s*|\s*$/g, '');
+    
+    let precio = document.getElementById("input_precio").value;
+    let quitar_espacios_precio = precio.replace(/^\s*|\s*$/g, '');
+
+    let categoria = document.getElementById("input_categoria").value;
+    let valor_categoria = categoria.toLowerCase();
+
+    if (quitar_espacios_tipo.length > 0 && quitar_espacios_precio.length > 0 && categoria.length > 0) {
+        let url = "./insertar_servicio.php";
+        let param = {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "tipo=" + quitar_espacios_tipo + "&precio=" + quitar_espacios_precio + "&categoria=" + valor_categoria
+        };
+
+        fetch (url, param)
+            .then (function (respuesta) {
+                return respuesta.text();
+            })
+            .then (function (datos) {
+                if (datos == "TRUE") {
+                    document.getElementById("div_bloqueo").remove();
+                    window.location.reload();
+                } else {
+                    alert("Ha ocurrido un error al añadir el servicio.");
+                }
+            })
+    } else {
+        alert("ERROR, hay campos en blanco!");
+    }
+}
+
+function cerrarCajaInsertarServicio() {
+    document.getElementById("div_bloqueo").remove();
+    this.parentNode.parentNode.remove();
+}
+
+let ingresos = document.getElementById("ingresos");
+ingresos.addEventListener("click", cargarIngresos);
+
+function cargarIngresos(e) {
+    e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    reservas.style.backgroundColor = "darkkhaki";
+    pedidos.style.backgroundColor = "darkkhaki";
+    empleados.style.backgroundColor = "darkkhaki";
+    productos.style.backgroundColor = "darkkhaki";
+    servicios.style.backgroundColor = "darkkhaki";
+
+    let caja_principal = document.getElementById("caja_principal");
+
+    if (caja_principal.children[0] && caja_principal.children[1]) {
+        caja_principal.children[0].remove();
+        caja_principal.lastChild.remove();
+    }
+
+    let caja_ingresos = document.createElement("div");
+    caja_ingresos.setAttribute("class", "caja_ingresos");
+
+    let ingresos = document.createElement("div");
+    ingresos.setAttribute("class", "ingresos");
+
+    let ingresos_totales = document.createElement("h3");
+    ingresos_totales.setAttribute("class", "tipo");
+    ingresos_totales.innerHTML = "Ingresos totales:";
+
+    let precio_total = document.createElement("h2");
+    precio_total.setAttribute("class", "precio_total");
+
+    let url1 = "./cargar_ingresos_totales.php";
+
+    fetch(url1)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) { 
+            if (datos != null) {
+                precio_total.innerHTML = datos + "€";   
+            } else {
+                precio_total.innerHTML = "0€";   
+            }
+        })
+
+    let caja_ingresos_detalles = document.createElement("div");
+    caja_ingresos_detalles.setAttribute("class", "caja_ingresos_detalles");
+
+    let caja_ingresos_citas = document.createElement("div");
+    caja_ingresos_citas.setAttribute("id", "caja_ingresos_citas");
+
+    let caja_formulario_citas = document.createElement("div");
+    caja_formulario_citas.setAttribute("class", "caja_formulario_detalles");
+
+    let form = document.createElement("form");
+    form.setAttribute("class", "formulario_citas");
+
+    let caja_ingresos_citas_general = document.createElement("div");
+    caja_ingresos_citas_general.setAttribute("id", "caja_ingresos_citas_general");
+
+    let ingresos_citas = document.createElement("h3");
+    ingresos_citas.setAttribute("class", "ingresos_citas");
+    ingresos_citas.innerHTML = "Ingresos citas:";
+
+    let precio_citas = document.createElement("h3");
+    precio_citas.setAttribute("class", "precio_citas");
+
+    let url2 = "./cargar_ingresos_citas.php";
+
+    fetch(url2)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) { 
+            if (datos[0][0] != null) {
+                precio_citas.innerHTML = datos[0][0] + "€";   
+            } else {
+                precio_citas.innerHTML = "0€";   
+            }
+        })
+
+    let select_empleado = document.createElement("select");
+    select_empleado.setAttribute("id", "input_empleado");
+    select_empleado.setAttribute("name", "empleado");
+    select_empleado.setAttribute("required", "");
+
+    let url3 = "./cargar_empleados.php";
+
+    fetch(url3)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) { 
+            for (let dato of datos) {
+                let opcion = document.createElement("option");
+                opcion.setAttribute("value", dato[0]);
+                opcion.innerHTML = dato[1] + " " + dato[2];
+
+                select_empleado.appendChild(opcion);
+            }    
+        })
+
+    let input_fecha_inicio = document.createElement("input");
+    input_fecha_inicio.setAttribute("class", "input_horario");
+    input_fecha_inicio.setAttribute("id", "fecha_inicio");
+    input_fecha_inicio.setAttribute("type", "date");
+    input_fecha_inicio.setAttribute("name", "fecha");
+    input_fecha_inicio.setAttribute("required", "");
+
+    let input_fecha_fin = document.createElement("input");
+    input_fecha_fin.setAttribute("class", "input_horario");
+    input_fecha_fin.setAttribute("id", "fecha_fin");
+    input_fecha_fin.setAttribute("type", "date");
+    input_fecha_fin.setAttribute("name", "fecha");
+    input_fecha_fin.setAttribute("required", "");
+
+    let buscar_empleado = document.createElement("i");
+    buscar_empleado.setAttribute("id", "buscar_empleado");
+    buscar_empleado.setAttribute("class", "fas fa-search");
+    buscar_empleado.addEventListener("click", buscarCitasEmpleado);
+
+    let caja_resultado_empleado = document.createElement("div");
+    caja_resultado_empleado.setAttribute("id", "caja_resultado_empleado");
+
+    let caja_ingresos_pedidos = document.createElement("div");
+    caja_ingresos_pedidos.setAttribute("id", "caja_ingresos_pedidos");
+
+    let caja_formulario_pedidos = document.createElement("div");
+    caja_formulario_pedidos.setAttribute("class", "caja_formulario_detalles");
+
+    let form_pedidos = document.createElement("form");
+    form_pedidos.setAttribute("class", "formulario_citas");
+
+    let caja_ingresos_pedidos_general = document.createElement("div");
+    caja_ingresos_pedidos_general.setAttribute("id", "caja_ingresos_pedidos_general");
+
+    let ingresos_pedidos = document.createElement("h3");
+    ingresos_pedidos.setAttribute("class", "ingresos_pedidos");
+    ingresos_pedidos.innerHTML = "Ingresos pedidos:";
+
+    let precio_pedidos = document.createElement("h3");
+    precio_pedidos.setAttribute("class", "precio_pedidos");
+
+    let url4 = "./cargar_ingresos_pedidos.php";
+
+    fetch(url4)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) { 
+            if (datos[0][0] != null) {
+                precio_pedidos.innerHTML = datos[0][0] + "€";   
+            } else {
+                precio_pedidos.innerHTML = "0€";   
+            }
+        })
+
+    let input_fecha_inicio_pedidos = document.createElement("input");
+    input_fecha_inicio_pedidos.setAttribute("class", "input_horario");
+    input_fecha_inicio_pedidos.setAttribute("id", "fecha_inicio_pedidos");
+    input_fecha_inicio_pedidos.setAttribute("type", "date");
+    input_fecha_inicio_pedidos.setAttribute("name", "fecha");
+    input_fecha_inicio_pedidos.setAttribute("required", "");
+
+    let input_fecha_fin_pedidos = document.createElement("input");
+    input_fecha_fin_pedidos.setAttribute("class", "input_horario");
+    input_fecha_fin_pedidos.setAttribute("id", "fecha_fin_pedidos");
+    input_fecha_fin_pedidos.setAttribute("type", "date");
+    input_fecha_fin_pedidos.setAttribute("name", "fecha");
+    input_fecha_fin_pedidos.setAttribute("required", "");
+
+    let buscar_pedido = document.createElement("i");
+    buscar_pedido.setAttribute("id", "buscar_pedido");
+    buscar_pedido.setAttribute("class", "fas fa-search");
+    buscar_pedido.addEventListener("click", buscarPedido);
+
+    let caja_resultado_pedido = document.createElement("div");
+    caja_resultado_pedido.setAttribute("id", "caja_resultado_pedido");
+
+    ingresos.appendChild(ingresos_totales);
+    ingresos.appendChild(precio_total);
+    caja_ingresos.appendChild(ingresos);  
+
+    caja_ingresos_citas_general.appendChild(ingresos_citas);
+    caja_ingresos_citas_general.appendChild(precio_citas);
+    caja_formulario_citas.appendChild(caja_ingresos_citas_general);
+    caja_formulario_citas.appendChild(select_empleado);
+    caja_formulario_citas.appendChild(input_fecha_inicio);
+    caja_formulario_citas.appendChild(input_fecha_fin);
+    caja_formulario_citas.appendChild(buscar_empleado);
+    caja_ingresos_citas.appendChild(caja_formulario_citas);
+
+    caja_ingresos_citas.appendChild(caja_resultado_empleado);
+    caja_ingresos_detalles.appendChild(caja_ingresos_citas);
+
+    caja_ingresos_pedidos.appendChild(ingresos_pedidos);
+    caja_ingresos_pedidos.appendChild(precio_pedidos); 
+    caja_ingresos_detalles.appendChild(caja_ingresos_pedidos);
+
+    caja_ingresos_pedidos_general.appendChild(ingresos_pedidos);
+    caja_ingresos_pedidos_general.appendChild(precio_pedidos);
+    caja_formulario_pedidos.appendChild(caja_ingresos_pedidos_general);
+    caja_formulario_pedidos.appendChild(input_fecha_inicio_pedidos);
+    caja_formulario_pedidos.appendChild(input_fecha_fin_pedidos);
+    caja_formulario_pedidos.appendChild(buscar_pedido);
+    caja_ingresos_pedidos.appendChild(caja_formulario_pedidos);
+
+    caja_ingresos_pedidos.appendChild(caja_resultado_pedido);
+    caja_ingresos_detalles.appendChild(caja_ingresos_pedidos);
+
+    caja_principal.appendChild(caja_ingresos);
+    caja_principal.appendChild(caja_ingresos_detalles);
+}
+
+function buscarCitasEmpleado(e) {
+    e.preventDefault();
+
+    let valor_empleado = document.getElementById("input_empleado").value;
+    let valor_fecha_inicio = document.getElementById("fecha_inicio").value;
+    let valor_fecha_fin = document.getElementById("fecha_fin").value;
+
+    let array = [valor_empleado, valor_fecha_inicio, valor_fecha_fin];
+
+    if (valor_empleado.length > 0 && valor_fecha_inicio.length > 0 && valor_fecha_fin.length > 0) {
+        let url = "./bucar_citas_empleado.php";
+        let param = {
+            method : "POST",
+            body : JSON.stringify(array)
+        }
+
+        fetch(url, param)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) {
+            console.log(datos)
+            if (datos[0][0] != null) {
+                let caja_resultado_empleado = document.getElementById("caja_resultado_empleado");
+                caja_resultado_empleado.innerHTML = "Ha aportado " + datos[0][0] + "€ de ingresos.";
+            } else {
+                let caja_resultado_empleado = document.getElementById("caja_resultado_empleado");
+                caja_resultado_empleado.innerHTML = "No hay datos.";
+            }
+        })
+    } else {
+        alert("ERROR, hay campos en blanco.")
+    }
+}
+
+function buscarPedido(e) {
+    e.preventDefault();
+
+    let valor_fecha_inicio = document.getElementById("fecha_inicio_pedidos").value;
+    let valor_fecha_fin = document.getElementById("fecha_fin_pedidos").value;
+
+    let array = [valor_fecha_inicio, valor_fecha_fin];
+
+    console.log(array)
+
+    if (valor_fecha_inicio.length > 0 && valor_fecha_fin.length > 0) {
+        let url = "./buscar_pedidos.php";
+        let param = {
+            method : "POST",
+            body : JSON.stringify(array)
+        }
+
+        fetch(url, param)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) {
+            console.log(datos)
+            if (datos[0][0] != null) {
+                let caja_resultado_pedido = document.getElementById("caja_resultado_pedido");
+                caja_resultado_pedido.innerHTML = "Ha habido " + datos[0][0] + "€ de ingresos.";
+            } else {
+                let caja_resultado_pedido = document.getElementById("caja_resultado_pedido");
+                caja_resultado_pedido.innerHTML = "No hay datos.";
+            }
+        })
+    } else {
+        alert("ERROR, hay campos en blanco.")
+    }
 }

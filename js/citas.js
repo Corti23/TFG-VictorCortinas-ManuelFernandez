@@ -240,6 +240,8 @@ function reservarServicio(e) {
 
 function realizarReserva() {
     let servicio = this.parentNode.parentNode.childNodes[1].childNodes[0].getAttribute("id");
+    let precio = this.parentNode.parentNode.childNodes[1].childNodes[1].innerHTML;
+    let valor_precio = precio.substring(0, precio.length - 1);
     let empleado = document.querySelector('input[name="empleados"]:checked').getAttribute("id");
     let fecha = document.getElementById("fecha").value;
     let hora = document.getElementById("hora").value;
@@ -251,7 +253,7 @@ function realizarReserva() {
             headers : {
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "servicio=" + servicio + "&empleado=" + empleado + "&fecha=" + fecha + "&hora=" + hora
+            body : "servicio=" + servicio + "&empleado=" + empleado + "&fecha=" + fecha + "&hora=" + hora + "&precio_servicio=" + valor_precio
         }
         
         fetch(url, param)

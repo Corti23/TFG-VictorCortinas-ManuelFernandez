@@ -1,12 +1,12 @@
 <?php
-    // require 'bd.php';
-	// require_once 'sesiones.php';
-	// comprobar_sesion();
+    require 'bd.php';
+	require_once 'sesiones.php';
+	comprobar_sesion();
 
-    // if (!comprobar_token()) {
-    //     header("Location: index.php");
-    //     return "Ha expirado la sesión.";
-    // }
+    if (!comprobar_token()) {
+        header("Location: index.php");
+        return "Ha expirado la sesión.";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +16,7 @@
     <title>Peluqería JavaSytle</title>
     <link rel="shortcut icon" href="./img/logo.png">
     <link rel="stylesheet" href="css/pagina_admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body id="principio">
     <header>
@@ -23,7 +24,7 @@
 
         <div id="cerrar_sesion_nombre">
             <button id="cerrar_sesion">Cerrar Sesión</button>
-            <span id="nombre_usuario">Admin Admin</span><?php //require_once "cabecera.php";?>
+            <?php require_once "cabecera.php";?>
         </div>
     </header>
 
@@ -33,6 +34,8 @@
             <button id="pedidos">Pedidos</button>
             <button id="empleados">Empleados</button>
             <button id="productos">Productos</button>
+            <button id="servicios">Servicios</button>
+            <button id="ingresos">Ingresos</button>
         </div>
         <div id="caja_principal">
             
@@ -43,10 +46,10 @@
         <div id="derechos">© Copyright 2021</div>
         <div id="enlaces">PELUQUERÍA JAVASTYLE</div>
         <div id="redes">
-            <a href="https://www.instagram.com/?hl=es"><img src="./img/Instagram_blanco.png" title="Instagram" id="insta"></a>
-            <a href="https://es-es.facebook.com/"><img src="./img/Facebook_blanco.png" title="Facebook" id="facebook"></a>
-            <a href="https://twitter.com/?lang=es"><img src="./img/Twitter_blanco.png" title="Twitter" id="twitter"></a>
-            <a href="https://www.google.com/intl/es/gmail/about/"><img src="./img/Gmail_blanco.png" title="Gmail" id="gmail"></a>
+            <a href="https://www.instagram.com/?hl=es"><i class="fab fa-instagram"></i></a>
+            <a href="https://es-es.facebook.com/"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/?lang=es"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.google.com/intl/es/gmail/about/"><i class="far fa-envelope"></i></a>
         </div>
     </footer>
     <script src="js/pagina_admin.js"></script>

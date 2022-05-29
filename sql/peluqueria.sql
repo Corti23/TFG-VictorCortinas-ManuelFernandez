@@ -22,7 +22,8 @@ CREATE TABLE `usuarios` (
 CREATE TABLE `servicios` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `tipo` VARCHAR(40) NOT NULL,
-  `precio` DOUBLE NOT NULL
+  `precio` DOUBLE NOT NULL,
+  `disponible` BOOLEAN NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -48,7 +49,8 @@ CREATE TABLE `citas` (
   `hora` VARCHAR(5) NOT NULL,
   `cod_servicio` INT NOT NULL,
   `cod_empleado` INT NOT NULL,
-  `fecha` DATE NOT NULL
+  `fecha` DATE NOT NULL,
+  `precio_servicio` DOUBLE NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

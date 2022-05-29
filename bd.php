@@ -24,7 +24,7 @@
     function cargar_servicios() {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select * from servicios";
+        $ins = "select * from servicios where disponible = 1";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -92,7 +92,7 @@
     function cargar_productos_mas_vendidos() {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select id_producto, precio, nombre, url_img from productos order by total_veces_comprado desc limit 5";
+        $ins = "select id_producto, precio, nombre, url_img from productos where en_tienda = 1 order by total_veces_comprado desc limit 5";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -110,7 +110,7 @@
     function cargar_productos() {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select id_producto, precio, nombre, url_img from productos";
+        $ins = "select id_producto, precio, nombre, url_img from productos where en_tienda = 1";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -194,6 +194,8 @@
     function cargar_productos_carrito($usuario) {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
+        borrar_producto_retirado_carrito();
+        borrar_producto_agotado_carrito();
         $ins = "select productos.id_producto, productos.url_img, productos.nombre, productos.stock, productos.precio, productos_almacenados.cantidad
         from productos, productos_almacenados, carrito
         where carrito.correo_usuario = '$usuario'
@@ -211,6 +213,34 @@
             array_push($resultado, $producto);
         }
         return $resultado;	
+    }
+
+    function borrar_producto_retirado_carrito() {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();	
+        $sql = "delete from productos_almacenados
+        where exists(select * from productos where productos_almacenados.cod_producto = productos.id_producto and productos.en_tienda = 0)";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function borrar_producto_agotado_carrito() {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();	
+        $sql = "delete from productos_almacenados
+        where exists(select * from productos where productos_almacenados.cod_producto = productos.id_producto and productos.stock <= 0)";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
     }
 
     function comprobar_producto($usuario, $id_producto) {
@@ -452,15 +482,15 @@
         }
     }
 
-    function reservar_cita($usuario, $cod_servicio, $cod_empleado, $fecha, $hora) {
+    function reservar_cita($usuario, $cod_servicio, $cod_empleado, $fecha, $hora, $precio_servicio) {
         if (!comprobar_token()) {
             return "Ha expirado la sesión.";
         }
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
         $bd->beginTransaction();
-        $sql = "insert into citas (correo_usuario, cod_servicio, cod_empleado, fecha, hora)
-                values ('$usuario', $cod_servicio, $cod_empleado, '$fecha', '$hora')";
+        $sql = "insert into citas (correo_usuario, cod_servicio, cod_empleado, fecha, hora, precio_servicio)
+                values ('$usuario', $cod_servicio, $cod_empleado, '$fecha', '$hora', $precio_servicio)";
         $resul = $bd->query($sql);	
         if (!$resul) {
             return FALSE;
@@ -542,10 +572,11 @@
         }
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select servicios.tipo, servicios.precio, citas.hora, citas.fecha 
+        $ins = "select servicios.tipo, citas.precio_servicio, citas.hora, citas.fecha 
         from servicios, citas
         where servicios.id = citas.cod_servicio
-        and citas.correo_usuario = '$usuario'";
+        and citas.correo_usuario = '$usuario'
+        order by citas.fecha desc";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -569,7 +600,8 @@
         $ins = "select productos.nombre, pedidos.cantidad, pedidos.precio_total, pedidos.fecha 
         from productos, pedidos
         where pedidos.cod_producto = productos.id_producto
-        and pedidos.correo_usuario = '$usuario'";
+        and pedidos.correo_usuario = '$usuario'
+        order by pedidos.fecha desc";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -587,10 +619,11 @@
     function cargar_reservas_admin() {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select citas.correo_usuario, servicios.tipo, empleados.nombre, empleados.apellidos, servicios.precio, citas.hora, citas.fecha 
+        $ins = "select citas.correo_usuario, servicios.tipo, empleados.nombre, empleados.apellidos, citas.precio_servicio, citas.hora, citas.fecha 
         from servicios, citas, empleados
         where servicios.id = citas.cod_servicio
-        and empleados.id_empleado = citas.cod_empleado";
+        and empleados.id_empleado = citas.cod_empleado
+        order by citas.fecha desc";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -610,7 +643,8 @@
         $bd = new PDO($res[0], $res[1], $res[2]);
         $ins = "select pedidos.correo_usuario, productos.nombre, pedidos.cantidad, pedidos.precio_total, pedidos.fecha 
         from productos, pedidos
-        where pedidos.cod_producto = productos.id_producto";
+        where pedidos.cod_producto = productos.id_producto
+        order by pedidos.fecha desc";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -707,7 +741,7 @@
     function cargar_productos_admin() {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select id_producto, nombre, descripcion, precio, stock, total_veces_comprado, url_img from productos";
+        $ins = "select id_producto, nombre, descripcion, precio, stock, total_veces_comprado, url_img from productos where en_tienda = 1";
         $resul = $bd->query($ins);	
         if (!$resul) {
             return FALSE;
@@ -733,5 +767,169 @@
         }
         $bd->commit();
         return true;
+    }
+
+    function retirar_producto($id) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $sql = "update productos set en_tienda = 0 where id_producto = $id";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function insertar_producto($nombre, $descripcion, $precio, $stock, $url_img) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $sql = "insert into productos (nombre, descripcion, precio, stock, url_img, total_veces_comprado, en_tienda) values ('$nombre', '$descripcion', $precio, $stock, '$url_img', 0, 1)";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $producto = $bd->lastInsertId();
+        $bd->commit();
+        return $producto;
+    }
+
+    function cargar_servicios_admin() {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $ins = "select id, tipo, precio, categoria from servicios where disponible = 1";
+        $resul = $bd->query($ins);	
+        if (!$resul) {
+            return FALSE;
+        }
+        if ($resul->rowCount() === 0) {    
+            return FALSE;
+        }	
+        $resultado = array();
+        foreach ($resul as $servicio) {
+            array_push($resultado, $servicio);
+        }
+        return $resultado;	
+    }
+
+    function actualizar_servicio($id, $precio) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $sql = "update servicios set precio = '$precio' where id = $id";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function retirar_servicio($id) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $sql = "update servicios set disponible = 0 where id = $id";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function insertar_servicio($tipo, $precio, $categoria) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $sql = "insert into servicios (tipo, precio, categoria, disponible) values ('$tipo', $precio, '$categoria', 1)";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $servicio = $bd->lastInsertId();
+        $bd->commit();
+        return $servicio;
+    }
+
+    function cargar_ingresos_totales() {
+        $ingresos_citas = cargar_ingresos_citas();
+        $ingresos_pedidos = cargar_ingresos_pedidos();	
+        $ingresos_totales = $ingresos_citas[0][0] + $ingresos_pedidos[0][0];
+        return $ingresos_totales;	
+    }
+
+    function cargar_ingresos_citas() {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $ins = "select sum(precio_servicio) from citas";
+        $resul = $bd->query($ins);	
+        if (!$resul) {
+            return FALSE;
+        }
+        if ($resul->rowCount() === 0) {    
+            return FALSE;
+        }	
+        $resultado = array();
+        foreach ($resul as $ingreso) {
+            array_push($resultado, $ingreso);
+        }
+        return $resultado;	
+    }
+
+    function cargar_ingresos_pedidos() {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $ins = "select sum(precio_total) from pedidos";
+        $resul = $bd->query($ins);	
+        if (!$resul) {
+            return FALSE;
+        }
+        if ($resul->rowCount() === 0) {    
+            return FALSE;
+        }	
+        $resultado = array();
+        foreach ($resul as $ingreso) {
+            array_push($resultado, $ingreso);
+        }
+        return $resultado;	
+    }
+
+    function buscar_citas($cod_empleado, $fecha_inicio, $fecha_fin) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $ins = "select sum(precio_servicio) from citas where cod_empleado = $cod_empleado and fecha >= '$fecha_inicio' and fecha <= '$fecha_fin'";
+        $resul = $bd->query($ins);	
+        if (!$resul) {
+            return FALSE;
+        }
+        if ($resul->rowCount() === 0) {    
+            return FALSE;
+        }	
+        $resultado = array();
+        foreach ($resul as $precio) {
+            array_push($resultado, $precio);
+        }
+        return $resultado;	
+    }
+
+    function buscar_pedidos($fecha_inicio, $fecha_fin) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $ins = "select sum(precio_total) from pedidos where fecha >= '$fecha_inicio' and fecha <= '$fecha_fin'";
+        $resul = $bd->query($ins);	
+        if (!$resul) {
+            return FALSE;
+        }
+        if ($resul->rowCount() === 0) {    
+            return FALSE;
+        }	
+        $resultado = array();
+        foreach ($resul as $precio) {
+            array_push($resultado, $precio);
+        }
+        return $resultado;	
     }
 ?>

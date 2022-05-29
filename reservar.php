@@ -7,7 +7,7 @@
 
     $disponible = comprobar_fecha_hora($usuario, $_POST['fecha'], $_POST['hora'], $_POST['empleado']);
     if ($disponible == true) {
-        $reservar = reservar_cita($usuario, $_POST['servicio'], $_POST['empleado'], $_POST['fecha'], $_POST['hora']);
+        $reservar = reservar_cita($usuario, $_POST['servicio'], $_POST['empleado'], $_POST['fecha'], $_POST['hora'], $_POST['precio_servicio']);
 
         if ($reservar == true) {
             echo "TRUE"; 

@@ -28,9 +28,11 @@ cargarProductosMasVendidos();
 
 function cargarServicios() {
     let servicio1 = document.getElementById("servicio1");
+    let categoria1 = servicio1.firstElementChild.nextElementSibling.firstElementChild.innerHTML.toLowerCase();
     let ul1 = servicio1.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.nextElementSibling;
 
     let servicio2 = document.getElementById("servicio2");
+    let categoria2 = servicio2.firstElementChild.firstElementChild.innerHTML.toLowerCase();
     let ul2 = servicio2.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling;
     
     let servicio3 = document.getElementById("servicio3");
@@ -44,11 +46,11 @@ function cargarServicios() {
         })
         .then (function (datos) {    
             for (let dato of datos) {
-                if (dato[0] <= 3) {
+                if (dato[3] == categoria1) {
                     let li = document.createElement("li");
                     li.innerHTML = dato[1] + ": " + dato[2] + "€";
                     ul1.appendChild(li);
-                } else if (dato[0] > 3 && dato[0] <= 6) {
+                } else if (dato[3] == categoria2) {
                     let li = document.createElement("li");
                     li.innerHTML = dato[1] + ": " + dato[2] + "€";
                     ul2.appendChild(li);
