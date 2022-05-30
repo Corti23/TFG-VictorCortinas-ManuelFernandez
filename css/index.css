@@ -61,6 +61,7 @@ button:hover {
 #foto_peluqueria {
     width: 100%;
     height: 300px;
+    cursor: auto;
 }
 
 #foto_peluqueria:hover {
@@ -135,6 +136,7 @@ section {
 .slider img {
 	width: 100%;
     height: 500px;
+    cursor: auto;
 }
 
 @keyframes cambio {
@@ -163,6 +165,7 @@ section {
 .foto_servicio {
     width: 50%;
     height: 250px;
+    cursor: auto;
 }
 
 .texto {
@@ -257,7 +260,6 @@ hr {
 .articulos {
     max-width: 15%;
     max-height: 350px;
-    cursor: pointer;
 }
 
 .img_articulos {
@@ -266,6 +268,7 @@ hr {
     border-radius: 15px;
     box-shadow: 10px 10px 5px darkkhaki;
     background-color: lightyellow;
+    cursor: auto;
 }
 
 #hr_articulos {
