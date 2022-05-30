@@ -858,7 +858,8 @@
         $ingresos_citas = cargar_ingresos_citas();
         $ingresos_pedidos = cargar_ingresos_pedidos();	
         $ingresos_totales = $ingresos_citas[0][0] + $ingresos_pedidos[0][0];
-        return $ingresos_totales;	
+        $ingresos_totales_format = number_format($ingresos_totales, 2);
+        return $ingresos_totales_format;	
     }
 
     function cargar_ingresos_citas() {
@@ -910,7 +911,8 @@
         }	
         $resultado = array();
         foreach ($resul as $precio) {
-            array_push($resultado, $precio);
+            $precio_format = number_format($precio[0], 2);
+            array_push($resultado, $precio_format);
         }
         return $resultado;	
     }
@@ -928,7 +930,8 @@
         }	
         $resultado = array();
         foreach ($resul as $precio) {
-            array_push($resultado, $precio);
+            $precio_format = number_format($precio[0], 2);
+            array_push($resultado, $precio_format);
         }
         return $resultado;	
     }

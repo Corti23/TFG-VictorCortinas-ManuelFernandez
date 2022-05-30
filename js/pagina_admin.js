@@ -2082,10 +2082,9 @@ function buscarCitasEmpleado(e) {
             return respuesa.json();
         })
         .then (function (datos) {
-            console.log(datos)
-            if (datos[0][0] != null) {
+            if (datos[0] != null) {
                 let caja_resultado_empleado = document.getElementById("caja_resultado_empleado");
-                caja_resultado_empleado.innerHTML = "Ha aportado " + datos[0][0] + "€ de ingresos.";
+                caja_resultado_empleado.innerHTML = "Ha aportado " + datos[0] + "€ de ingresos.";
             } else {
                 let caja_resultado_empleado = document.getElementById("caja_resultado_empleado");
                 caja_resultado_empleado.innerHTML = "No hay datos.";
@@ -2104,8 +2103,6 @@ function buscarPedido(e) {
 
     let array = [valor_fecha_inicio, valor_fecha_fin];
 
-    console.log(array)
-
     if (valor_fecha_inicio.length > 0 && valor_fecha_fin.length > 0) {
         let url = "./buscar_pedidos.php";
         let param = {
@@ -2118,10 +2115,9 @@ function buscarPedido(e) {
             return respuesa.json();
         })
         .then (function (datos) {
-            console.log(datos)
-            if (datos[0][0] != null) {
+            if (datos[0] != null) {
                 let caja_resultado_pedido = document.getElementById("caja_resultado_pedido");
-                caja_resultado_pedido.innerHTML = "Ha habido " + datos[0][0] + "€ de ingresos.";
+                caja_resultado_pedido.innerHTML = "Ha habido " + datos[0] + "€ de ingresos.";
             } else {
                 let caja_resultado_pedido = document.getElementById("caja_resultado_pedido");
                 caja_resultado_pedido.innerHTML = "No hay datos.";
