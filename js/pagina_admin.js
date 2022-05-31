@@ -12,6 +12,7 @@ function cargarTitulosReservas(e) {
     e.preventDefault();
     this.style.backgroundColor = "khaki";
     pedidos.style.backgroundColor = "darkkhaki";
+    usuarios.style.backgroundColor = "darkkhaki";
     empleados.style.backgroundColor = "darkkhaki";
     productos.style.backgroundColor = "darkkhaki";
     servicios.style.backgroundColor = "darkkhaki";
@@ -137,10 +138,96 @@ function cargarReservas() {
                 hora.appendChild(hora_servicio);
                 reservas.appendChild(hora);
 
+                let diaHoy = new Date();
+                let fecha_actual = diaHoy.toISOString().split('T')[0];
+
+                if (fecha_actual < fecha_servicio.innerHTML) {
+                    let cancelar = document.createElement("h4");
+                    cancelar.setAttribute("id", dato[7]);
+                    cancelar.setAttribute("class", "cancelar");
+                    cancelar.setAttribute("title", "Cancelar");
+                    cancelar.innerHTML = "❌";
+                    cancelar.addEventListener("click", alertaCancelar);
+
+                    reservas.appendChild(cancelar);
+                }
+
                 caja_reservas.appendChild(reservas);
                 caja_reservas.appendChild(hr);
             }
         })
+}
+
+function alertaCancelar() {
+    document.body.setAttribute("onKeyDown", "return false");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo_cancelar");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta_cancelar");
+    caja_alerta.setAttribute("id", this.id)
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = "¿Estás seguro de que quieres cancelar la cita?";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones_cancelar");
+
+    let boton_eliminar = document.createElement("button");
+    boton_eliminar.setAttribute("type", "submit");
+    boton_eliminar.setAttribute("id", "boton_eliminar_cita");
+    boton_eliminar.innerHTML = "ELIMINAR";
+    boton_eliminar.addEventListener("click", cancelarCita);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar_cita");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaCancelar);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_eliminar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cancelarCita(e) {
+    e.preventDefault();
+
+    let id_cita = this.parentNode.parentNode.getAttribute("id");
+
+    let url = "./cancelar_cita_admin.php";
+    let param = {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        body : "id_cita=" + id_cita
+    };
+
+    fetch(url, param)
+        .then (function (respuesa) {
+            return respuesa.text();
+        })
+        .then (function (datos) {
+            if (datos == "TRUE") {
+                window.location.reload();
+            } else {
+                alert("Ha ocurrido un error al cancelar la cita.");
+            }
+        })
+}
+
+function cerrarCajaCancelar() {
+    let div_bloqueo = document.getElementById("div_bloqueo_cancelar");
+
+    this.parentNode.parentNode.remove();
+    div_bloqueo.remove();
 }
 
 let pedidos = document.getElementById("pedidos");
@@ -150,6 +237,7 @@ function cargarTitulosPedidos(e) {
     e.preventDefault();
     this.style.backgroundColor = "khaki";
     reservas.style.backgroundColor = "darkkhaki";
+    usuarios.style.backgroundColor = "darkkhaki";
     empleados.style.backgroundColor = "darkkhaki";
     productos.style.backgroundColor = "darkkhaki";
     servicios.style.backgroundColor = "darkkhaki";
@@ -268,6 +356,702 @@ function cargarPedidos() {
         })
 }
 
+let usuarios = document.getElementById("usuarios");
+usuarios.addEventListener("click", cargarTitulosUsuarios);
+
+function cargarTitulosUsuarios(e) {
+    e.preventDefault();
+    this.style.backgroundColor = "khaki";
+    reservas.style.backgroundColor = "darkkhaki";
+    empleados.style.backgroundColor = "darkkhaki";
+    pedidos.style.backgroundColor = "darkkhaki";
+    productos.style.backgroundColor = "darkkhaki";
+    servicios.style.backgroundColor = "darkkhaki";
+    ingresos.style.backgroundColor = "darkkhaki";
+
+    let caja_principal = document.getElementById("caja_principal");
+
+    if (caja_principal.children[0] && caja_principal.children[1]) {
+        caja_principal.children[0].remove();
+        caja_principal.lastChild.remove();
+    }
+
+    let caja_titulos = document.createElement("div");
+    caja_titulos.setAttribute("class", "caja_titulos");
+
+    let titulos = document.createElement("div");
+    titulos.setAttribute("class", "titulos");
+
+    let nombre = document.createElement("h3");
+    nombre.setAttribute("class", "nombre_usuario");
+    nombre.innerHTML = "Nombre";
+
+    let apellidos = document.createElement("h3");
+    apellidos.setAttribute("class", "apellidos_usuario");
+    apellidos.innerHTML = "Apellidos";
+
+    let correo = document.createElement("h3");
+    correo.setAttribute("class", "correo_usuario");
+    correo.innerHTML = "Correo";
+
+    let direccion = document.createElement("h3");
+    direccion.setAttribute("class", "direccion");
+    direccion.innerHTML = "Dirección";
+
+    let admin = document.createElement("h3");
+    admin.innerHTML = "Admin";
+
+    let caja_usuarios = document.createElement("div");
+    caja_usuarios.setAttribute("id", "caja_usuarios");
+
+    titulos.appendChild(nombre);
+    titulos.appendChild(apellidos);
+    titulos.appendChild(correo);
+    titulos.appendChild(direccion);
+    titulos.appendChild(admin);
+    caja_titulos.appendChild(titulos);    
+
+    caja_principal.appendChild(caja_titulos);
+    caja_principal.appendChild(caja_usuarios);
+
+    cargarUsuarios();
+}
+
+function cargarUsuarios() {
+    let caja_usuarios = document.getElementById("caja_usuarios");
+
+    let url = "./cargar_usuarios.php";
+
+    fetch(url)
+        .then (function (respuesa) {
+            return respuesa.json();
+        })
+        .then (function (datos) { 
+            if (datos) {
+                for (let dato of datos) {
+                    let usuarios = document.createElement("div");
+                    usuarios.setAttribute("class", "usuarios");
+    
+                    let nombre = document.createElement("div");
+                    nombre.setAttribute("class", "nombre");
+    
+                    let nombre_usuario = document.createElement("h4");
+                    nombre_usuario.innerHTML = dato[1];
+    
+                    let apellidos = document.createElement("div");
+                    apellidos.setAttribute("class", "apellidos");
+    
+                    let apellidos_usuario = document.createElement("h4");
+                    apellidos_usuario.innerHTML = dato[2];
+    
+                    let correo = document.createElement("div");
+                    correo.setAttribute("class", "correo");
+    
+                    let correo_usuario = document.createElement("h4");
+                    correo_usuario.innerHTML = dato[3];
+
+                    let direccion = document.createElement("div");
+                    direccion.setAttribute("class", "direccion");
+    
+                    let direccion_usuario = document.createElement("h4");
+                    direccion_usuario.innerHTML = dato[4];
+
+                    let admin = document.createElement("div");
+                    admin.setAttribute("class", "admin");
+    
+                    let admin_usuario = document.createElement("h4");
+                    if (dato[5] == 0) {
+                        admin_usuario.innerHTML = "No";
+                    } else {
+                        admin_usuario.innerHTML = "Si";
+                    }
+    
+                    let boton_cambiar_clave = document.createElement("button");
+                    boton_cambiar_clave.setAttribute("type", "submit");
+                    boton_cambiar_clave.setAttribute("id", dato[0]);
+                    boton_cambiar_clave.setAttribute("class", "editar_usuario");
+                    boton_cambiar_clave.innerHTML = "Cambiar contraseña";
+                    boton_cambiar_clave.onclick = cambiarClave;
+    
+                    let boton_eliminar_usuario = document.createElement("button");
+                    boton_eliminar_usuario.setAttribute("type", "submit");
+                    boton_eliminar_usuario.setAttribute("id", dato[0]);
+                    boton_eliminar_usuario.setAttribute("class", "baja_empleado");
+                    boton_eliminar_usuario.innerHTML = "Eliminar";
+                    boton_eliminar_usuario.onclick = eliminarUsuario;
+    
+                    let hr = document.createElement("hr");
+    
+                    nombre.appendChild(nombre_usuario);
+                    usuarios.appendChild(nombre);
+    
+                    apellidos.appendChild(apellidos_usuario);
+                    usuarios.appendChild(apellidos);
+    
+                    correo.appendChild(correo_usuario);
+                    usuarios.appendChild(correo);
+
+                    direccion.appendChild(direccion_usuario);
+                    usuarios.appendChild(direccion);
+
+                    admin.appendChild(admin_usuario);
+                    usuarios.appendChild(admin);
+    
+                    usuarios.appendChild(boton_cambiar_clave);
+                    usuarios.appendChild(boton_eliminar_usuario);
+    
+                    caja_usuarios.appendChild(usuarios);
+                    caja_usuarios.appendChild(hr);
+                }
+                let boton_crear_admin = document.createElement("button");
+                boton_crear_admin.setAttribute("type", "submit");
+                boton_crear_admin.setAttribute("id", "boton_alta");
+                boton_crear_admin.setAttribute("class", "editar_empleado");
+                boton_crear_admin.innerHTML = "Crear administrador";
+                boton_crear_admin.onclick = crearAdmin;
+
+                caja_usuarios.appendChild(boton_crear_admin);
+            } else {
+                let boton_crear_admin = document.createElement("button");
+                boton_crear_admin.setAttribute("type", "submit");
+                boton_crear_admin.setAttribute("id", "boton_alta");
+                boton_crear_admin.setAttribute("class", "editar_empleado");
+                boton_crear_admin.innerHTML = "Crear administrador";
+                boton_crear_admin.onclick = crearAdmin;
+
+                caja_usuarios.appendChild(boton_crear_admin);
+            }
+        })
+}
+
+function cambiarClave(e) {
+    e.preventDefault();
+
+    let id_usuario = this.getAttribute("id");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+    
+    let caja_editar = document.createElement("div");
+    caja_editar.setAttribute("class", "caja_editar_usuario");
+
+    let titulo = document.createElement("h2");
+    titulo.setAttribute("class", "titulo");
+    titulo.innerHTML = "Cambiar contraseña del usuario:";
+
+    var caja_formulario = document.createElement("div");
+    caja_formulario.setAttribute("class", "caja_formulario_usuario");
+
+    let formulario_editar = document.createElement("form");
+    formulario_editar.setAttribute("id", "formulario_editar");
+
+    let borde_clave = document.createElement("fieldset");
+    borde_clave.setAttribute("id", "borde_clave");
+
+    let legend_clave = document.createElement("legend");
+    legend_clave.setAttribute("class", "legend");
+    legend_clave.innerHTML = "Introduzca la nueva contraseña:";
+
+    let input_clave = document.createElement("input");
+    input_clave.setAttribute("id", "clave");
+    input_clave.setAttribute("class", "input");
+    input_clave.setAttribute("type", "password");
+    input_clave.setAttribute("name", "clave");
+    input_clave.setAttribute("minlength", "6");
+    input_clave.setAttribute("maxlength", "8");
+    input_clave.setAttribute("required", "");
+    input_clave.addEventListener("input", verificarValoresContraseñaRegistro);
+
+    let info_clave = document.createElement("div");
+    info_clave.setAttribute("id", "info_clave");
+    info_clave.innerHTML = "La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", id_usuario);
+    boton_confirmar.setAttribute("class", "boton_confirmar");
+    boton_confirmar.innerHTML = "ACTUALIZAR";
+    boton_confirmar.addEventListener("click", confirmarCambiarClave);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaCambiarClave);
+
+    caja_editar.appendChild(titulo); 
+
+    borde_clave.appendChild(input_clave);
+    borde_clave.appendChild(info_clave);
+    borde_clave.appendChild(legend_clave);
+    caja_formulario.appendChild(borde_clave);
+
+    caja_editar.appendChild(caja_formulario);
+
+    caja_botones.appendChild(boton_confirmar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_editar.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_editar);
+    document.body.appendChild(div_bloqueo);
+}
+
+function verificarValoresContraseñaRegistro() {
+    let info_clave = document.getElementById("info_clave");
+    
+    let validacionContraseña = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,8}$/;
+    let valorContraseña = this.value;
+
+    if (valorContraseña.length == 0) {
+        info_clave.innerHTML = "La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.";
+        info_clave.style.color = "darkkhaki";
+    } else {
+        if (validacionContraseña.test(valorContraseña)) {
+            info_clave.innerHTML = "Contraseña válida";
+            info_clave.style.color = "#23FF00";
+            info_clave.style.fontSize = "12.5px";
+        } else {
+            info_clave.innerHTML = "Contraseña inválida";
+            info_clave.style.color = "#FE2E2E";
+            info_clave.style.fontSize = "12.5px";
+        }
+    }
+}
+
+function confirmarCambiarClave(e) {
+    e.preventDefault();
+
+    let id_usuario = this.getAttribute("id");
+
+    let clave = document.getElementById("clave").value;
+    let info_clave = document.getElementById("info_clave").innerHTML;
+
+    if (clave.length > 0) {
+        if (info_clave == "Contraseña válida") {
+            let url = "./actualizar_clave_usuario.php";
+            let param = {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/x-www-form-urlencoded"
+                },
+                body : "id=" + id_usuario + "&clave_registro=" + clave
+            };
+
+            fetch (url, param)
+                .then (function (respuesta) {
+                    return respuesta.text();
+                })
+                .then (function (datos) {
+                    if (datos == "TRUE") {
+                        window.location.reload();
+                    } else {
+                        alert("Ha ocurrido un error al cambiar la contraseña.");
+                    }
+                })
+        } else {
+            alert("La contraseña no es válida!");
+        }
+    } else {
+        alert("ERROR, hay campos en blanco!");
+    }
+}
+
+function cerrarCajaCambiarClave() {
+    document.getElementById("div_bloqueo").remove();
+    this.parentNode.parentNode.remove();
+}
+
+function eliminarUsuario(e) {
+    e.preventDefault();
+
+    let id_usuario = this.getAttribute("id");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+    
+    let caja_baja = document.createElement("div");
+    caja_baja.setAttribute("class", "caja_baja");
+
+    let titulo = document.createElement("h2");
+    titulo.setAttribute("class", "titulo");
+    titulo.innerHTML = "Eliminar usuario";
+
+    let h2 = document.createElement("h2");
+    h2.innerHTML = "¿Estás seguro de que quieres eliminar a este usuario?";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", id_usuario);
+    boton_confirmar.setAttribute("class", "boton_confirmar");
+    boton_confirmar.innerHTML = "ELIMINAR";
+    boton_confirmar.addEventListener("click", confirmarEliminar);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaEliminar);
+
+    caja_baja.appendChild(titulo); 
+    caja_baja.appendChild(h2);
+
+    caja_botones.appendChild(boton_confirmar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_baja.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_baja);
+    document.body.appendChild(div_bloqueo);
+}
+
+function confirmarEliminar(e) {
+    e.preventDefault();
+
+    let id_usuario = this.getAttribute("id");
+
+    let url = "./eliminar_usuario.php";
+    let param = {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        body : "id=" + id_usuario
+    };
+
+    fetch (url, param)
+        .then (function (respuesta) {
+            return respuesta.text();
+        })
+        .then (function (datos) {
+            if (datos == "TRUE") {
+                window.location.reload();
+            } else {
+                alert("Ha ocurrido un error al eliminar al usuario.");
+            }
+        })
+}
+
+function cerrarCajaEliminar() {
+    document.getElementById("div_bloqueo").remove();
+    this.parentNode.parentNode.remove();
+}
+
+function crearAdmin(e) {
+    e.preventDefault();
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+    
+    let caja_alta = document.createElement("div");
+    caja_alta.setAttribute("class", "caja_crear_usuario");
+
+    let titulo = document.createElement("h2");
+    titulo.setAttribute("class", "titulo");
+    titulo.innerHTML = "Crear un nuevo administrador";
+
+    var caja_formulario = document.createElement("div");
+    caja_formulario.setAttribute("class", "caja_formulario_crear_usuario");
+
+    let formulario_crear_usuario = document.createElement("form");
+    formulario_crear_usuario.setAttribute("id", "formulario_crear_usuario");
+
+    let div1 = document.createElement("div");
+    let div2 = document.createElement("div");
+
+    let borde_nombre = document.createElement("fieldset");
+
+    let legend_nombre = document.createElement("legend");
+    legend_nombre.setAttribute("class", "legend");
+    legend_nombre.innerHTML = "Nombre:";
+
+    let input_nombre = document.createElement("input");
+    input_nombre.setAttribute("id", "input_nombre");
+    input_nombre.setAttribute("class", "input");
+    input_nombre.setAttribute("type", "text");
+    input_nombre.setAttribute("name", "nombre");
+    input_nombre.setAttribute("pattern", "^[A-Za-z]+$");
+    input_nombre.setAttribute("required", "");
+
+    let borde_apellidos = document.createElement("fieldset");
+    
+    let legend_apellidos = document.createElement("legend");
+    legend_apellidos.setAttribute("class", "legend");
+    legend_apellidos.innerHTML = "Apellidos:";
+
+    let input_apellidos = document.createElement("input");
+    input_apellidos.setAttribute("id", "input_apellidos");
+    input_apellidos.setAttribute("class", "input");
+    input_apellidos.setAttribute("type", "text");
+    input_apellidos.setAttribute("name", "apellidos");
+    input_apellidos.setAttribute("pattern", "^[A-Za-z]+$");
+    input_apellidos.setAttribute("required", "");
+
+    let borde_correo = document.createElement("fieldset");
+
+    let legend_correo = document.createElement("legend");
+    legend_correo.setAttribute("class", "legend");
+    legend_correo.innerHTML = "Correo:";
+
+    let input_correo = document.createElement("input");
+    input_correo.setAttribute("id", "input_correo");
+    input_correo.setAttribute("class", "input");
+    input_correo.setAttribute("type", "email");
+    input_correo.setAttribute("name", "correo");
+    input_correo.setAttribute("required", "");
+    input_correo.addEventListener("input", verificarCorreo);
+
+    let span = document.createElement("span");
+    span.setAttribute("id", "info_correo")
+
+    let borde_direccion = document.createElement("fieldset");
+
+    let legend_direccion = document.createElement("legend");
+    legend_direccion.setAttribute("class", "legend");
+    legend_direccion.innerHTML = "Dirección:";
+
+    let input_direccion = document.createElement("input");
+    input_direccion.setAttribute("id", "input_direccion");
+    input_direccion.setAttribute("class", "input");
+    input_direccion.setAttribute("type", "text");
+    input_direccion.setAttribute("name", "direccion");
+    input_direccion.setAttribute("required", "");
+
+    let borde_clave1 = document.createElement("fieldset");
+    borde_clave1.setAttribute("id", "borde_clave1");
+
+    let legend_clave1 = document.createElement("legend");
+    legend_clave1.setAttribute("class", "legend");
+    legend_clave1.innerHTML = "Introduzca una contraseña:";
+
+    let input_clave1 = document.createElement("input");
+    input_clave1.setAttribute("id", "clave1");
+    input_clave1.setAttribute("class", "input");
+    input_clave1.setAttribute("type", "password");
+    input_clave1.setAttribute("name", "clave1");
+    input_clave1.setAttribute("minlength", "6");
+    input_clave1.setAttribute("maxlength", "8");
+    input_clave1.setAttribute("required", "");
+    input_clave1.addEventListener("input", verificarValoresContraseña);
+
+    let info_clave1 = document.createElement("div");
+    info_clave1.setAttribute("id", "info_clave1");
+    info_clave1.innerHTML = "La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.";
+
+    let borde_clave2= document.createElement("fieldset");
+    borde_clave2.setAttribute("id", "borde_clave2");
+
+    let legend_clave2 = document.createElement("legend");
+    legend_clave2.setAttribute("class", "legend");
+    legend_clave2.innerHTML = "Repite la contraseña:";
+
+    let input_clave2 = document.createElement("input");
+    input_clave2.setAttribute("id", "clave2");
+    input_clave2.setAttribute("class", "input");
+    input_clave2.setAttribute("type", "password");
+    input_clave2.setAttribute("name", "clave2");
+    input_clave2.setAttribute("minlength", "6");
+    input_clave2.setAttribute("maxlength", "8");
+    input_clave2.setAttribute("required", "");
+    input_clave2.addEventListener("input", verificarValoresContraseñaConfirma);
+
+    let info_clave2 = document.createElement("div");
+    info_clave2.setAttribute("id", "info_clave2");
+    info_clave2.innerHTML = "La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_confirmar = document.createElement("button");
+    boton_confirmar.setAttribute("type", "submit");
+    boton_confirmar.setAttribute("id", "boton_insertar");
+    boton_confirmar.setAttribute("class", "boton_confirmar");
+    boton_confirmar.innerHTML = "CREAR";
+    boton_confirmar.addEventListener("click", confirmarCrear);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaCrear);
+
+    caja_alta.appendChild(titulo); 
+
+    borde_nombre.appendChild(input_nombre);
+    borde_nombre.appendChild(legend_nombre);
+    div1.appendChild(borde_nombre);
+
+    input_correo.appendChild(span);
+    borde_correo.appendChild(input_correo);
+    borde_correo.appendChild(legend_correo);
+    div1.appendChild(borde_correo);
+
+    borde_clave1.appendChild(input_clave1);
+    borde_clave1.appendChild(info_clave1);
+    borde_clave1.appendChild(legend_clave1);
+    div1.appendChild(borde_clave1);
+
+    borde_apellidos.appendChild(input_apellidos);
+    borde_apellidos.appendChild(legend_apellidos);
+    div2.appendChild(borde_apellidos);
+
+    borde_direccion.appendChild(input_direccion);
+    borde_direccion.appendChild(legend_direccion);
+    div2.appendChild(borde_direccion);
+
+    borde_clave2.appendChild(input_clave2);
+    borde_clave2.appendChild(info_clave2);
+    borde_clave2.appendChild(legend_clave2);
+    div2.appendChild(borde_clave2);
+
+    formulario_crear_usuario.appendChild(div1);
+    formulario_crear_usuario.appendChild(div2);
+    caja_formulario.appendChild(formulario_crear_usuario);
+    caja_alta.appendChild(caja_formulario);
+
+    caja_botones.appendChild(boton_confirmar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_alta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function confirmarCrear(e) {
+    e.preventDefault();
+    
+    let nombre = document.getElementById("input_nombre").value;
+    let nombre_sin_numeros = nombre.replace(/\d/g,"");
+    let quitar_espacios = nombre_sin_numeros.replace(/^\s*|\s*$/g, '');
+    
+    let apellidos = document.getElementById("input_apellidos").value;
+    let apellidos_sin_numeros = apellidos.replace(/\d/g,"");
+    let quitar_espacios_iniciales = apellidos_sin_numeros.replace(/^\s*|\s*$/g, '');
+
+    let correo = document.getElementById("input_correo").value;
+    let quitar_espacios_iniciales_correo = correo.replace(/^\s*|\s*$/g, '');
+
+    let info_correo = document.getElementById("info_correo").innerHTML;
+
+    let direccion = document.getElementById("input_direccion").value;
+    let quitar_espacios_iniciales_direccion = direccion.replace(/^\s*|\s*$/g, '');
+
+    let clave1 = document.getElementById("clave1").value;
+    let clave2 = document.getElementById("clave2").value;
+
+    let info_clave1 = document.getElementById("info_clave1").innerHTML;
+    let info_clave2 = document.getElementById("info_clave2").innerHTML;
+
+    if (quitar_espacios.length > 0 && quitar_espacios_iniciales.length > 0 && quitar_espacios_iniciales_correo.length > 0 && quitar_espacios_iniciales_direccion.length > 0 && clave1.length > 0 && clave2.length > 0) {
+        if (info_correo == "✔️") {
+            if (info_clave1 == "Contraseña válida" && info_clave2 == "Contraseña válida") {
+                if (clave1 === clave2) {            
+                    let url = "./crear_admin.php";
+                    let param = {
+                        method : "POST",
+                        headers : {
+                            "Content-Type" : "application/x-www-form-urlencoded"
+                        },
+                        body : "nombre=" + quitar_espacios + "&apellidos=" + quitar_espacios_iniciales + "&correo=" + quitar_espacios_iniciales_correo + "&direccion=" + quitar_espacios_iniciales_direccion + "&clave_registro=" + clave1
+                    };
+            
+                    fetch (url, param)
+                        .then (function (respuesta) {
+                            return respuesta.text();
+                        })
+                        .then (function (datos) {
+                            if (datos == "TRUE") {
+                                window.location.reload();
+                            } else {
+                                alert("Ha ocurrido un error al crear al administrador.");
+                            }
+                        })
+                } else {
+                    alert("Las contraseñas no coinciden!");
+                }
+            } else {
+                alert("Las contraseñas no son válidas!");
+            }
+        } else {
+            alert("El correo no es válido!");
+        }
+    } else {
+        alert("ERROR, hay campos en blanco!");
+    }
+}
+
+function verificarCorreo() {
+    let info_correo = document.getElementById("info_correo");
+
+    let validacionCorreo = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    let valorCorreo = this.value;
+
+    if (valorCorreo.length == 0) {
+        info_correo.innerHTML = "❌";
+    } else {
+        if (validacionCorreo.test(valorCorreo)) {
+            info_correo.innerHTML = "✔️";
+            info_correo.style.fontSize = "12.5px";
+        } else {
+            info_correo.innerHTML = "❌";
+            info_correo.style.fontSize = "12.5px";
+        }
+    }
+}
+
+function verificarValoresContraseña() {
+    let info_clave = document.getElementById("info_clave1");
+    
+    let validacionContraseña = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,8}$/;
+    let valorContraseña = this.value;
+
+    if (valorContraseña.length == 0) {
+        info_clave.innerHTML = "La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.";
+        info_clave.style.color = "darkkhaki";
+    } else {
+        if (validacionContraseña.test(valorContraseña)) {
+            info_clave.innerHTML = "Contraseña válida";
+            info_clave.style.color = "#23FF00";
+            info_clave.style.fontSize = "12.5px";
+        } else {
+            info_clave.innerHTML = "Contraseña inválida";
+            info_clave.style.color = "#FE2E2E";
+            info_clave.style.fontSize = "12.5px";
+        }
+    }
+}
+
+function verificarValoresContraseñaConfirma() {
+    let info_clave = document.getElementById("info_clave2");
+
+    let validacionContraseña = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,8}$/;
+    let valorContraseña = this.value;
+
+    if (valorContraseña.length == 0) {
+        info_clave.innerHTML = "La contraseña debe tener entre 6 y 8 caracteres, un dígito, una minúscula, una mayúscula y un caracter no alfanumérico.";
+        info_clave.style.color = "darkkhaki";
+    } else {
+        if (validacionContraseña.test(valorContraseña)) {
+            info_clave.innerHTML = "Contraseña válida";
+            info_clave.style.color = "#23FF00";
+            info_clave.style.fontSize = "12.5px";
+        } else {
+            info_clave.innerHTML = "Contraseña inválida";
+            info_clave.style.color = "#FE2E2E";
+            info_clave.style.fontSize = "12.5px";
+        }
+    }
+}
+
+function cerrarCajaCrear() {
+    document.getElementById("div_bloqueo").remove();
+    this.parentNode.parentNode.remove();
+}
+
 let empleados = document.getElementById("empleados");
 empleados.addEventListener("click", cargarTitulosEmpleados);
 
@@ -276,6 +1060,7 @@ function cargarTitulosEmpleados(e) {
     this.style.backgroundColor = "khaki";
     reservas.style.backgroundColor = "darkkhaki";
     pedidos.style.backgroundColor = "darkkhaki";
+    usuarios.style.backgroundColor = "darkkhaki";
     productos.style.backgroundColor = "darkkhaki";
     servicios.style.backgroundColor = "darkkhaki";
     ingresos.style.backgroundColor = "darkkhaki";
@@ -749,6 +1534,7 @@ function cargarTitulosProductos(e) {
     this.style.backgroundColor = "khaki";
     reservas.style.backgroundColor = "darkkhaki";
     pedidos.style.backgroundColor = "darkkhaki";
+    usuarios.style.backgroundColor = "darkkhaki";
     empleados.style.backgroundColor = "darkkhaki";
     servicios.style.backgroundColor = "darkkhaki";
     ingresos.style.backgroundColor = "darkkhaki";
@@ -1375,6 +2161,7 @@ function cargarTitulosServicios(e) {
     this.style.backgroundColor = "khaki";
     reservas.style.backgroundColor = "darkkhaki";
     pedidos.style.backgroundColor = "darkkhaki";
+    usuarios.style.backgroundColor = "darkkhaki";
     empleados.style.backgroundColor = "darkkhaki";
     productos.style.backgroundColor = "darkkhaki";
     ingresos.style.backgroundColor = "darkkhaki";
@@ -1854,6 +2641,7 @@ function cargarIngresos(e) {
     this.style.backgroundColor = "khaki";
     reservas.style.backgroundColor = "darkkhaki";
     pedidos.style.backgroundColor = "darkkhaki";
+    usuarios.style.backgroundColor = "darkkhaki";
     empleados.style.backgroundColor = "darkkhaki";
     productos.style.backgroundColor = "darkkhaki";
     servicios.style.backgroundColor = "darkkhaki";
@@ -2082,7 +2870,7 @@ function buscarCitasEmpleado(e) {
             return respuesa.json();
         })
         .then (function (datos) {
-            if (datos[0] != null) {
+            if (datos[0] != 0.00) {
                 let caja_resultado_empleado = document.getElementById("caja_resultado_empleado");
                 caja_resultado_empleado.innerHTML = "Ha aportado " + datos[0] + "€ de ingresos.";
             } else {
@@ -2115,7 +2903,7 @@ function buscarPedido(e) {
             return respuesa.json();
         })
         .then (function (datos) {
-            if (datos[0] != null) {
+            if (datos[0] != 0.00) {
                 let caja_resultado_pedido = document.getElementById("caja_resultado_pedido");
                 caja_resultado_pedido.innerHTML = "Ha habido " + datos[0] + "€ de ingresos.";
             } else {

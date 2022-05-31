@@ -523,10 +523,96 @@ function cargarReservasUsuario() {
                 hora.appendChild(hora_servicio);
                 reservas.appendChild(hora);
 
+                let diaHoy = new Date();
+                let fecha_actual = diaHoy.toISOString().split('T')[0];
+
+                if (fecha_actual < fecha_servicio.innerHTML) {
+                    let cancelar = document.createElement("h4");
+                    cancelar.setAttribute("id", dato[4]);
+                    cancelar.setAttribute("class", "cancelar");
+                    cancelar.setAttribute("title", "Cancelar");
+                    cancelar.innerHTML = "❌";
+                    cancelar.addEventListener("click", alertaCancelar);
+
+                    reservas.appendChild(cancelar);
+                }
+
                 caja_reservas.appendChild(reservas);
                 caja_reservas.appendChild(hr);
             }
         })
+}
+
+function alertaCancelar() {
+    document.body.setAttribute("onKeyDown", "return false");
+
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta");
+    caja_alerta.setAttribute("id", this.id)
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = "¿Estás seguro de que quieres cancelar la cita?";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones");
+
+    let boton_eliminar = document.createElement("button");
+    boton_eliminar.setAttribute("type", "submit");
+    boton_eliminar.setAttribute("id", "boton_eliminar");
+    boton_eliminar.innerHTML = "ELIMINAR";
+    boton_eliminar.addEventListener("click", cancelarCita);
+
+    let boton_cancelar = document.createElement("button");
+    boton_cancelar.setAttribute("type", "submit");
+    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.innerHTML = "CANCELAR";
+    boton_cancelar.addEventListener("click", cerrarCajaCancelar);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_eliminar);
+    caja_botones.appendChild(boton_cancelar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cancelarCita(e) {
+    e.preventDefault();
+
+    let id_cita = this.parentNode.parentNode.getAttribute("id");
+
+    let url = "./cancelar_cita.php";
+    let param = {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/x-www-form-urlencoded"
+        },
+        body : "id_cita=" + id_cita
+    };
+
+    fetch(url, param)
+        .then (function (respuesa) {
+            return respuesa.text();
+        })
+        .then (function (datos) {
+            if (datos == "TRUE") {
+                window.location.reload();
+            } else {
+                alert("Ha ocurrido un error al cancelar la cita.");
+            }
+        })
+}
+
+function cerrarCajaCancelar() {
+    let div_bloqueo = document.getElementById("div_bloqueo");
+
+    this.parentNode.parentNode.remove();
+    div_bloqueo.remove();
 }
 
 function cargarPedidosUsuario() {

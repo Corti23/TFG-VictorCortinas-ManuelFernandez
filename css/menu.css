@@ -70,3 +70,9 @@
     background-color: darksalmon;
     color: darkslategrey;
 }
+
+@media (max-width:750px) {    
+    #lista {
+        left: 62.5%;
+    }
+}

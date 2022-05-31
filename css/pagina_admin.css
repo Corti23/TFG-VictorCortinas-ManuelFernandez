@@ -190,6 +190,23 @@ section {
     width: 18%;
     margin-right: 20%;
 }
+
+.titulos > .nombre_usuario {
+    width: 50%;
+}
+
+.titulos > .apellidos_usuario {
+    width: 50%;
+}
+
+.titulos > .correo_usuario {
+    width: 50%;
+}
+
+.titulos > .direccion {
+    width: 50%;
+}
+
 .titulos > .empleado {
     width: 18%;
     margin-right: 15%;
@@ -206,6 +223,7 @@ section {
 .titulos > .descripcion {
     margin-left: 16%;
 }
+
 .titulos > .precio {
     margin-left: 11.5%; 
 }
@@ -232,7 +250,7 @@ section {
     width: 37%;
 }
 
-#caja_reservas, #caja_compras, #caja_productos, #caja_servicios {
+#caja_reservas, #caja_compras, #caja_productos, #caja_servicios, #caja_usuarios {
     width: 100%;
     height: 420px;
     overflow: hidden;
@@ -240,6 +258,101 @@ section {
     overflow-x: hidden;
     scrollbar-width: none;
     background-color: rgba(240, 230, 140, 0.212);
+}
+
+.cancelar {
+    cursor: pointer;
+}
+
+#div_bloqueo_cancelar {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.486);
+    overflow: auto;
+    z-index: 1;
+}
+
+.caja_alerta_cancelar {
+    width: 30%;
+    height: 150px;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+
+    animation-name: degradado_cancelar;
+    animation-duration: 0.75s;
+}
+
+.caja_alerta_cancelar h2 {
+    color: darkkhaki;
+}
+
+#caja_botones_cancelar { 
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+#boton_eliminar_cita {
+    width: 20%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: forestgreen;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_eliminar_cita:hover {
+    border: 2px ridge black;
+    background-color: lightgreen;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+#boton_cancelar_cita {
+    width: 20%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_cancelar_cita:hover {
+    border: 2px ridge black;
+    background-color: lightsalmon;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+@keyframes degradado_cancelar {
+    from {
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(360deg);
+        opacity: 1;
+    }
 }
 
 .ingresos_citas, .ingresos_pedidos {
@@ -324,7 +437,7 @@ i:hover {
     border-right: 2px solid darkkhaki;
 }
 
-.reservas, .pedidos, .empleados, .servicios {
+.reservas, .pedidos, .empleados, .servicios, .usuarios {
     width: 100%;
     height: 50px;
     display: flex;
@@ -350,6 +463,26 @@ i:hover {
 
 .reservas > .producto {
     width: 18%;
+}
+
+.usuarios > .nombre {
+    width: 14.5%;
+}
+
+.usuarios > .apellidos {
+    width: 14.5%;
+}
+
+.usuarios > .correo {
+    width: 14.5%;
+}
+
+.usuarios > .direccion {
+    width: 14.5%;
+}
+
+.usuarios > .admin {
+    width: 7.5%;
 }
 
 .reservas > .empleado {
@@ -430,6 +563,18 @@ i:hover {
     width: 30%;
 }
 
+.editar_usuario {
+    width: 10%;
+    height: 40px;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .editar_empleado, .editar_servicio {
     width: 10%;
     height: 30px;
@@ -454,7 +599,7 @@ i:hover {
     cursor: pointer;
 }
 
-.editar_empleado:hover, .editar_producto:hover, .editar_servicio:hover {
+.editar_empleado:hover, .editar_producto:hover, .editar_servicio:hover, .editar_usuario:hover {
     border: 2px ridge darkslategrey;
     background-color: darkkhaki;
     color: darkslategrey;
@@ -519,6 +664,22 @@ hr {
     animation-duration: 0.75s;
 }
 
+.caja_crear_usuario {
+    width: 70%;
+    height: 350px;
+    position: absolute;
+    top: 200px;
+    left: 15%;
+    right: 15%;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
 .caja_alta {
     width: 50%;
     height: 300px;
@@ -533,6 +694,27 @@ hr {
 
     animation-name: degradado;
     animation-duration: 0.75s;
+}
+
+.caja_editar_usuario {
+    width: 50%;
+    height: 250px;
+    position: absolute;
+    top: 200px;
+    left: 25%;
+    right: 25%;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
+#info_clave, #info_clave1, #info_clave2 {
+    margin-top: 5px;
+    font-size: 0.6em;
 }
 
 .caja_editar_producto {
@@ -584,6 +766,41 @@ hr {
     justify-content: space-around;
     align-items: flex-start;
     column-gap: 2%;
+}
+
+.caja_formulario_usuario {
+    width: 95%;
+    height: 105px;
+    margin-left: 2.5%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    column-gap: 2%;
+}
+
+.caja_formulario_crear_usuario {
+    width: 95%;
+    height: 210px;
+    margin-left: 2.5%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    column-gap: 2%;
+}
+
+#formulario_crear_usuario {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-self: flex-start;
+}
+
+#formulario_crear_usuario > div {
+    width: 49%;
 }
 
 .caja_formulario_alta {
@@ -661,6 +878,10 @@ fieldset {
 
 .borde_nombre, .borde_apellidos, .borde_nombre, .borde_img, .borde_precio, .borde_stock {
     width: 39%;
+}
+
+#borde_clave, #borde_clave1, #borde_clave2 {
+    min-width: 90%;
 }
 
 .borde_descripcion {
@@ -787,4 +1008,210 @@ textarea {
 
 #redes {
     font-size: 1.5em;
+}
+
+@media (max-width:750px) {
+    img {
+        width: 7%;
+    }
+
+    #cerrar_sesion_nombre {
+        width: 25%;
+        font-size: 0.9em;
+    }
+
+    #caja_principal {
+        font-size: 0.8em;
+    }
+
+    .titulos > .usuario {
+        width: 10%;
+        margin-right: 12%;
+    }
+    
+    .titulos > .producto {
+        width: 10%;
+        margin-right: 15%;
+    }
+
+    .titulos > .nombre_usuario {
+        width: 30%;
+    }
+    
+    .titulos > .apellidos_usuario {
+        width: 45%;
+    }
+    
+    .titulos > .correo_usuario {
+        width: 40%;
+    }
+
+    .titulos > .empleado {
+        width: 10%;
+        margin-right: 12%;
+    }
+
+    .titulos > .nombre {
+        width: 70%;
+    }
+    
+    .titulos > .apellidos {
+        width: 70%;
+    }
+    
+    .titulos > .descripcion {
+        margin-left: 5%;
+    }
+
+    .titulos > .precio {
+        margin-left: 2%; 
+    }
+    
+    .titulos > .stock {
+        width: 5%;
+        margin-left: 1%;
+    }
+    
+    .titulos > .veces_comprado {
+        text-align: center;
+    }
+    
+    .titulos > .img {
+        margin-right: 20%;
+    }
+
+    .titulos > .tipo {
+        width: 56%;
+    }
+    
+    .titulos > .precio {
+        width: 38%;
+    }
+
+    .caja_alerta_cancelar {
+        width: 60%;
+        height: 150px;
+    }
+
+    .ingresos_citas, .ingresos_pedidos {
+        width: 60%;
+        text-align: end;
+    }
+    
+    .precio_citas, .precio_pedidos {
+        width: 40%;
+        text-align: center;
+    }
+
+    .usuarios > .nombre {
+        width: 10%;
+    }
+    
+    .usuarios > .apellidos {
+        width: 10%;
+    }
+    
+    .usuarios > .correo {
+        width: 20%;
+    }
+    
+    .usuarios > .direccion {
+        width: 12.5%;
+    }
+    
+    .usuarios > .admin {
+        width: 7.5%;
+    }
+
+    .productos > .descripcion {
+        height: 150px;
+        overflow: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-width: none;
+    }
+
+    .editar_empleado, .editar_servicio {
+        width: 11%;
+        height: 40px;
+        font-size: 0.9em;
+    }
+    
+    .editar_producto {
+        width: 9%;
+        height: 40px;
+        font-size: 0.9em;
+    }
+
+    .baja_empleado {
+        width: 10%;
+        height: 40px;
+        font-size: 0.9em;
+    }
+    
+    .retirar_producto, .retirar_servicio {
+        width: 10%;
+        height: 40px;
+        font-size: 0.9em;
+    }
+
+    .caja_editar_usuario {
+        width: 75%;
+        left: 12.5%;
+        right: 12.5%
+    }
+
+    .caja_editar, .caja_baja {
+        width: 75%;
+        left: 12.5%;
+        right: 12.5%;
+    }
+
+    .caja_crear_usuario {
+        width: 80%;
+        left: 10%;
+        right: 10%;
+    }
+
+    .caja_insertar_servicio {
+        width: 75%;
+        height: 275px;
+        left: 12.5%;
+        right: 12.5%;
+    }
+    
+    .caja_alta {
+        width: 75%;
+        left: 12.5%;
+        right: 12.5%;
+    }
+    
+    .caja_editar_producto {
+        width: 85%;
+        left: 7.5%;
+        right: 7.5%;
+    }
+    
+    .caja_insertar_producto {
+        width: 85%;
+        left: 7.5%;
+        right: 7.5%;
+    }
+
+    .caja_formulario_servicio {
+        height: 125px;
+    }
+
+    .editar_usuario {
+        width: 15%;
+        font-size: 0.9em;
+    }
+
+    .boton_confirmar {
+        width: 20%;
+    }
+
+    .contenedor {
+        font-size: 0.9em;
+    }
 }

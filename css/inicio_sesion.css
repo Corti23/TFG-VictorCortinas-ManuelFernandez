@@ -174,3 +174,38 @@ a {
 #redes {
     font-size: 1.5em;
 }
+
+@media (max-width:750px) {   
+    img {
+        width: 7%;
+    }
+    
+    section {
+        height: 564px;
+    }
+    
+    #titulo_inicio_sesion {
+        width: 30%;
+        font-size: 1em;
+    }
+    
+    #formulario_inicio{
+        width: 40%;
+    }
+    
+    input {
+        font-size: 0.9em;
+    }
+    
+    section > div {
+        width: 35%;
+    }
+    
+    span {
+        font-size: 0.9em;
+    }
+
+    .contenedor {
+        font-size: 0.9em;
+    }
+}

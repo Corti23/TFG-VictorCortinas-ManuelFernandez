@@ -382,3 +382,59 @@ hr {
 #redes {
     font-size: 1.5em;
 }
+
+@media (max-width:750px) {    
+    img {
+        width: 7%;
+    }
+    
+    #botones {
+        width: 30%;
+        font-size: 0.9em;
+    }
+    
+    section {
+        height: 564px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    #caja_principal {
+        width: 92.5%;
+        margin-left: 5%;
+        font-size: 0.9em;
+    }
+    
+    .reservar {
+        width: 22%;
+    }
+    
+    .empleado {
+        font-size: 0.9em;
+    }
+    
+    .img_empleados { 
+        height: 40px;
+    }
+    
+    .caja_reserva {
+        width: 80%;
+        left: 10%;
+        right: 10%;
+        font-size: 0.9em;
+    }
+    
+    #boton_reservar {
+        width: 20%;
+    }
+    
+    #boton_cancelar {
+        width: 20%;
+    }
+    
+    .contenedor {
+        font-size: 0.9em;
+    }
+}

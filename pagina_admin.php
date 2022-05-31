@@ -32,6 +32,7 @@
         <div id="ventanas">
             <button id="reservas">Reservas</button>
             <button id="pedidos">Pedidos</button>
+            <button id="usuarios">Usuarios</button>
             <button id="empleados">Empleados</button>
             <button id="productos">Productos</button>
             <button id="servicios">Servicios</button>

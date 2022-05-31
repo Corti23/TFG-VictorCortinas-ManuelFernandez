@@ -452,10 +452,105 @@ fieldset {
     width: 13%;
 }
 
+.cancelar {
+    cursor: pointer;
+}
+
 hr {
     width: 100%;
     border: 0.1px solid darkkhaki;
     text-align: center;
+}
+
+#div_bloqueo {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.486);
+    overflow: auto;
+    z-index: 1;
+}
+
+.caja_alerta {
+    width: 30%;
+    height: 150px;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
+.caja_alerta h2 {
+    color: darkkhaki;
+}
+
+#caja_botones { 
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+#boton_eliminar {
+    width: 20%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: forestgreen;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_eliminar:hover {
+    border: 2px ridge black;
+    background-color: lightgreen;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+#boton_cancelar {
+    width: 20%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_cancelar:hover {
+    border: 2px ridge black;
+    background-color: lightsalmon;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+@keyframes degradado {
+    from {
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(360deg);
+        opacity: 1;
+    }
 }
 
 .contenedor {
@@ -491,4 +586,76 @@ hr {
 
 #redes {
     font-size: 1.5em;
+}
+
+@media (max-width:750px) {
+    img {
+        width: 7%;
+    }
+    
+    #botones {
+        width: 30%;
+        font-size: 0.9em;
+    }
+    
+    section {
+        height: 764px;
+    }
+    
+    #caja_datos {
+        font-size: 0.9em;
+    }
+ 
+    h1 {
+        font-size: 2em;
+    }
+    
+    h2 {
+        font-size: 1em;
+    }
+    
+    #boton_modificar {
+        width: 20%;
+    }
+    
+    .caja_modificar {
+        width: 75%;
+        left: 12.5%;
+        right: 12.5%;
+    }
+    
+    #boton_cambiar_clave {
+        width: 30%;
+        margin-left: 35%;
+    }
+    
+    #boton_confirmar {
+        width: 20%;
+    }
+    
+    #boton_confirmar_clave {
+        width: 20%;
+    }
+    
+    #caja_titulos {
+        font-size: 0.75em;
+    }
+    
+    .titulos > .producto {
+        width: 15%;
+        margin-right: 30%;
+    }
+    
+    #caja_historial {
+        font-size: 0.7em;
+    }
+
+    .caja_alerta {
+        width: 60%;
+        height: 100px;
+    }
+    
+    .contenedor {
+        font-size: 0.9em;
+    }
 }

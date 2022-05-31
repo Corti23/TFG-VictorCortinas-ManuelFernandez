@@ -121,7 +121,6 @@ h4 {
 .productos:hover {
     border-radius: 7.5px;
     background-color: rgba(47, 79, 79, 0.199);
-    /* background-color: rgb(240, 230, 140); */
 }
 
 .producto {
@@ -349,4 +348,79 @@ hr {
 
 #redes {
     font-size: 1.5em;
+}
+
+@media (max-width:750px) {
+    img {
+        width: 7%;
+    }
+    
+    #botones {
+        width: 30%;
+        font-size: 0.9em;
+    }
+    
+    section {
+        height: 850px;
+    }
+    
+    h1 {
+        margin-left: 5%;
+        font-size: 2em;
+    }
+    
+    #caja_carrito {
+        width: 90%;
+        margin-left: 5%;
+    }
+    
+    #titulos {
+        width: 90%;
+        margin-left: 5%;
+        font-size: 0.75em;
+    }
+    
+    #titulos > .producto {
+        width: 15%;
+    }
+    
+    #hr_titulos {
+        width: 83%;
+    }
+    
+    .productos {
+        font-size: 0.75em;
+    }
+    
+    .producto > img {
+        width: 25%;
+    }
+    
+    .cantidad {
+        width: 17.5%;
+    }
+    
+    .total {
+        width: 10%;
+    }
+    
+    .caja_alerta {
+        width: 60%;
+    }
+    
+    hr {
+        width: 80%;
+    }
+    
+    #caja_comprar {
+        font-size: 0.9em;
+    }
+    
+    #boton_continuar {
+        width: 30%;
+    }
+    
+    .contenedor {
+        font-size: 0.9em;
+    }
 }

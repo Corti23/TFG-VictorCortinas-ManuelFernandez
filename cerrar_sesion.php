@@ -2,8 +2,8 @@
 	require_once 'sesiones.php';	
 	comprobar_sesion();
 	$_SESSION = array();
-	session_destroy();	// eliminar la sesion
-	setcookie(session_name(), 123, time() - 1000); // eliminar la cookie
+	session_destroy();
+	setcookie(session_name(), 123, time() - 1000);
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +44,18 @@
 			border: 2px double darkslategrey;
 			background-color: darkkhaki;
 			color: darkslategrey;
+		}
+
+		@media (max-width:750px) {
+			p {
+				font-size: 2em;
+			}
+
+			a {
+				width: 30%;
+				height: 30px;
+				margin-left: 35%;
+			}
 		}
 	</style>
 	<body>

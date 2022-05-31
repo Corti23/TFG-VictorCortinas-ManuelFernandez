@@ -572,7 +572,7 @@
         }
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select servicios.tipo, citas.precio_servicio, citas.hora, citas.fecha 
+        $ins = "select servicios.tipo, citas.precio_servicio, citas.hora, citas.fecha, citas.id_cita 
         from servicios, citas
         where servicios.id = citas.cod_servicio
         and citas.correo_usuario = '$usuario'
@@ -589,6 +589,19 @@
             array_push($resultado, $reserva);
         }
         return $resultado;	
+    }
+
+    function cancelar_cita($usuario, $id_cita) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();	
+        $sql = "delete from citas where correo_usuario = '$usuario' and id_cita = $id_cita";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
     }
 
     function cargar_pedidos($usuario) {
@@ -619,7 +632,7 @@
     function cargar_reservas_admin() {
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
         $bd = new PDO($res[0], $res[1], $res[2]);
-        $ins = "select citas.correo_usuario, servicios.tipo, empleados.nombre, empleados.apellidos, citas.precio_servicio, citas.hora, citas.fecha 
+        $ins = "select citas.correo_usuario, servicios.tipo, empleados.nombre, empleados.apellidos, citas.precio_servicio, citas.hora, citas.fecha, citas.id_cita 
         from servicios, citas, empleados
         where servicios.id = citas.cod_servicio
         and empleados.id_empleado = citas.cod_empleado
@@ -636,6 +649,80 @@
             array_push($resultado, $reservas);
         }
         return $resultado;	
+    }
+
+    function cancelar_cita_admin($id_cita) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();	
+        $sql = "delete from citas where id_cita = $id_cita";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function cargar_usuarios() {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $ins = "select id, nombre, apellidos, correo, direccion, admin from usuarios";
+        $resul = $bd->query($ins);	
+        if (!$resul) {
+            return FALSE;
+        }
+        if ($resul->rowCount() === 0) {    
+            return FALSE;
+        }
+        $resultado = array();
+        foreach ($resul as $usuarios) {
+            array_push($resultado, $usuarios);
+        }
+        return $resultado;	
+    }
+
+    function cambiar_clave_usuario_admin($id, $clave_registro) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $clave_registro = password_hash($clave_registro, PASSWORD_BCRYPT);
+        $sql = "update usuarios set clave_registro = '$clave_registro' where id = $id";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function eliminar_usuario($id) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();	
+        $sql = "delete from usuarios where id = $id";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $bd->commit();
+        return true;
+    }
+
+    function crear_admin($nombre, $apellidos, $correo, $direccion, $clave_registro) {
+        $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd->beginTransaction();
+        $clave_registro = password_hash($clave_registro, PASSWORD_BCRYPT);
+        $sql = "insert into usuarios (nombre, apellidos, correo, direccion, clave_registro, admin) 
+                values ('$nombre', '$apellidos', '$correo', '$direccion', '$clave_registro', 1)";
+        $resul = $bd->query($sql);	
+        if (!$resul) {
+            return FALSE;
+        }
+        $admin = $bd->lastInsertId();
+        $bd->commit();
+        return $admin;
     }
 
     function cargar_pedidos_admin() {
