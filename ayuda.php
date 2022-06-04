@@ -36,26 +36,26 @@
             </div>
             <div class="help-div">
                 <div class="help-div-question">
-                    <h1>¿Pregunta a realizar para los clientes de prueba?</h1>
+                    <h1>¿Cuándo puedo comprar productos en la página web?</h1>
                 </div>
                 <div class="help-div-answer">
-                    <p>Respuesta a la pregunta realizada para los clientes de prueba</p>
+                    <p>Una vez te hayas registrado e inicies sesión estarán disponibles todos los productos y servicios</p>
                 </div>
             </div>
             <div class="help-div">
                 <div class="help-div-question">
-                    <h1>¿Pregunta a realizar para los clientes de prueba?</h1>
+                    <h1>¿Puedo elegir el peluquero?</h1>
                 </div>
                 <div class="help-div-answer">
-                    <p>Respuesta a la pregunta realizada para los clientes de prueba</p>
+                    <p>Si, los peluqueros se pueden seleccionar una vez hayas agregado la fecha y hora de la cita</p>
                 </div>
             </div>
             <div class="help-div">
                 <div class="help-div-question">
-                    <h1>¿Pregunta a realizar para los clientes de prueba?</h1>
+                    <h1>¿Donde os localizais?</h1>
                 </div>
                 <div class="help-div-answer">
-                    <p>Respuesta a la pregunta realizada para los clientes de prueba</p>
+                    <p>Nos localizamos en: Calle Luis Sauquillo, 88, 28944 Fuenlabrada, Madrid</p>
                 </div>
             </div>
         </div>
