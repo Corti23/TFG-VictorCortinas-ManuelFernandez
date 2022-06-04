@@ -38,8 +38,8 @@
     width: 100%;
     height: 80px;
     border-radius: 4px;
-    border: none;
-    border-bottom: 2px solid darkkhaki;
+    border: 2px solid rgb(118, 118, 118);
+    border-style: inset;
     background-color: darkslategray;
     resize: none;
     color: white;
@@ -48,21 +48,25 @@
 .contact-message:focus{
     border: 2px groove darkkhaki;
     border-radius: 2px;
-    background-color: darkkhaki;
-    color: darkslategrey;
-    color: black;
+    background-color: darkslategray;
+    color: white;
 }
 
 .contact-input{
     width: 100%;
     height: 25px;
     color: white;
+    background-color: darkslategray;
 }
 
 .contact-submit{
     height: 40px;
     width: 25%;
     color: white;
+    background-color: darkslategray;
+    border-radius: 4px;
+    border: 2px solid rgb(118, 118, 118);
+    border-style: inset;
 }
 
 .contact-submit:hover{
