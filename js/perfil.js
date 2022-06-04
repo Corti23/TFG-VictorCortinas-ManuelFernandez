@@ -4,6 +4,8 @@ let lista = document.getElementsByClassName("lista");
 var home = document.getElementById("divHome");
 var pedir_cita = document.getElementById("pedir_cita");
 var carrito = document.getElementById("carrito");
+var contacto = document.getElementById("contacto");
+var ayuda = document.getElementById("ayuda");
 var cerrar_sesion = document.getElementById("cerrar_sesion");
 
 cerrar_sesion.style.display = "block";
@@ -25,6 +27,16 @@ pedir_cita.onclick = function(e) {
 carrito.onclick = function(e) {
     e.preventDefault();
     window.location.href = "carrito_personal.php";
+}
+
+contacto.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "contacto.php";
+}
+
+ayuda.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "ayuda.php";
 }
 
 cerrar_sesion.onclick = function(e) {
@@ -371,16 +383,19 @@ function confirmarCambios(e) {
                 .then (function (datos) {
                     if (datos == "TRUE") {
                         document.getElementById("div_bloqueo").remove();
-                        window.location.reload();
+                        cargarDatosUsuario();
                     } else {
-                        alert("Ha ocurrido un error al modificar los datos.");
+                        let mensaje = "Ha ocurrido un error al modificar los datos";
+                        alertaErrores(mensaje);
                     }
                 })
         } else {
-            alert("El correo no es válido!");
+            let mensaje = "El correo no es válido";
+            alertaErrores(mensaje);
         }
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
@@ -432,23 +447,30 @@ function confirmarCambiosClave(e) {
                         .then (function (datos) {
                             if (datos == "TRUE") {
                                 document.getElementById("div_bloqueo").remove();
-                                window.location.reload();
+                                cargarDatosUsuario();
                             } else {
-                                alert("Ha ocurrido un error al modificar los datos.");
+                                let mensaje = "Ha ocurrido un error al modificar los datos";
+                                alertaErrores(mensaje);
                             }
                         })
                 } else {
+                    let mensaje = "Las contraseñas no coinciden";
+                    alertaErrores(mensaje);
+
                     document.getElementById("clave1").classList.add("noCoinciden");
                     document.getElementById("clave2").classList.add("noCoinciden");
                 }
             } else {
-                alert("Las contraseñas no son válidas!");
+                let mensaje = "Las contraseñas no son válidas";
+                alertaErrores(mensaje);
             }
         } else {
-            alert("El correo no es válido!");
+            let mensaje = "El correo no es válido";
+            alertaErrores(mensaje);
         }
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
@@ -544,10 +566,9 @@ function cargarReservasUsuario() {
 }
 
 function alertaCancelar() {
-    document.body.setAttribute("onKeyDown", "return false");
-
     let div_bloqueo = document.createElement("div");
     div_bloqueo.setAttribute("id", "div_bloqueo");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
 
     let caja_alerta = document.createElement("div");
     caja_alerta.setAttribute("class", "caja_alerta");
@@ -567,7 +588,7 @@ function alertaCancelar() {
 
     let boton_cancelar = document.createElement("button");
     boton_cancelar.setAttribute("type", "submit");
-    boton_cancelar.setAttribute("id", "boton_cancelar");
+    boton_cancelar.setAttribute("id", "boton_atras");
     boton_cancelar.innerHTML = "CANCELAR";
     boton_cancelar.addEventListener("click", cerrarCajaCancelar);
 
@@ -603,16 +624,14 @@ function cancelarCita(e) {
             if (datos == "TRUE") {
                 window.location.reload();
             } else {
-                alert("Ha ocurrido un error al cancelar la cita.");
+                let mensaje = "Ha ocurrido un error al cancelar la cita";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaCancelar() {
-    let div_bloqueo = document.getElementById("div_bloqueo");
-
-    this.parentNode.parentNode.remove();
-    div_bloqueo.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function cargarPedidosUsuario() {
@@ -675,6 +694,38 @@ function cargarPedidosUsuario() {
 }
 
 function cerrarCajaModificar() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
+}
+
+function alertaErrores(mensaje) {  
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo_error");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta_error");
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = mensaje;
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones_error");
+
+    let boton_continuar = document.createElement("button");
+    boton_continuar.setAttribute("type", "submit");
+    boton_continuar.setAttribute("id", "boton_continuar_error");
+    boton_continuar.innerHTML = "ACEPTAR";
+    boton_continuar.addEventListener("click", cerrarCajaAlertaErrores);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_continuar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cerrarCajaAlertaErrores() {
+    this.parentNode.parentNode.parentNode.remove();
 }

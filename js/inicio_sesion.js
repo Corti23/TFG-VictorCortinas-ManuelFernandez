@@ -26,8 +26,7 @@ function login(){
     })
     .then (function (datos) {
         if (datos === "FALSE") {
-            document.getElementById("usuario").classList.add("noCoinciden");
-            document.getElementById("clave").classList.add("noCoinciden");
+            alertaErrores();
         } else if (datos === "ADMIN") {
             window.location.href = "pagina_admin.php";
         } else {
@@ -35,4 +34,37 @@ function login(){
         }
     })
     return false;
+}
+
+function alertaErrores() {    
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo_error");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta_error");
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = "Revise usuario y contraseña";
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones_error");
+
+    let boton_continuar = document.createElement("button");
+    boton_continuar.setAttribute("type", "submit");
+    boton_continuar.setAttribute("id", "boton_continuar_error");
+    boton_continuar.innerHTML = "ACEPTAR";
+    boton_continuar.addEventListener("click", cerrarCajaAlertaErrores);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_continuar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cerrarCajaAlertaErrores() {
+    this.parentNode.parentNode.parentNode.remove();
 }

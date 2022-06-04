@@ -34,7 +34,7 @@
 
     <footer class="contenedor">
         <div id="derechos">© Copyright 2021</div>
-        <div id="enlaces"><a href="#">Contacto</a> | <a href="#">Aviso Legal</a> | <a href="#">Términos y Condiciones</a></div>
+        <div id="enlaces"><a href="./contacto.php">Contacto</a> | <a href="#">Aviso Legal</a> | <a href="#">Términos y Condiciones</a></div>
         <div id="redes">
             <a href="https://www.instagram.com/?hl=es"><i class="fab fa-instagram"></i></a>
             <a href="https://es-es.facebook.com/"><i class="fab fa-facebook"></i></a>

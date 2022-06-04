@@ -13,24 +13,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Perfil</title>
+    <title>Peluqería JavaSytle</title>
     <link rel="shortcut icon" href="./img/logo.png">
+    <link rel="stylesheet" href="css/ayuda.css">
     <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="css/perfil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
         <img src="./img/logo.png" id="logo" title="Logo">
+
         <div id="botones">
             <div id="divMenu">
                 <img src="./img/menu.png" id="menu" title="Menú">
 
                 <div id="lista">
+                    <li><a id="perfil">Perfil</a></li>
                     <li><a id="carrito">Carrito</a></li>
                     <li><a id="pedir_cita">Pedir Cita</a></li>
                     <li><a id="contacto">Contacto</a></li>
-                    <li><a id="ayuda">Ayuda</a></li>
                     <li><a id="cerrar_sesion">Cerrar Sesión</a></li>
                 </div>
             </div>
@@ -43,51 +44,42 @@
     </header>
 
     <section>
-        <h1>Perfil</h1>
-        <div id="caja_datos">
-            <div class="datos">
-                <h4>Nombre:</h4>
-                <h5 id="nombre"></h5>
+        <div class="caja_general">
+            <div class="titulo">
+                <h1>PREGUNTAS Y DUDAS FRECUENTES:</h1>
             </div>
-            <div class="datos">
-                <h4>Correo:</h4>
-                <h5 id="correo"></h5>
+            <div class="caja_pregunta">
+                <div class="pregunta">
+                    <h1>¿Cuándo puedo comprar productos en la página web?</h1>
+                </div>
+                <div class="respuesta">
+                    <p>Una vez te hayas registrado e inicies sesión estarán disponibles todos los productos y servicios</p>
+                </div>
             </div>
-            <div class="datos">
-                <h4>Dirección:</h4>
-                <h5 id="direccion"></h5>
+            <div class="caja_pregunta">
+                <div class="pregunta">
+                    <h1>¿Puedo elegir el peluquero?</h1>
+                </div>
+                <div class="respuesta">
+                    <p>Si, los peluqueros se pueden seleccionar una vez hayas agregado la fecha y hora de la cita</p>
+                </div>
             </div>
-        </div>
-
-        <div id="modificar_datos">
-            <button id="boton_modificar" type="submit">Modificar datos</button>
-        </div>
-
-        <div class="titulos">
-            <h2>Historial de reservas</h2>
-            <h2>Historial de compras</h2>
-        </div>
-
-        <div id="caja_titulos">
-            <div class="titulos">
-                <h3 class="producto">Servicio</h3>
-                <h3>Precio</h3>
-                <h3>Fecha</h3>
-                <h3>Hora</h3>
+            <div class="caja_pregunta">
+                <div class="pregunta">
+                    <h1>¿Donde os localizais?</h1>
+                </div>
+                <div class="respuesta">
+                    <p>Nos localizamos en: Calle Luis Sauquillo, 88, 28944 Fuenlabrada, Madrid</p>
+                </div>
             </div>
-
-            <div class="titulos">
-                <h3 class="producto">Producto</h3>
-                <h3>Cantidad</h3>
-                <h3>Precio</h3>
-                <h3>Fecha</h3>
+            <div class="caja_pregunta">
+                <div class="pregunta">
+                    <h1>¿Se puede cancelar una cita?</h1>
+                </div>
+                <div class="respuesta">
+                    <p>Si, se puede cancelar en tu perfil o llamando al teléfono de contacto, siempre con un día de antelación como mínimo</p>
+                </div>
             </div>
-        </div>       
-
-        <div id="caja_historial">
-            <div id="caja_reservas"></div>
-
-            <div id="caja_compras"></div>
         </div>
     </section>
 
@@ -101,6 +93,6 @@
             <a href="https://www.google.com/intl/es/gmail/about/"><i class="far fa-envelope"></i></a>
         </div>
     </footer>
-    <script src="js/perfil.js"></script>
+    <script src="js/ayuda.js"></script>
 </body>
 </html>
