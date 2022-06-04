@@ -232,6 +232,7 @@ h2 {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    font-family: Helvetica;
     font-size: 1.25em;
     text-align: center;
     background-color: darkslategrey;
