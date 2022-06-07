@@ -66,7 +66,7 @@
             </div>
             <div class="caja_pregunta">
                 <div class="pregunta">
-                    <h1>¿Donde os localizais?</h1>
+                    <h1>¿Dónde localizarnos?</h1>
                 </div>
                 <div class="respuesta">
                     <p>Nos localizamos en: Calle Luis Sauquillo, 88, 28944 Fuenlabrada, Madrid</p>
