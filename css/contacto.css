@@ -1,106 +1,3 @@
-.div-contact-center{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border: none;
-    margin-top: 100px;
-    height: 550px;
-}
-
-.div-contact{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    height: 100%;
-}
-
-.div-contact-column-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-right: 25px;
-}
-
-.div-contact-column{
-    width: 50%;
-    height: 100%;
-    border: none;
-}
-
-.contact-p{
-    text-align: left;
-    width: 100%;
-}
-
-.contact-message{
-    width: 100%;
-    height: 80px;
-    border-radius: 4px;
-    border: 2px solid rgb(118, 118, 118);
-    border-style: inset;
-    background-color: darkslategray;
-    resize: none;
-    color: white;
-}
-
-.contact-message:focus{
-    border: 2px groove darkkhaki;
-    border-radius: 2px;
-    background-color: darkslategray;
-    color: white;
-}
-
-.contact-input{
-    width: 100%;
-    height: 25px;
-    color: white;
-    background-color: darkslategray;
-}
-
-.contact-submit{
-    height: 40px;
-    width: 25%;
-    color: white;
-    background-color: darkslategray;
-    border-radius: 4px;
-    border: 2px solid rgb(118, 118, 118);
-    border-style: inset;
-}
-
-.contact-submit:hover{
-    background-color: darkkhaki;
-    color: darkslategrey;
-    border: 1px solid darkslategray;
-
-}
-
-.div-contact-column-photos{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: darkslategray;
-    color: white;
-}
-
-.div-contact-column-photos-center{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100%;
-}
-
-.contact-svg{
-    fill: khaki;
-}
-
-.contact-photo-p{
-    width: 100%;
-}
-
 body {
     margin: 0;
     padding: 0;
@@ -153,4 +50,239 @@ button:hover {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+}
+
+#botones {
+    width: 18%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#divHome {
+    width: 20%;
+    cursor: pointer;
+}
+
+#home {
+    font-size: 2.25em;
+    color: darkkhaki;
+}
+
+#nombre_usuario {
+    color: darkkhaki;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+section {
+    width: 100%;
+    height: 625px;
+}
+
+.caja_general {
+    height: 550px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: none;
+}
+
+.div1 {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 3em;
+    font-family: Helvetica;
+    color: darkslategrey;
+}
+
+
+h3 {
+    font-family: Helvetica;
+}
+
+label {
+    font-family: Helvetica;
+}
+
+.input {
+    width: 100%;
+    height: 25px;
+    border-radius: 4px;
+    border: none;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    font-family: Verdana;
+}
+
+.input:focus {
+    border: 2px groove darkkhaki;
+    border-radius: 2px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+
+    transition-duration: 0.25s;
+}
+
+#mensaje {
+    width: 100%;
+    height: 80px;
+    border-radius: 4px;
+    border: none;
+    border: none;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    font-family: Verdana;
+    resize: none;
+}
+
+#mensaje:focus {
+    border: 2px groove darkkhaki;
+    border-radius: 2px;
+    background-color: darkkhaki;
+    color: darkslategrey;
+    
+    transition-duration: 0.25s;
+}
+
+#enviar {
+    width: 25%;
+    height: 50px;
+    border: 2px ridge darkkhaki;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#enviar:hover {
+    border: 2px ridge darkslategrey;
+    background-color: darkkhaki;
+    color: darkslategrey;
+
+    transition-duration: 0.25s;
+
+}
+
+.div2 {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslategray;
+    color: white;
+}
+
+.contacto_empresa {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.imagen_contactos {
+    margin-left: 30%;
+    font-size: 5em;
+    color: khaki;
+}
+
+.imagen_fijo {
+    font-size: 5em;
+    color: khaki;
+}
+
+.correo_peluqueria, .fijo_peluqueria, .movil_peluqueria {
+    color: darkkhaki;
+}
+
+.contenedor {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Helvetica;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.541);
+}
+
+.contenedor a {
+    text-decoration: none;
+    color: darkkhaki;
+}
+
+.contenedor a:hover {
+    text-decoration: none;
+    color: khaki;
+}
+
+.contenedor img {
+    width: 15%;
+    height: 40px;
+    cursor: pointer;
+}
+
+#redes {
+    font-size: 1.5em;
+}
+
+@media (max-width:750px) {    
+    img {
+        width: 7%;
+    }
+
+    #botones_login {
+        width: 30%;
+    }
+    
+    #botones {
+        width: 30%;
+        font-size: 0.9em;
+    }
+    
+    section {
+        height: 564px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+
+    #enviar {
+        width: 35%;
+    }
+
+    .imagen_contactos {
+        margin-left: 40%;
+        font-size: 3em;
+    }
+
+    .imagen_fijo {
+        margin-left: 20%;
+        font-size: 3em;
+    }
+    
+    .contenedor {
+        font-size: 0.9em;
+    }
 }

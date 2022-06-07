@@ -2,6 +2,8 @@ let menu = document.getElementById("divMenu");
 let lista = document.getElementsByClassName("lista");
 let perfil = document.getElementById("perfil");
 
+var contacto = document.getElementById("contacto");
+var ayuda = document.getElementById("ayuda");
 var cerrar_sesion = document.getElementById("cerrar_sesion");
 var carrito = document.getElementById("divCarrito");
 
@@ -17,9 +19,24 @@ perfil.onclick = function(e) {
     window.location.href = "perfil.php";
 }
 
+contacto.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "contacto.php";
+}
+
+ayuda.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "ayuda.php";
+}
+
 carrito.onclick = function(e) {
     e.preventDefault();
     window.location.href = "carrito_personal.php";
+}
+
+cerrar_sesion.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "cerrar_sesion.php";
 }
 
 cargarServicios();
@@ -61,11 +78,6 @@ function cargarServicios() {
                 }
             }
         })
-}
-
-carrito.onclick = function(e) {
-    e.preventDefault();
-    window.location.href = "carrito_personal.php";
 }
 
 let cita = document.getElementById("pedir_cita");
@@ -180,8 +192,7 @@ function añadirAlCarrito(e) {
             return respuesa.text();
         })
         .then(function(datos) {
-            console.log(datos)
-            if (datos) {
+            if (datos != "FALSE") {
                 estado.innerHTML = "Disponible";
                 cantidad.setAttribute("max", datos);
             } else {
@@ -204,7 +215,6 @@ function añadirAlCarrito(e) {
             return respuesa.text();
         })
         .then(function(datos) {
-            console.log(datos)
             descripcion_caja.innerHTML = datos;
         })
 
@@ -315,29 +325,56 @@ function guardarEnCarrito(e) {
                     return respuesa.text();
                 })
                 .then(function(datos) {
-                    console.log(datos)
                     if (datos == "TRUE") {
                         document.getElementById("div_bloqueo").remove();
-                        let caja_producto = document.getElementsByClassName("caja_producto");
-                        caja_producto[0].remove();
                     } else {
-                        alert("Ha ocurrido un error al añadir el producto al carrito.");
+                        let mensaje = "Ha ocurrido un error al cancelar la cita";
+                        alertaErrores(mensaje);
                     }
                 })
         } else {
-            alert("Introduzca la cantidad del producto que desee.");
+            let mensaje = "Introduzca la cantidad del producto que desee";
+            alertaErrores(mensaje);
         }
     } else {
-        alert("Este producto está agotado!");
+        let mensaje = "Este producto está agotado";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaAñadir() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
- 
-cerrar_sesion.onclick = function(e) {
-    e.preventDefault();
-    window.location.href = "cerrar_sesion.php";
+
+function alertaErrores(mensaje) {  
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo_error");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta_error");
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = mensaje;
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones_error");
+
+    let boton_continuar = document.createElement("button");
+    boton_continuar.setAttribute("type", "submit");
+    boton_continuar.setAttribute("id", "boton_continuar_error");
+    boton_continuar.innerHTML = "ACEPTAR";
+    boton_continuar.addEventListener("click", cerrarCajaAlertaErrores);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_continuar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cerrarCajaAlertaErrores() {
+    this.parentNode.parentNode.parentNode.remove();
 }

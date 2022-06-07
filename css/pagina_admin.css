@@ -975,6 +975,79 @@ textarea {
     transition-duration: 0.25s;
 }
 
+#div_bloqueo_error {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.486);
+    overflow: auto;
+    z-index: 1;
+}
+
+#div_bloqueo_error h2 {
+    text-decoration: none;
+    font-family: Verdana;
+    color: darkkhaki;
+}
+
+.caja_alerta_error {
+    width: 30%;
+    height: 120px;
+    border: 4px outset darkkhaki;
+    border-radius: 7.5px;
+    background-color: darkslategrey;
+    color: darkkhaki;
+    text-align: center;
+
+    animation-name: degradado;
+    animation-duration: 0.75s;
+}
+
+#caja_botones_error { 
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+#boton_continuar_error {
+    width: 20%;
+    height: 40px;
+    border: 2px ridge black;
+    border-radius: 5px;
+    background-color: forestgreen;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#boton_continuar_error:hover {
+    border: 2px ridge black;
+    background-color: lightgreen;
+    color: black;
+
+    transition-duration: 0.5s;
+}
+
+@keyframes degradado {
+    from {
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(360deg);
+        opacity: 1;
+    }
+}
+
 .contenedor {
     width: 100%;
     height: 100px;
@@ -983,6 +1056,7 @@ textarea {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    font-family: Helvetica;
     font-size: 1.25em;
     text-align: center;
     background-color: darkslategrey;
@@ -1209,6 +1283,14 @@ textarea {
 
     .boton_confirmar {
         width: 20%;
+    }
+
+    .caja_alerta_error {
+        width: 60%;
+    }
+
+    #boton_continuar_error {
+        width: 30%;
     }
 
     .contenedor {

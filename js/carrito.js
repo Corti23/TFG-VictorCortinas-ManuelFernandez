@@ -4,6 +4,8 @@ let perfil = document.getElementById("perfil");
 
 var home = document.getElementById("divHome");
 var pedir_cita = document.getElementById("pedir_cita");
+var contacto = document.getElementById("contacto");
+var ayuda = document.getElementById("ayuda");
 var cerrar_sesion = document.getElementById("cerrar_sesion");
 
 perfil.style.display = "block";
@@ -26,6 +28,16 @@ perfil.onclick = function(e) {
 pedir_cita.onclick = function(e) {
     e.preventDefault();
     window.location.href = "pedir_cita.php";
+}
+
+contacto.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "contacto.php";
+}
+
+ayuda.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "ayuda.php";
 }
 
 cerrar_sesion.onclick = function(e) {
@@ -223,16 +235,14 @@ function borrarProductoCarrito() {
                 div_bloqueo.remove();
                 precio_total_carrito();
             } else {
-                alert("Ha ocurrido un error al borrar el producto.")
+                let mensaje = "Ha ocurrido un error al borrar el producto";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaAlerta() {
-    let div_bloqueo = document.getElementById("div_bloqueo");
-
-    this.parentNode.parentNode.remove();
-    div_bloqueo.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function precio_total_carrito() {
@@ -271,7 +281,8 @@ function realizar_compra() {
             if (datos == "TRUE") {
                 alertaCompra();
             } else {
-                alert("Ha ocurrido un error al realizar la compra.");
+                let mensaje = "Ha ocurrido un error al realizar la compra";
+                alertaErrores(mensaje);
             }
         })
 }
@@ -308,4 +319,37 @@ function alertaCompra() {
 
 function cerrarCajaAlertaCompra() {
     window.location.reload();
+}
+
+function alertaErrores(mensaje) {  
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo_error");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta_error");
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = mensaje;
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones_error");
+
+    let boton_continuar = document.createElement("button");
+    boton_continuar.setAttribute("type", "submit");
+    boton_continuar.setAttribute("id", "boton_continuar_error");
+    boton_continuar.innerHTML = "ACEPTAR";
+    boton_continuar.addEventListener("click", cerrarCajaAlertaErrores);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_continuar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cerrarCajaAlertaErrores() {
+    this.parentNode.parentNode.parentNode.remove();
 }

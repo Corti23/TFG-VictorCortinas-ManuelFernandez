@@ -159,10 +159,9 @@ function cargarReservas() {
 }
 
 function alertaCancelar() {
-    document.body.setAttribute("onKeyDown", "return false");
-
     let div_bloqueo = document.createElement("div");
     div_bloqueo.setAttribute("id", "div_bloqueo_cancelar");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
 
     let caja_alerta = document.createElement("div");
     caja_alerta.setAttribute("class", "caja_alerta_cancelar");
@@ -218,16 +217,14 @@ function cancelarCita(e) {
             if (datos == "TRUE") {
                 window.location.reload();
             } else {
-                alert("Ha ocurrido un error al cancelar la cita.");
+                let mensaje = "Ha ocurrido un error al cancelar la cita";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaCancelar() {
-    let div_bloqueo = document.getElementById("div_bloqueo_cancelar");
-
-    this.parentNode.parentNode.remove();
-    div_bloqueo.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 let pedidos = document.getElementById("pedidos");
@@ -648,14 +645,17 @@ function confirmarCambiarClave(e) {
                     if (datos == "TRUE") {
                         window.location.reload();
                     } else {
-                        alert("Ha ocurrido un error al cambiar la contraseña.");
+                        let mensaje = "Ha ocurrido un error al cambiar la contraseña";
+                        alertaErrores(mensaje);
                     }
                 })
         } else {
-            alert("La contraseña no es válida!");
+            let mensaje = "La contraseña no es válida";
+                alertaErrores(mensaje);
         }
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
@@ -731,14 +731,14 @@ function confirmarEliminar(e) {
             if (datos == "TRUE") {
                 window.location.reload();
             } else {
-                alert("Ha ocurrido un error al eliminar al usuario.");
+                let mensaje = "Ha ocurrido un error al eliminar al usuario";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaEliminar() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function crearAdmin(e) {
@@ -967,20 +967,25 @@ function confirmarCrear(e) {
                             if (datos == "TRUE") {
                                 window.location.reload();
                             } else {
-                                alert("Ha ocurrido un error al crear al administrador.");
+                                let mensaje = "Ha ocurrido un error al crear al administrador";
+                                alertaErrores(mensaje);
                             }
                         })
                 } else {
-                    alert("Las contraseñas no coinciden!");
+                    let mensaje = "Las contraseñas no coinciden";
+                    alertaErrores(mensaje);
                 }
             } else {
-                alert("Las contraseñas no son válidas!");
+                let mensaje = "Las contraseñas no son válidas";
+                alertaErrores(mensaje);
             }
         } else {
-            alert("El correo no es válido!");
+            let mensaje = "El correo no es válido";
+            alertaErrores(mensaje);
         }
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
@@ -1048,8 +1053,7 @@ function verificarValoresContraseñaConfirma() {
 }
 
 function cerrarCajaCrear() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 let empleados = document.getElementById("empleados");
@@ -1285,17 +1289,18 @@ function confirmarCambios(e) {
                     document.getElementById("div_bloqueo").remove();
                     window.location.reload();
                 } else {
-                    alert("Ha ocurrido un error al editar la foto.");
+                    let mensaje = "Ha ocurrido un error al editar la foto";
+                    alertaErrores(mensaje);
                 }
             })
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaEditar() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function bajaEmpleado(e) {
@@ -1366,14 +1371,14 @@ function confirmarBaja(e) {
                 document.getElementById("div_bloqueo").remove();
                 window.location.reload();
             } else {
-                alert("Ha ocurrido un error al dar de baja al empleado.");
+                let mensaje = "Ha ocurrido un error al dar de baja al empleado";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaBaja() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function altaEmpleado(e) {
@@ -1513,17 +1518,18 @@ function confirmarAlta(e) {
                     document.getElementById("div_bloqueo").remove();
                     window.location.reload();
                 } else {
-                    alert("Ha ocurrido un error al dar de alta al empleado.");
+                    let mensaje = "Ha ocurrido un error al dar de alta al empleado";
+                    alertaErrores(mensaje);
                 }
             })
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaAlta() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 let productos = document.getElementById("productos");
@@ -1852,7 +1858,6 @@ function confirmarCambiosProductos(e) {
     let ruta_completa_img = "./img/" + valor_img;
 
     if (quitar_espacios_descripcion.length > 0 && quitar_espacios_precio.length > 0 && quitar_espacios_stock.length > 0 && img.length > 0) {
-        console.log("Entra");
         let url = "./actualizar_producto.php";
         let param = {
             method : "POST",
@@ -1871,17 +1876,18 @@ function confirmarCambiosProductos(e) {
                     document.getElementById("div_bloqueo").remove();
                     window.location.reload();
                 } else {
-                    alert("Ha ocurrido un error al editar el producto.");
+                    let mensaje = "Ha ocurrido un error al editar el producto";
+                    alertaErrores(mensaje);
                 }
             })
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaEditarProductos() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function retirarProducto(e) {
@@ -1952,14 +1958,14 @@ function confirmarRetirar(e) {
                 document.getElementById("div_bloqueo").remove();
                 window.location.reload();
             } else {
-                alert("Ha ocurrido un error al retirar el producto.");
+                let mensaje = "Ha ocurrido un error al retirar el producto";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaRetirar() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function insertarProducto(e) {
@@ -2140,17 +2146,18 @@ function confirmarInsertar(e) {
                     document.getElementById("div_bloqueo").remove();
                     window.location.reload();
                 } else {
-                    alert("Ha ocurrido un error al añadir el producto.");
+                    let mensaje = "Ha ocurrido un error al añadir el producto";
+                    alertaErrores(mensaje);
                 }
             })
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaInsertar() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 let servicios = document.getElementById("servicios");
@@ -2386,17 +2393,18 @@ function confirmarCambiosServicio(e) {
                     document.getElementById("div_bloqueo").remove();
                     window.location.reload();
                 } else {
-                    alert("Ha ocurrido un error al editar el servicio.");
+                    let mensaje = "Ha ocurrido un error al editar el servicio";
+                    alertaErrores(mensaje);
                 }
             })
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaEditarServicio() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function retirarServicio(e) {
@@ -2467,14 +2475,14 @@ function confirmarRetirarServicio(e) {
                 document.getElementById("div_bloqueo").remove();
                 window.location.reload();
             } else {
-                alert("Ha ocurrido un error al dar de baja al empleado.");
+                let mensaje = "Ha ocurrido un error al retirar el servicio";
+                alertaErrores(mensaje);
             }
         })
 }
 
 function cerrarCajaRetirarServicio() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 function insertarServicio(e) {
@@ -2620,17 +2628,18 @@ function confirmarInsertarServicio(e) {
                     document.getElementById("div_bloqueo").remove();
                     window.location.reload();
                 } else {
-                    alert("Ha ocurrido un error al añadir el servicio.");
+                    let mensaje = "Ha ocurrido un error al añadir el servicio";
+                    alertaErrores(mensaje);
                 }
             })
     } else {
-        alert("ERROR, hay campos en blanco!");
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
 function cerrarCajaInsertarServicio() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
 
 let ingresos = document.getElementById("ingresos");
@@ -2879,7 +2888,8 @@ function buscarCitasEmpleado(e) {
             }
         })
     } else {
-        alert("ERROR, hay campos en blanco.")
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
 }
 
@@ -2912,6 +2922,40 @@ function buscarPedido(e) {
             }
         })
     } else {
-        alert("ERROR, hay campos en blanco.")
+        let mensaje = "ERROR, hay campos en blanco";
+        alertaErrores(mensaje);
     }
+}
+
+function alertaErrores(mensaje) {  
+    let div_bloqueo = document.createElement("div");
+    div_bloqueo.setAttribute("id", "div_bloqueo_error");
+    div_bloqueo.setAttribute("onKeyDown", "return false");
+
+    let caja_alerta = document.createElement("div");
+    caja_alerta.setAttribute("class", "caja_alerta_error");
+    
+    let h2 = document.createElement("h2");
+    h2.innerHTML = mensaje;
+
+    let caja_botones = document.createElement("div");
+    caja_botones.setAttribute("id", "caja_botones_error");
+
+    let boton_continuar = document.createElement("button");
+    boton_continuar.setAttribute("type", "submit");
+    boton_continuar.setAttribute("id", "boton_continuar_error");
+    boton_continuar.innerHTML = "ACEPTAR";
+    boton_continuar.addEventListener("click", cerrarCajaAlertaErrores);
+
+    caja_alerta.appendChild(h2);
+
+    caja_botones.appendChild(boton_continuar);
+    caja_alerta.appendChild(caja_botones);
+
+    div_bloqueo.appendChild(caja_alerta);
+    document.body.appendChild(div_bloqueo);
+}
+
+function cerrarCajaAlertaErrores() {
+    this.parentNode.parentNode.parentNode.remove();
 }

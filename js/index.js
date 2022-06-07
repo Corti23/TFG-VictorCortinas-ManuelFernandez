@@ -2,10 +2,22 @@ let menu = document.getElementById("divMenu");
 let lista = document.getElementsByClassName("lista");
 
 var perfil = document.getElementById("perfil");	
+var contacto = document.getElementById("contacto");
+var ayuda = document.getElementById("ayuda");
 
 menu.onclick = function () {
     this.classList.toggle("lista");
 };
+
+contacto.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "contacto_index.php";
+}
+
+ayuda.onclick = function(e) {
+    e.preventDefault();
+    window.location.href = "ayuda_index.php";
+}
 
 let iniciar_sesion = document.getElementById("iniciar_sesion");
 let registrarse = document.getElementById("registrarse");
@@ -195,7 +207,6 @@ function añadirAlCarrito(e) {
             return respuesa.text();
         })
         .then(function(datos) {
-            console.log(datos)
             descripcion_caja.innerHTML = datos;
         })
 
@@ -275,6 +286,5 @@ function añadirAlCarrito(e) {
 }
 
 function cerrarCajaAñadir() {
-    document.getElementById("div_bloqueo").remove();
-    this.parentNode.parentNode.remove();
+    this.parentNode.parentNode.parentNode.remove();
 }
